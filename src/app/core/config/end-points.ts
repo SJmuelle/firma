@@ -4,7 +4,7 @@ export class EndPoints {
     /**
      * @description: Url end-point base
      */
-    static uriBase(url: string): string {
+    static urlBase(url: string): string {
         return environment.apiPath + url;
     }
 }

@@ -78,7 +78,8 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad
                            if ( !authenticated )
                            {
                                // Redirect to the sign-in page
-                               this._router.navigate(['sign-in'], {queryParams: {redirectURL}});
+                            //    cambiar esto shirley
+                               this._router.navigate(['documentLogin'], {queryParams: {redirectURL}});
 
                                // Prevent the access
                                return of(false);
