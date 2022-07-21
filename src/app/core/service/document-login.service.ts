@@ -43,4 +43,11 @@ export class DocumentLoginService {
           return res;
         }));
     }
+
+    archivosThomas(datos: any){
+      return this._utilityService.postQuery(this._appSettings.configuracionInicial.url.usuarioEvidenteNo, datos)
+        .pipe(map((res: any) => {
+          return res;
+        }));
+    }
 }

@@ -23,6 +23,7 @@ export class AppSettingsService {
         configuracionExperia: EndPoints.urlBase('api-fintra/api/generic/qry/configuracion-experian/'),
         datosUsuarioEvidente: EndPoints.urlBase('api-evidente/api/evidente/datos-usuario'),
         datosUsuario: EndPoints.urlBase('api-fintra/api/generic/qry/informacion-cliente-evidente/'),
+        usuarioEvidenteNo: EndPoints.urlPrueba('api-fintra/api/credito/archivos-thomas'),
     }
   };
 }
