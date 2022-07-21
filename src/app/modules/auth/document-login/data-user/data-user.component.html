@@ -1,0 +1,43 @@
+<div class="flex flex-col flex-auto items-center sm:justify-center min-w-0">
+    <div class="w-full sm:w-auto py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card">
+        <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
+            <!-- Logo -->
+            <div class="w-30">
+                <img src="assets/images/logo/logo-fintra-blanco.png">
+                <!-- <img src="assets/images/logo/logo.svg"> -->
+            </div>
+
+            <!-- Title -->
+            <div class="mt-8 text-2xl font-extrabold tracking-tight leading-tight">Número de documento</div>
+            <div class="mt-0.5">
+                {{datosUsuario.identificacion}}
+            </div>
+
+            <div class="mt-8 text-2xl font-extrabold tracking-tight leading-tight">Nombre completo</div>
+            <div class="mt-0.5 capitalize">
+                {{datosUsuario.nombreCompleto}}
+            </div>
+
+
+             <!-- Submit button -->
+             <button
+             class="mt-8  fuse-mat-button-large w-full bg-azul-fintra text-white"
+             mat-flat-button
+             type="button"
+             [disabled]="Btndisabled"
+             (click)="seguir()">
+             <span *ngIf="!Btndisabled">
+                Continuar
+             </span>
+             <mat-progress-spinner
+                 *ngIf="Btndisabled"
+                 [diameter]="24"
+                 [mode]="'indeterminate'"></mat-progress-spinner>
+         </button>
+      
+
+           
+          
+        </div>
+    </div>
+</div>
