@@ -27,7 +27,6 @@ export class DataUserComponent implements OnInit {
   }
 
   seguir() {
-
     let evidente = this.datosUsuario.aplicaEvidente;
 
     if (evidente=='Si') {
@@ -60,7 +59,6 @@ export class DataUserComponent implements OnInit {
         }
       })
     }
-    
   }
 
 }

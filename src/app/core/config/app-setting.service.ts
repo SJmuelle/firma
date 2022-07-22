@@ -24,6 +24,7 @@ export class AppSettingsService {
         datosUsuarioEvidente: EndPoints.urlBase('api-evidente/api/evidente/datos-usuario'),
         datosUsuario: EndPoints.urlBase('api-fintra/api/generic/qry/informacion-cliente-evidente/'),
         usuarioEvidenteNo: EndPoints.urlPrueba('api-fintra/api/credito/archivos-thomas'),
+        generarOtp: EndPoints.urlBase('api-evidente/api/evidente/generar-otp'),
     }
   };
 }

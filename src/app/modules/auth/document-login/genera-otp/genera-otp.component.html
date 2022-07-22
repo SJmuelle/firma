@@ -10,10 +10,10 @@
             <!-- Title -->
             <div class="mt-8 text-2xl font-extrabold tracking-tight leading-tight">Genera OTP</div>
             <div class="mt-0.5">
-                Enviaremos un mensaje al numero <strong>45548486</strong>
+                Enviaremos un mensaje al numero <strong>{{datosUsuario.celular}}</strong>
             </div>
             <button class="fuse-mat-button-large w-full mt-5 bg-azul-fintra text-white" mat-flat-button type="button"
-               (click)="paso=2">
+               (click)="generarOTP()">
                 <span>
                     Continuar
                 </span>
