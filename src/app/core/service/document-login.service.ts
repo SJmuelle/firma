@@ -43,4 +43,21 @@ export class DocumentLoginService {
           return res;
         }));
     }
+
+    archivosThomas(datos: any){
+      return this._utilityService.postQuery(this._appSettings.configuracionInicial.url.usuarioEvidenteNo, datos)
+        .pipe(map((res: any) => {
+          return res;
+        }));
+    }
+
+    /**
+     * @description: Get documentos requeridos
+     */
+     generarOTP(datos: any) {
+      return this._utilityService.postQuery(this._appSettings.configuracionInicial.url.generarOtp, datos)
+        .pipe(map((res: any) => {
+          return res;
+        }));
+    }
 }

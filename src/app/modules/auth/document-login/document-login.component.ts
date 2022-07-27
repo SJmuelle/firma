@@ -104,12 +104,18 @@ export class DocumentLoginComponent implements OnInit {
   public datosUsuario(): void {
     let doc = this.comingSoonForm.value.documento;
     let unidadNegocio = '32';
-    this.router.navigate(['documentLogin/user/' + doc]);
-   
     this._documentLoginService.datosUsuario(this.comingSoonForm.value.documento,unidadNegocio).subscribe(resp => {
-     
-      localStorage.setItem('datosUsuario', JSON.stringify(resp.data));
-      this.router.navigate(['documentLogin/user/' + doc]);
+      if (resp.data!=null) {
+        localStorage.setItem('datosUsuario', JSON.stringify(resp.data));
+        this.router.navigate(['documentLogin/user/' + doc]);
+      } else {
+        Swal.fire(
+          'Aviso',
+          'Este documento no existe',
+          'info'
+        )
+      }
+      
 
     })
   }
