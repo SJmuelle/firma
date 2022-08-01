@@ -17,7 +17,7 @@
                 <span>
                     Continuar
                 </span>
-             
+
             </button>
 
         </div>
@@ -54,7 +54,9 @@
 
                 <!-- Submit button -->
                 <button class="fuse-mat-button-large w-full mt-3 bg-azul-fintra text-white" mat-flat-button
-                    type="button" [disabled]="comingSoonForm.disabled">
+                    type="button" [disabled]="comingSoonForm.disabled"
+                        (click)="validateOtp()"
+                >
                     <span *ngIf="!comingSoonForm.disabled">
                         Continuar
                     </span>

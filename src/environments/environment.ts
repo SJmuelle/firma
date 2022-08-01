@@ -4,8 +4,9 @@
 
 export const environment = {
     production: false,
+    // apiPath:"https://231c-181-57-229-82.ngrok.io/",
     apiPath:"http://demo.fintra.co:8011/",
-    apiPrueba:"https://f954-181-57-229-82.ngrok.io/",
+    apiPrueba:"https://231c-181-57-229-82.ngrok.io/",
     userName: "APPWEB",
     password: "123456",
 };

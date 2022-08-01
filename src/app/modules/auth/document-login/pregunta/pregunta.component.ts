@@ -12,7 +12,7 @@ export class PreguntaComponent implements OnInit {
 
   ngOnInit(): void {
     let data=[];
-   data.push(
+ /*  data.push(
       {
         "id": "50107573",
         "resultado": "01",
@@ -156,7 +156,8 @@ export class PreguntaComponent implements OnInit {
           }
         ]
       }
-    )
+    )*/
+  data.push(JSON.parse(localStorage.getItem('questions')));
 
     this.preguntas=data[0].Pregunta
   }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import {BehaviorSubject, map} from 'rxjs';
 import { AppSettingsService } from '../config/app-setting.service';
 import { UtilityService } from './utility.service';
 
@@ -7,7 +7,7 @@ import { UtilityService } from './utility.service';
   providedIn: 'root'
 })
 export class DocumentLoginService {
-
+  public dataResponse: BehaviorSubject<{state: boolean, value: any }> = new BehaviorSubject<{state: boolean; value: any}>({state: false, value: ''});
   constructor(private _appSettings: AppSettingsService,
     private _utilityService: UtilityService) { }
 
