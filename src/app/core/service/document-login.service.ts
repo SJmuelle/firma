@@ -51,6 +51,13 @@ export class DocumentLoginService {
         }));
     }
 
+    enviarPreguntas(datos: any){
+      return this._utilityService.postQuery(this._appSettings.configuracionInicial.url.enviarPreguntas, datos)
+        .pipe(map((res: any) => {
+          return res;
+        }));
+    }
+
     /**
      * @description: Get documentos requeridos
      */

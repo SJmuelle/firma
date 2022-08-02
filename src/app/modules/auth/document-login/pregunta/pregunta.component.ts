@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
+import { DocumentLoginService } from 'app/core/service/document-login.service';
 
 @Component({
   selector: 'app-pregunta',
@@ -7,159 +10,80 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PreguntaComponent implements OnInit {
   preguntas: any[];
+  respuestas = [];
+  objres = {};
+  temprespuesta: number = 0;
+  cantPreguntas=0;
   vistaPregunta=0;
-  constructor() { }
+
+  datosUsuario = {};
+  questions = {};
+  infoToken = {};
+
+  constructor(
+    private _documentLoginService: DocumentLoginService,
+    private router: Router,
+    private activaroute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     let data=[];
- /*  data.push(
-      {
-        "id": "50107573",
-        "resultado": "01",
-        "registro": "4564020",
-        "excluirCliente": "false",
-        "alertas": "false",
-        "respuestaAlerta": "03",
-        "codigoAlerta": "00",
-        "Pregunta": [
-          {
-            "id": "005003002",
-            "texto": "CON CUAL DE LAS SIGUIENTES ENTIDADES ADQUIRIO UNA TARJETA DE CREDITO  MASTER CARD DURANTE LOS ULTIMOS 6 MESES?",
-            "orden": "1",
-            "idRespuestaCorrecta": "00",
-            "peso": "2",
-            "Respuesta": [
-              {
-                "id": "001",
-                "texto": "CONFIAR COOPERATIVA FINANCIERA"
-              },
-              {
-                "id": "002",
-                "texto": "FINANCIERA JURISCOOP SA COMPAÑIA DE FINANCIAMIENTO"
-              },
-              {
-                "id": "003",
-                "texto": "BANCO AGRARIO DE COLOMBIA S.A."
-              },
-              {
-                "id": "004",
-                "texto": "CREDIVALORES - CREDISERVICIOS S.A.S"
-              },
-              {
-                "id": "005",
-                "texto": "BANCO PICHINCHA S.A"
-              },
-              {
-                "id": "006",
-                "texto": "NINGUNA DE LAS ANTERIORES"
-              }
-            ]
-          },
-          {
-            "id": "005015502",
-            "texto": "CON CUAL DE LAS SIGUIENTES ENTIDADES SU CREDITO HIPOTECARIO CUENTA CON SUBSIDIO?",
-            "orden": "2",
-            "idRespuestaCorrecta": "00",
-            "peso": "2",
-            "Respuesta": [
-              {
-                "id": "001",
-                "texto": "BANCO COLPATRIA MULTIBANCA COLPATRIA S.A."
-              },
-              {
-                "id": "002",
-                "texto": "BANCO COMPARTIR S.A"
-              },
-              {
-                "id": "003",
-                "texto": "CONFIAR COOPERATIVA FINANCIERA"
-              },
-              {
-                "id": "004",
-                "texto": "BANCO POPULAR S. A."
-              },
-              {
-                "id": "005",
-                "texto": "BANCO DAVIVIENDA S.A."
-              },
-              {
-                "id": "006",
-                "texto": "NINGUNA DE LAS ANTERIORES"
-              }
-            ]
-          },
-          {
-            "id": "001004001",
-            "texto": "LA CIUDAD DE EXPEDICION DE SU CEDULA ES?:",
-            "orden": "3",
-            "idRespuestaCorrecta": "00",
-            "peso": "1",
-            "Respuesta": [
-              {
-                "id": "001",
-                "texto": "ARMENIA"
-              },
-              {
-                "id": "002",
-                "texto": "GENOVA"
-              },
-              {
-                "id": "003",
-                "texto": "BUENAVISTA"
-              },
-              {
-                "id": "004",
-                "texto": "LA SIERRA"
-              },
-              {
-                "id": "005",
-                "texto": "POPAYAN"
-              },
-              {
-                "id": "006",
-                "texto": "NINGUNA DE LAS ANTERIORES"
-              }
-            ]
-          },
-          {
-            "id": "005007002",
-            "texto": "HACE CUANTO TIEMPO TIENE SU CREDITO HIPOTECARIO CON BANCO AV VILLAS S.A.?",
-            "orden": "4",
-            "idRespuestaCorrecta": "00",
-            "peso": "1",
-            "Respuesta": [
-              {
-                "id": "001",
-                "texto": "ENTRE 0 Y 2 AÑOS"
-              },
-              {
-                "id": "002",
-                "texto": "ENTRE 3 Y 4 AÑOS"
-              },
-              {
-                "id": "003",
-                "texto": "ENTRE 5 Y 8 AÑOS"
-              },
-              {
-                "id": "004",
-                "texto": "ENTRE 9 Y 14 AÑOS"
-              },
-              {
-                "id": "005",
-                "texto": "15 AÑOS O MAS"
-              },
-              {
-                "id": "006",
-                "texto": "NO TENGO CREDITO DE VIVIENDA CON LA ENTIDAD"
-              }
-            ]
-          }
-        ]
-      }
-    )*/
-  data.push(JSON.parse(localStorage.getItem('questions')));
-
+    data.push(JSON.parse(localStorage.getItem('questions')));
     this.preguntas=data[0].Pregunta
+    console.log(this.preguntas)
+    this.cantPreguntas = this.preguntas.length
+    this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'))
+    this.questions = JSON.parse(localStorage.getItem('questions'))
+    this.infoToken = JSON.parse(localStorage.getItem('datosOtp'))
+  }
+
+  capturarRespuesta(item){
+    this.temprespuesta = item;
+    console.log(this.temprespuesta)
+  }
+
+  continuar(){
+    this.objres = {
+      idPregunta: this.preguntas[this.vistaPregunta].orden,
+      idRespuesta: this.temprespuesta
+    }
+    this.respuestas.push(this.objres)
+    this.vistaPregunta = this.vistaPregunta+1;
+    this.cantPreguntas = this.cantPreguntas-1;
+    console.log(this.respuestas)
+    this.temprespuesta = 0;
+  }
+
+  anterior(){
+    console.log(this.vistaPregunta)
+    this.respuestas.pop()
+    this.vistaPregunta = this.vistaPregunta-1;
+    this.cantPreguntas = this.cantPreguntas+1;
+    console.log(this.respuestas)
+  }
+
+  confirmar() {
+    let data = {
+      identificacion: this.datosUsuario['identificacion'],
+      unidadNegocio: 32,
+      id: this.questions['id'],
+      registro: this.questions['registro'],
+      respuesta: this.respuestas,
+      infoToken: this.infoToken['infoToken']
+    }
+    console.log(data)
+    this._documentLoginService.enviarPreguntas(data).subscribe(resp => {
+      if (resp) {
+        console.log(resp)
+        Swal.fire(
+          'Correcto',
+          'Sus respuestas fueron enviadas exitosamente.',
+          'success'
+        )
+        this.router.navigate(['documentLogin/finalizado']);
+      }
+    })
   }
 
 }
+

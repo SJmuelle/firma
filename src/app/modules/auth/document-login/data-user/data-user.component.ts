@@ -47,7 +47,7 @@ export class DataUserComponent implements OnInit {
             infoToken: resp.data.infoToken
         });
         localStorage.setItem('datosOtp', responseData);
-        console.log(responseData);
+        // console.log(responseData);
         // this._documentLoginService.dataResponse.next({state: true, value: responseData});
         this.router.navigate(['documentLogin/generarOTP']);
       })
