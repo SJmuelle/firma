@@ -40,16 +40,15 @@ export class DataUserComponent implements OnInit {
           localStorage.setItem('ERROR', resp.data.mensaje);
           this.router.navigate(['documentLogin/replay']);
           return;
-        }
-        const responseData: any = JSON.stringify({
+        }else{
+          const responseData: any = JSON.stringify({
             infoValidar: resp.data.infoValidar,
             infoIniOTP: resp.data.infoIniOTP,
             infoToken: resp.data.infoToken
-        });
-        localStorage.setItem('datosOtp', responseData);
-        // console.log(responseData);
-        // this._documentLoginService.dataResponse.next({state: true, value: responseData});
-        this.router.navigate(['documentLogin/generarOTP']);
+          });
+          localStorage.setItem('datosOtp', responseData);
+          this.router.navigate(['documentLogin/generarOTP']);
+        }
       })
     } else {
       let data={

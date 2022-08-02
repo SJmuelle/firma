@@ -67,4 +67,11 @@ export class DocumentLoginService {
           return res;
         }));
     }
+
+    validarOTP(datos: any){
+      return this._utilityService.postQuery(this._appSettings.configuracionInicial.url.validarOtp, datos)
+        .pipe(map((res: any) => {
+          return res;
+        }));
+    }
 }

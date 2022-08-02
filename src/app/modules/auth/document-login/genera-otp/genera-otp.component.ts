@@ -23,6 +23,9 @@ export class GeneraOTPComponent implements OnInit {
   infoApp = environment;
   datosUsuario: any;
   botonff: boolean;
+
+  datosOtp = {};
+
   constructor(
     private _formBuilder: FormBuilder,
     private _documentLoginService: DocumentLoginService,
@@ -49,23 +52,22 @@ export class GeneraOTPComponent implements OnInit {
     };
     
     this._documentLoginService.generarOTP(data).subscribe(resp => {
-      
       console.log(resp)
-      
-      this.router.navigate(['documentLogin/pregunta']);
       if (resp.data.status==400) {
         this.router.navigate(['documentLogin/replay']);
       } else {
-        if(resp.data.proceso == 'PREGUNTAS') {
-          // localStorage.setItem('ERROR', resp.data.mensaje);
-          console.log('ERROR ', resp.data.mensaje);
-          const question = JSON.stringify(resp.data.procesoPreguntas);
-          localStorage.setItem('questions', question);
-          this.router.navigate(['documentLogin/pregunta']);
-        }else{
-          // this.router.navigate(['documentLogin/finalizado']);
-          this.paso=2;
-          console.log('CORRECTO ', resp.data.mensaje)
+        switch (resp.data.proceso) {
+          case 'PREGUNTAS':
+            console.log('ERROR ', resp.data.mensaje);
+            const question = JSON.stringify(resp.data.procesoPreguntas);
+            localStorage.setItem('questions', question);
+            this.router.navigate(['documentLogin/pregunta']);
+            break;
+          case 'VALIDAR-OTP':
+            // this.router.navigate(['documentLogin/replay']);
+            this.paso=2;
+            console.log('CORRECTO ', resp.data.mensaje)
+            break;
         }
       }
       this.botonff = false;
@@ -74,10 +76,17 @@ export class GeneraOTPComponent implements OnInit {
   }
 
   validateOtp() {
-      if (this.comingSoonForm.valid) {
-          const data = this.comingSoonForm.getRawValue();
-
-      }
+    const response = JSON.parse(localStorage.getItem('datosOtp'));
+    let data = {
+      "identificacion":  this.datosUsuario.identificacion,
+      "codigoOTP": this.comingSoonForm.value.documento,
+      "unidadNegocio": 32,
+      "infoValidar": response.infoValidar,
+      "infoIniOTP": response.infoIniOTP,
+    }
+    this._documentLoginService.validarOTP(data).subscribe(resp => {
+      console.log(resp)
+    });
   }
 
 }
