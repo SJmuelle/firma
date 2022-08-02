@@ -22,6 +22,7 @@ export class GeneraOTPComponent implements OnInit {
   showAlert: boolean = false;
   infoApp = environment;
   datosUsuario: any;
+  botonff: boolean;
   constructor(
     private _formBuilder: FormBuilder,
     private _documentLoginService: DocumentLoginService,
@@ -36,6 +37,7 @@ export class GeneraOTPComponent implements OnInit {
   }
 
   generarOTP(): void {
+    this.botonff = true;
     const response = JSON.parse(localStorage.getItem('datosOtp'));
 
     const data: any = {
@@ -45,8 +47,11 @@ export class GeneraOTPComponent implements OnInit {
         "infoIniOTP": response.infoIniOTP,
         "infoToken": response.infoToken
     };
+    
     this._documentLoginService.generarOTP(data).subscribe(resp => {
+      
       console.log(resp)
+      
       this.router.navigate(['documentLogin/pregunta']);
       if (resp.data.status==400) {
         this.router.navigate(['documentLogin/replay']);
@@ -63,7 +68,9 @@ export class GeneraOTPComponent implements OnInit {
           console.log('CORRECTO ', resp.data.mensaje)
         }
       }
+      this.botonff = false;
     })
+    
   }
 
   validateOtp() {
