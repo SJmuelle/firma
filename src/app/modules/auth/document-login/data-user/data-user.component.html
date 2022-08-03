@@ -24,13 +24,13 @@
              class="mt-8  fuse-mat-button-large w-full bg-azul-fintra text-white"
              mat-flat-button
              type="button"
-             [disabled]="Btndisabled"
+             [disabled]="Btndisabled==true"
              (click)="seguir()">
-             <span *ngIf="!Btndisabled">
+             <span *ngIf="Btndisabled!=true">
                 Continuar
              </span>
              <mat-progress-spinner
-                 *ngIf="Btndisabled"
+                 *ngIf="Btndisabled==true"
                  [diameter]="24"
                  [mode]="'indeterminate'"></mat-progress-spinner>
          </button>

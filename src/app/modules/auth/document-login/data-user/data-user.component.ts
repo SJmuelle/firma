@@ -10,35 +10,36 @@ import { UtilityEvidenteService } from 'app/core/service/utility-evidente.servic
 })
 export class DataUserComponent implements OnInit {
   datosUsuario: any;
-  Btndisabled: boolean = false;
-  idRUL: string =  this.activaroute.snapshot.paramMap.get('doc');
+  Btndisabled: boolean;
+  idRUL: string =  this.activeroute.snapshot.paramMap.get('doc');
+  soli: string = this.activeroute.snapshot.paramMap.get('num')
+  uni: string = this.activeroute.snapshot.paramMap.get('uni')
   constructor(
     private _documentLoginService: DocumentLoginService,
     private router: Router,
-    private activaroute: ActivatedRoute
+    private activeroute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
-    console.log(this.datosUsuario)
     if (this.idRUL!=this.datosUsuario.identificacion) {
       this.router.navigate(['documentLogin']);
     }
   }
 
   seguir() {
+    this.Btndisabled = true;
     let evidente = this.datosUsuario.aplicaEvidente;
-
+    
     if (evidente=='Si') {
       let data={
         "identificacion":  this.datosUsuario.identificacion,
-        "unidadNegocio": 31
+        "unidadNegocio": parseInt(this.uni)
       }
       this._documentLoginService.datosUsuarioEvidente(data).subscribe(resp => {
-        console.log(resp)
         if(resp.data.status==400){
           localStorage.setItem('ERROR', resp.data.mensaje);
-          this.router.navigate(['documentLogin/replay']);
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
           return;
         }else{
           const responseData: any = JSON.stringify({
@@ -47,23 +48,24 @@ export class DataUserComponent implements OnInit {
             infoToken: resp.data.infoToken
           });
           localStorage.setItem('datosOtp', responseData);
-          this.router.navigate(['documentLogin/generarOTP']);
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/generarOTP']);
         }
+        this.Btndisabled = false;
       })
     } else {
       let data={
-        "unidadNegocio": 31,
-        "numeroSolicitud": 125735
+        "unidadNegocio": parseInt(this.uni),
+        "numeroSolicitud": parseInt(this.soli)
       }
       this._documentLoginService.archivosThomas(data).subscribe(resp => {
-        console.log(resp)
         if(resp.data.status==400){
           localStorage.setItem('ERROR', resp.data.mensaje);
-          this.router.navigate(['documentLogin/replay']);
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
           return;
         }else{
-          this.router.navigate(['documentLogin/finalizado']);
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizado']);
         }
+        this.Btndisabled = false;
       })
     }
   }

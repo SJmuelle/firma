@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/service/auth.service';
 import { DocumentLoginService } from 'app/core/service/document-login.service';
@@ -23,6 +23,9 @@ export class DocumentLoginComponent implements OnInit {
   showAlert: boolean = false;
   infoApp = environment;
 
+  soli: string = this.activeroute.snapshot.paramMap.get('num')
+  uni: string = this.activeroute.snapshot.paramMap.get('uni')
+
   /**
    * Constructor
    */
@@ -30,6 +33,7 @@ export class DocumentLoginComponent implements OnInit {
     private _authService: AuthService,
     private _formBuilder: FormBuilder,
     private router: Router,
+    private activeroute: ActivatedRoute,
     private _documentLoginService: DocumentLoginService
   ) {
     this.loguear();
@@ -107,7 +111,7 @@ export class DocumentLoginComponent implements OnInit {
     this._documentLoginService.datosUsuario(this.comingSoonForm.value.documento,unidadNegocio).subscribe(resp => {
       if (resp.data!=null) {
         localStorage.setItem('datosUsuario', JSON.stringify(resp.data));
-        this.router.navigate(['documentLogin/user/' + doc]);
+        this.router.navigate(['documentLogin'+ '/' + this.soli + '/' + this.uni + '/user/' + doc]);
       } else {
         Swal.fire(
           'Aviso',

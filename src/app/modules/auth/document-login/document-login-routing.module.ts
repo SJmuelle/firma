@@ -7,11 +7,12 @@ import { GeneraOTPComponent } from './genera-otp/genera-otp.component';
 import { Pages404Component } from './pages404/pages404.component';
 import { PreguntaComponent } from './pregunta/pregunta.component';
 import { ReplayComponent } from './replay/replay.component';
+import { NoAprobadoComponent } from './no-aprobado/no-aprobado.component';
 
 const routes: Routes = [
   {
     path     : '',
-    component: DocumentLoginComponent
+    component: DocumentLoginComponent,
   },
   {
     path     : 'user/:doc',
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path     : 'generarOTP',
     component: GeneraOTPComponent
+  },
+  {
+    path     : 'no-aprobado',
+    component: NoAprobadoComponent
   }
 ];
 

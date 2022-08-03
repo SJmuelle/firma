@@ -28,7 +28,7 @@ export const appRoutes: Route[] = [
             layout: 'empty'
         },
         children: [
-            {path: 'documentLogin', loadChildren: () => import('app/modules/auth/document-login/document-login.module').then(m => m.DocumentLoginModule)},
+            {path: 'documentLogin/:num/:uni', loadChildren: () => import('app/modules/auth/document-login/document-login.module').then(m => m.DocumentLoginModule)},
         ]
     }
 ];

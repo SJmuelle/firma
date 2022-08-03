@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-replay',
@@ -8,15 +8,17 @@ import { Router } from '@angular/router';
 })
 export class ReplayComponent implements OnInit {
   mensaje: string;
+  soli: string = this.activeroute.snapshot.paramMap.get('num')
+  uni: string = this.activeroute.snapshot.paramMap.get('uni')
 
-  constructor(   private router: Router) { }
+  constructor(private router: Router, private activeroute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.mensaje=localStorage.getItem('ERROR')
   }
 
   seguir() {
-      this.router.navigate(['documentLogin']);
+    this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
   }
 
 }

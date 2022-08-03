@@ -10,6 +10,7 @@ import { Pages404Component } from './pages404/pages404.component';
 import { FinalizadoComponent } from './finalizado/finalizado.component';
 import { GeneraOTPComponent } from './genera-otp/genera-otp.component';
 import { PreguntaComponent } from './pregunta/pregunta.component';
+import { NoAprobadoComponent } from './no-aprobado/no-aprobado.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { PreguntaComponent } from './pregunta/pregunta.component';
     Pages404Component,
     FinalizadoComponent,
     GeneraOTPComponent,
-    PreguntaComponent
+    PreguntaComponent,
+    NoAprobadoComponent
   ],
   imports: [
     CommonModule,

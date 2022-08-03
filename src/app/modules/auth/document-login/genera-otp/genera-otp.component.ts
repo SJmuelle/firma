@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FuseAlertType } from '@fuse/components/alert';
 import { DocumentLoginService } from 'app/core/service/document-login.service';
 import { environment } from 'environments/environment';
@@ -23,17 +23,19 @@ export class GeneraOTPComponent implements OnInit {
   infoApp = environment;
   datosUsuario: any;
   botonff: boolean;
-
+  soli: string = this.activeroute.snapshot.paramMap.get('num')
+  uni: string = this.activeroute.snapshot.paramMap.get('uni')
   datosOtp = {};
 
   constructor(
     private _formBuilder: FormBuilder,
     private _documentLoginService: DocumentLoginService,
-    private router: Router) { }
+    private router: Router,
+    private activeroute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
-    console.log(this.datosUsuario)
     this.comingSoonForm = this._formBuilder.group({
       documento: ['', [Validators.required]]
     });
@@ -45,7 +47,7 @@ export class GeneraOTPComponent implements OnInit {
 
     const data: any = {
         "identificacion":  this.datosUsuario.identificacion,
-        "unidadNegocio": 32,
+        "unidadNegocio": parseInt(this.uni),
         "infoValidar": response.infoValidar,
         "infoIniOTP": response.infoIniOTP,
         "infoToken": response.infoToken
@@ -54,19 +56,16 @@ export class GeneraOTPComponent implements OnInit {
     this._documentLoginService.generarOTP(data).subscribe(resp => {
       console.log(resp)
       if (resp.data.status==400) {
-        this.router.navigate(['documentLogin/replay']);
+        this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
       } else {
         switch (resp.data.proceso) {
           case 'PREGUNTAS':
-            console.log('ERROR ', resp.data.mensaje);
             const question = JSON.stringify(resp.data.procesoPreguntas);
             localStorage.setItem('questions', question);
-            this.router.navigate(['documentLogin/pregunta']);
+            this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/pregunta']);
             break;
           case 'VALIDAR-OTP':
-            // this.router.navigate(['documentLogin/replay']);
             this.paso=2;
-            console.log('CORRECTO ', resp.data.mensaje)
             break;
         }
       }
@@ -80,12 +79,50 @@ export class GeneraOTPComponent implements OnInit {
     let data = {
       "identificacion":  this.datosUsuario.identificacion,
       "codigoOTP": this.comingSoonForm.value.documento,
-      "unidadNegocio": 32,
+      "unidadNegocio": parseInt(this.uni),
       "infoValidar": response.infoValidar,
       "infoIniOTP": response.infoIniOTP,
+      "infoToken": response.infoToken
     }
     this._documentLoginService.validarOTP(data).subscribe(resp => {
       console.log(resp)
+      if (resp.status == 200) {
+        if (resp.data.status==400) {
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
+        } else {
+          switch (resp.data.PROCESO) {
+            case 'PREGUNTAS':
+              const question = JSON.stringify(resp.data.procesoPreguntas);
+              localStorage.setItem('questions', question);
+              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/pregunta']);
+              break;
+            case 'aprobado':
+              Swal.fire(
+                'Correcto',
+                'Su credito ha sido aprobado',
+                'success'
+              )
+              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizado']);
+              break;
+            case 'no aprobado':
+              Swal.fire(
+                'Error',
+                'Su credito no ha sido aprobado',
+                'error'
+              )
+              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
+              break;
+            case 'reiniciar flujo':
+              Swal.fire(
+                'Información',
+                'Debe reiniciar el proceso nuevamente',
+                'info'
+              )
+              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+              break;
+          }
+        }
+      }
     });
   }
 

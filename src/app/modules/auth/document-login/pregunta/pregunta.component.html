@@ -5,77 +5,63 @@
             <div class="w-30">
                 <img src="assets/images/logo/logo-fintra-blanco.png">
             </div>
-            <div *ngIf="cantPreguntas!=0">
-                <div class="my-4" *ngFor="let pregunta of preguntas; let i=index">
-                    <ng-container *ngIf="i==vistaPregunta">
-                        <label id="label{{pregunta.id}}" class="font-semibold m-0 p-0">{{i+1}} )
-                            {{pregunta.texto}}</label>
-    
-                        <mat-radio-group aria-labelledby="label{{pregunta.id}}" class="example-radio-group"
-                            [(ngModel)]="pregunta.seleccionada">
-    
-                            <ng-container *ngFor="let respuesta of pregunta.Respuesta">
-                                <div class="grid grid-cols-12 gap-4 my-2">
-                                    <div class="col-start-1 content-center">
-                                        <mat-radio-button class="example-radio-button" value="{{respuesta.id}}" (click)="capturarRespuesta(respuesta.id)">
-                                        </mat-radio-button>
-                                    </div>
-                                    <div class="col-span-11">
-                                        <p class="m-0">{{respuesta.texto}}</p>
-                                    </div>
-                                </div>
-                            </ng-container>
-                        </mat-radio-group>
-                    </ng-container>
-                </div>
+            <div class="my-4" *ngFor="let pregunta of preguntas; let i=index">
+                <ng-container *ngIf="i==vistaPregunta">
+                    <label id="label{{pregunta.id}}" class="font-semibold m-0 p-0">{{i+1}} )
+                        {{pregunta.texto}}</label>
 
-                <div class="flex justify-center">
+                    <mat-radio-group aria-labelledby="label{{pregunta.id}}" class="example-radio-group"
+                        [(ngModel)]="pregunta.seleccionada">
+
+                        <ng-container *ngFor="let respuesta of pregunta.Respuesta">
+                            <div class="grid grid-cols-12 gap-4 my-2">
+                                <div class="col-start-1 content-center">
+                                    <mat-radio-button class="example-radio-button" value="{{respuesta.id}}" (click)="capturarRespuesta(respuesta.id)">
+                                    </mat-radio-button>
+                                </div>
+                                <div class="col-span-11">
+                                    <p class="m-0">{{respuesta.texto}}</p>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </mat-radio-group>
+                </ng-container>
+            </div>
+
+            <div class="flex justify-center">
+                <div *ngIf="cargando!=true">
                     <!-- Submit button -->
                     <button class="mx-3 bg-accent fuse-mat-button-large w-90 mt-3 text-white" mat-flat-button
-                        type="button" (click)="anterior()" [disabled]="vistaPregunta==0">
-                        <span>
-                            Anterior
-                        </span>
+                    type="button" (click)="anterior()" [disabled]="vistaPregunta==0">
+                    <span>
+                        Anterior
+                    </span>
                     </button>
                     <!-- Submit button -->
-                    <button class="mx-3 fuse-mat-button-large w-90 mt-3 bg-azul-fintra text-white" mat-flat-button
+                    <button *ngIf="vistaPregunta<3" class="mx-3 fuse-mat-button-large w-90 mt-3 bg-azul-fintra text-white" mat-flat-button
                         type="button" (click)="continuar()" [disabled]="temprespuesta==0">
                         <span>
                             Continuar
                         </span>
                     </button>
-                </div>
-
-            </div>
-            
-            <div *ngIf="cantPreguntas==0">
-                <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
-
-                    <div class="mt-8 text-2xl font-extrabold tracking-tight leading-tight">Correcto</div>
-                    <div class="mt-0.5">
-                        Click para enviar las respuestas.
-                    </div>
-                    <button class="fuse-mat-button-large w-full mt-5 bg-accent text-white" mat-flat-button
-                        type="button" (click)="anterior()" [disabled]="vistaPregunta==0">
+                    <button *ngIf="vistaPregunta==3" class="mx-3 fuse-mat-button-large w-90 mt-3 bg-azul-fintra text-white" mat-flat-button
+                        type="button" (click)="continuar()" [disabled]="lastbutton==false">
                         <span>
-                            Anterior
+                            Continuar
                         </span>
                     </button>
-                    
-                    <div class="flex flex-col">
-                        <button class="fuse-mat-button-large w-full mt-5 bg-azul-fintra text-white" mat-flat-button type="button"
-                        (click)="confirmar()" [disabled]="vistaPregunta!=4">
-                         <span>
-                             Confirmar
-                         </span>
-         
-                     </button>
-                    </div>
-                    
-        
                 </div>
+                <div class="flex flex-col justify-center" *ngIf="cargando==true">
+                    <div class="flex flex-row justify-center">
+                        <mat-progress-spinner [diameter]="100" [mode]="'indeterminate'"></mat-progress-spinner>
+                    </div>
+                    <div class="flex flex-row justify-center mt-1">
+                        <!-- <span class="text-base">Cargando</span> -->
+                        <label class="font-semibold text-lg">Enviando respuestas</label>
+                    </div>
+                </div>
+                
             </div>
-
         </div>
     </div>
 </div>
