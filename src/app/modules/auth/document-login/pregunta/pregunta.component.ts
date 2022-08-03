@@ -83,7 +83,9 @@ export class PreguntaComponent implements OnInit {
         id: this.questions['id'],
         registro: this.questions['registro'],
         respuesta: this.respuestas,
-        infoToken: this.infoToken['infoToken']
+        infoToken: this.infoToken['infoToken'],
+        aplicaThomas: true,
+        numeroSolicitud: parseInt(this.soli)
       }
       this._documentLoginService.enviarPreguntas(data).subscribe(resp => {
         if (resp.data.mensaje=='NO APROBADO') {
@@ -91,34 +93,22 @@ export class PreguntaComponent implements OnInit {
           localStorage.setItem('error', error);
           this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/no-aprobado']);
 
-          let data={
-            "unidadNegocio": parseInt(this.uni),
-            "numeroSolicitud": parseInt(this.soli)
-          }
-          this._documentLoginService.archivosThomas(data).subscribe(resp => {
+          if (resp.data.proceso=='FIRMA THOMAS') {
             Swal.fire(
-              'Correcto', 
-            'Se ha enviado un correo para continuar con el proceso', 
-            'success')
-          })
+              'Correcto',
+              'Se ha enviado correo para continuar el proceso.',
+              'success'
+            )
+          }
         }else{
-          Swal.fire(
-            'Correcto',
-            'Sus respuestas fueron enviadas exitosamente.',
-            'success'
-          )
-          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizado']);
-
-          let data={
-            "unidadNegocio": parseInt(this.uni),
-            "numeroSolicitud": parseInt(this.soli)
-          }
-          this._documentLoginService.archivosThomas(data).subscribe(resp => {
+          if (resp.data.proceso=='FIRMA THOMAS') {
             Swal.fire(
-              'Correcto', 
-            'Se ha enviado un correo para continuar con el proceso', 
-            'success')
-          })
+              'Correcto',
+              'Se ha enviado correo para continuar el proceso.',
+              'success'
+            )
+          }
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizado']);
         }
         this.cargando = false;
       })

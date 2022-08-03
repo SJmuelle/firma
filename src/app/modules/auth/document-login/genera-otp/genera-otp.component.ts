@@ -71,7 +71,6 @@ export class GeneraOTPComponent implements OnInit {
       }
       this.botonff = false;
     })
-    
   }
 
   validateOtp() {
@@ -82,10 +81,11 @@ export class GeneraOTPComponent implements OnInit {
       "unidadNegocio": parseInt(this.uni),
       "infoValidar": response.infoValidar,
       "infoIniOTP": response.infoIniOTP,
-      "infoToken": response.infoToken
+      "infoToken": response.infoToken,
+      "aplicaThomas": true,
+      "numeroSolicitud": parseInt(this.soli)
     }
     this._documentLoginService.validarOTP(data).subscribe(resp => {
-      console.log(resp)
       if (resp.status == 200) {
         if (resp.data.status==400) {
           this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
@@ -96,7 +96,7 @@ export class GeneraOTPComponent implements OnInit {
               localStorage.setItem('questions', question);
               this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/pregunta']);
               break;
-            case 'aprobado':
+            case 'APROBADO':
               Swal.fire(
                 'Correcto',
                 'Su credito ha sido aprobado',
@@ -104,7 +104,7 @@ export class GeneraOTPComponent implements OnInit {
               )
               this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizado']);
               break;
-            case 'no aprobado':
+            case 'NO APROBADO':
               Swal.fire(
                 'Error',
                 'Su credito no ha sido aprobado',
@@ -112,7 +112,7 @@ export class GeneraOTPComponent implements OnInit {
               )
               this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
               break;
-            case 'reiniciar flujo':
+            case 'REINICIAR FLUJO':
               Swal.fire(
                 'Información',
                 'Debe reiniciar el proceso nuevamente',
