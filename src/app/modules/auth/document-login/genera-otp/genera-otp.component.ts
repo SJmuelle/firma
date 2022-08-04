@@ -56,7 +56,15 @@ export class GeneraOTPComponent implements OnInit {
     this._documentLoginService.generarOTP(data).subscribe(resp => {
       console.log(resp)
       if (resp.data.status==400) {
-        this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
+        if (resp.data.proceso=='Lo sentimos no hay mas intentos disponibles.') {
+          Swal.fire(
+            'Aviso',
+            resp.data.proceso,
+            'error'
+          )
+        } else {
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
+        }
       } else {
         switch (resp.data.proceso) {
           case 'PREGUNTAS':
@@ -97,19 +105,9 @@ export class GeneraOTPComponent implements OnInit {
               this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/pregunta']);
               break;
             case 'APROBADO':
-              Swal.fire(
-                'Correcto',
-                'Su credito ha sido aprobado',
-                'success'
-              )
               this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizado']);
               break;
             case 'NO APROBADO':
-              Swal.fire(
-                'Error',
-                'Su credito no ha sido aprobado',
-                'error'
-              )
               this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
               break;
             case 'REINICIAR FLUJO':

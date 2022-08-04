@@ -8,6 +8,7 @@ import { Pages404Component } from './pages404/pages404.component';
 import { PreguntaComponent } from './pregunta/pregunta.component';
 import { ReplayComponent } from './replay/replay.component';
 import { NoAprobadoComponent } from './no-aprobado/no-aprobado.component';
+import { AprobadoComponent } from './aprobado/aprobado.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path     : 'generarOTP',
     component: GeneraOTPComponent
+  },
+  {
+    path     : 'aprobado',
+    component: AprobadoComponent
   },
   {
     path     : 'no-aprobado',

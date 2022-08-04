@@ -1,18 +1,14 @@
 <div class="flex flex-col flex-auto items-center sm:justify-center min-w-0">
-    <div class="w-full sm:w-auto py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card">
-        <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0" *ngIf="paso==1">
-            <!-- Logo -->
-            <div class="w-30">
-                <img src="assets/images/logo/logo-fintra-blanco.png">
-                <!-- <img src="assets/images/logo/logo.svg"> -->
+    <div class="flex flex-row w-3/4 gap-5 sm:w-auto py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card">
+        <div class="w-80" *ngIf="paso==1">
+            <img src="assets/images/pages/proceso.svg">
+        </div>
+        <div class="flex flex-col w-full max-w-80 sm:w-80 mx-auto sm:mx-0" *ngIf="paso==1">
+            <div class="text-2xl font-extrabold tracking-tight leading-tight">Validacion de identidad</div>
+            <div class="mt-5">
+                Por favor dar click para iniciar el proceso.
             </div>
-
-            <!-- Title -->
-            <div class="mt-8 text-2xl font-extrabold tracking-tight leading-tight">Genera OTP</div>
-            <div class="mt-0.5">
-                Enviaremos un mensaje al numero <strong>{{datosUsuario.celular}}</strong>
-            </div>
-            <button class="fuse-mat-button-large w-full mt-5 bg-azul-fintra text-white" mat-flat-button type="button"
+            <button class="mt-10 fuse-mat-button-large w-full bg-azul-fintra text-white" mat-flat-button type="button"
                (click)="generarOTP()" [disabled]="botonff==true">
                 <span *ngIf="botonff!=true">
                     Continuar
@@ -20,32 +16,22 @@
                 <mat-progress-spinner 
                     *ngIf="botonff==true" [diameter]="24" [mode]="'indeterminate'">
                 </mat-progress-spinner>
-
             </button>
-
+        </div>
+        <div class="w-80" *ngIf="paso==2">
+            <img src="assets/images/pages/mobile_messages.svg">
         </div>
         <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0" *ngIf="paso==2">
-            <!-- Logo -->
-            <div class="w-30">
-                <img src="assets/images/logo/logo-fintra-blanco.png">
-                <!-- <img src="assets/images/logo/logo.svg"> -->
-            </div>
-
-            <!-- Title -->
-            <div class="mt-8 text-2xl font-extrabold tracking-tight leading-tight">Genera OTP</div>
+            <div class="mt-8 text-2xl font-extrabold tracking-tight leading-tight">Codigo OTP</div>
             <div class="mt-0.5">
-                Enviamos un mensaje al numero <strong>{{datosUsuario.celular}}</strong>
+                Porfavor digitar el codigo enviado al numero <strong>{{datosUsuario.celular}}</strong>
             </div>
-
-            <!-- Alert -->
             <fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false"
                 [type]="alert.type" [@shake]="alert.type === 'error'">
                 {{alert.message}}
             </fuse-alert>
-
             <!-- Coming soon form -->
             <form class="mt-8" [formGroup]="comingSoonForm" #comingSoonNgForm="ngForm">
-
                 <!-- Email field -->
                 <mat-form-field class="w-full">
                     <mat-label>Número OTP</mat-label>
@@ -54,7 +40,6 @@
                         Número OTP invalido
                     </mat-error>
                 </mat-form-field>
-
                 <!-- Submit button -->
                 <button class="fuse-mat-button-large w-full mt-3 bg-azul-fintra text-white" mat-flat-button
                     type="button" [disabled]="comingSoonForm.disabled" (click)="validateOtp()">

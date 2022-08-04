@@ -11,6 +11,7 @@ import { FinalizadoComponent } from './finalizado/finalizado.component';
 import { GeneraOTPComponent } from './genera-otp/genera-otp.component';
 import { PreguntaComponent } from './pregunta/pregunta.component';
 import { NoAprobadoComponent } from './no-aprobado/no-aprobado.component';
+import { AprobadoComponent } from './aprobado/aprobado.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { NoAprobadoComponent } from './no-aprobado/no-aprobado.component';
     FinalizadoComponent,
     GeneraOTPComponent,
     PreguntaComponent,
-    NoAprobadoComponent
+    NoAprobadoComponent,
+    AprobadoComponent
   ],
   imports: [
     CommonModule,

@@ -1,10 +1,6 @@
 <div class="flex flex-col flex-auto items-center sm:justify-center min-w-0">
-    <div class="w-full sm:w-auto py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card">
-        <div class="w-full mx-auto sm:mx-0 min-h-100">
-            <!-- Logo -->
-            <div class="w-30">
-                <img src="assets/images/logo/logo-fintra-blanco.png">
-            </div>
+    <div class="max-h-100 w-4/5 py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card">
+        <div *ngIf="cargando != true" class="w-full mx-auto sm:mx-0 min-h-100">
             <div class="my-4" *ngFor="let pregunta of preguntas; let i=index">
                 <ng-container *ngIf="i==vistaPregunta">
                     <label id="label{{pregunta.id}}" class="font-semibold m-0 p-0">{{i+1}} )
@@ -29,15 +25,35 @@
             </div>
 
             <div class="flex justify-center">
-                <div *ngIf="cargando!=true">
-                    <!-- Submit button -->
+                <div class="z-10 sticky hidden lg:flex bottom-4 p-4">
+                    <div class="flex items-center justify-center mx-auto p-2 rounded-full shadow-lg bg-azul-fintra">
+                        <button
+                            class="flex-0 color-fintra"
+                            mat-flat-button
+                            (click)="anterior()">
+                            <mat-icon
+                                class="mr-2"
+                                [svgIcon]="'heroicons_outline:arrow-narrow-left'"></mat-icon>
+                            <span class="mr-1">Anterior</span>
+                        </button>
+                        <button
+                            class="flex-0 color-fintra"
+                            mat-flat-button
+                            (click)="continuar()">
+                            <span class="ml-1">Siguiente</span>
+                            <mat-icon
+                                class="ml-2"
+                                [svgIcon]="'heroicons_outline:arrow-narrow-right'"></mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <!-- <div>
                     <button class="mx-3 bg-accent fuse-mat-button-large w-90 mt-3 text-white" mat-flat-button
                     type="button" (click)="anterior()" [disabled]="vistaPregunta==0">
                     <span>
                         Anterior
                     </span>
                     </button>
-                    <!-- Submit button -->
                     <button *ngIf="vistaPregunta<3" class="mx-3 fuse-mat-button-large w-90 mt-3 bg-azul-fintra text-white" mat-flat-button
                         type="button" (click)="continuar()" [disabled]="temprespuesta==0">
                         <span>
@@ -50,17 +66,7 @@
                             Continuar
                         </span>
                     </button>
-                </div>
-                <div class="flex flex-col justify-center" *ngIf="cargando==true">
-                    <div class="flex flex-row justify-center">
-                        <mat-progress-spinner [diameter]="100" [mode]="'indeterminate'"></mat-progress-spinner>
-                    </div>
-                    <div class="flex flex-row justify-center mt-1">
-                        <!-- <span class="text-base">Cargando</span> -->
-                        <label class="font-semibold text-lg">Enviando respuestas</label>
-                    </div>
-                </div>
-                
+                </div> -->
             </div>
         </div>
     </div>

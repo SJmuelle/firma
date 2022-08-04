@@ -87,31 +87,28 @@ export class PreguntaComponent implements OnInit {
         aplicaThomas: true,
         numeroSolicitud: parseInt(this.soli)
       }
-      this._documentLoginService.enviarPreguntas(data).subscribe(resp => {
-        if (resp.data.mensaje=='NO APROBADO') {
-          const error = JSON.stringify(resp.data);
-          localStorage.setItem('error', error);
-          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/no-aprobado']);
-
-          if (resp.data.proceso=='FIRMA THOMAS') {
-            Swal.fire(
-              'Correcto',
-              'Se ha enviado correo para continuar el proceso.',
-              'success'
-            )
-          }
-        }else{
-          if (resp.data.proceso=='FIRMA THOMAS') {
-            Swal.fire(
-              'Correcto',
-              'Se ha enviado correo para continuar el proceso.',
-              'success'
-            )
-          }
-          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizado']);
-        }
-        this.cargando = false;
+      
+      Swal.fire({
+        title: 'Cargando',
+        html: 'Enviando respuestas',
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => {
+          Swal.showLoading();
+          this._documentLoginService.enviarPreguntas(data).subscribe(resp => {
+            if (resp.data.mensaje=='NO APROBADO') {
+              const error = JSON.stringify(resp.data);
+              localStorage.setItem('error', error);
+              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/no-aprobado']);
+            }else{
+              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/aprobado']);
+            }
+            this.cargando = false;
+            Swal.close()
+          })
+        },
       })
+      
   }
 
 }

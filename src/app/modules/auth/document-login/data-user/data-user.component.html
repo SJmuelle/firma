@@ -1,43 +1,52 @@
 <div class="flex flex-col flex-auto items-center sm:justify-center min-w-0">
-    <div class="w-full sm:w-auto py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card">
-        <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
-            <!-- Logo -->
-            <div class="w-30">
-                <img src="assets/images/logo/logo-fintra-blanco.png">
-                <!-- <img src="assets/images/logo/logo.svg"> -->
+    <div class="flex flex-row w-3/4 gap-5 sm:w-auto py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card">
+        <div class="w-96">
+            <img src="assets/images/pages/personal_information.svg">
+        </div>
+        <div class="flex flex-col w-3/5">
+            <div class="text-2xl font-extrabold tracking-tight leading-tight">Informacion personal</div>
+            <div class="flex flex-col mt-5">
+                <div class="flex items-center">
+                    <mat-icon
+                        class="icon-size-5 mr-3"
+                        [svgIcon]="'heroicons_solid:identification'"></mat-icon>
+                    <span class="leading-none">{{datosUsuario.identificacion}}</span>
+                </div>
+                <div class="flex items-center mt-4">
+                    <mat-icon
+                        class="icon-size-5 mr-3"
+                        [svgIcon]="'heroicons_solid:user'"></mat-icon>
+                    <span class="leading-none capitalize">{{datosUsuario.nombreCompleto}}</span>
+                </div>
+                <div class="flex items-center mt-4">
+                    <mat-icon
+                        class="icon-size-5 mr-3"
+                        [svgIcon]="'heroicons_solid:mail'"></mat-icon>
+                    <span class="leading-none">{{datosUsuario.email}}</span>
+                </div>
+                <div class="flex items-center mt-4">
+                    <mat-icon
+                        class="icon-size-5 mr-3"
+                        [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+                    <span class="leading-none">{{datosUsuario.celular}}</span>
+                </div>
             </div>
-
-            <!-- Title -->
-            <div class="mt-8 text-2xl font-extrabold tracking-tight leading-tight">Número de documento</div>
-            <div class="mt-0.5">
-                {{datosUsuario.identificacion}}
+            <div>
+                <button
+                    class="mt-5 fuse-mat-button-large w-full bg-azul-fintra text-white"
+                    mat-flat-button
+                    type="button"
+                    [disabled]="Btndisabled==true"
+                    (click)="seguir()">
+                    <span *ngIf="Btndisabled!=true">
+                        Continuar
+                    </span>
+                    <mat-progress-spinner
+                    *ngIf="Btndisabled==true"
+                    [diameter]="24"
+                    [mode]="'indeterminate'"></mat-progress-spinner>
+                </button>
             </div>
-
-            <div class="mt-8 text-2xl font-extrabold tracking-tight leading-tight">Nombre completo</div>
-            <div class="mt-0.5 capitalize">
-                {{datosUsuario.nombreCompleto}}
-            </div>
-
-
-             <!-- Submit button -->
-             <button
-             class="mt-8  fuse-mat-button-large w-full bg-azul-fintra text-white"
-             mat-flat-button
-             type="button"
-             [disabled]="Btndisabled==true"
-             (click)="seguir()">
-             <span *ngIf="Btndisabled!=true">
-                Continuar
-             </span>
-             <mat-progress-spinner
-                 *ngIf="Btndisabled==true"
-                 [diameter]="24"
-                 [mode]="'indeterminate'"></mat-progress-spinner>
-         </button>
-      
-
-           
-          
         </div>
     </div>
 </div>
