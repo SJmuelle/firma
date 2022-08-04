@@ -4,19 +4,13 @@
             <div class="my-4" *ngFor="let pregunta of preguntas; let i=index">
                 <ng-container *ngIf="i==vistaPregunta">
                     <label id="label{{pregunta.id}}" class="font-semibold m-0 p-0">{{i+1}} )
-                        {{pregunta.texto}}</label>
+                        {{textCapi}}</label>
 
-                    <mat-radio-group aria-labelledby="label{{pregunta.id}}" class="example-radio-group"
-                        [(ngModel)]="pregunta.seleccionada">
-
+                    <mat-radio-group aria-labelledby="label{{pregunta.id}}" class="example-radio-group" [(ngModel)]="pregunta.seleccionada">
                         <ng-container *ngFor="let respuesta of pregunta.Respuesta">
                             <div class="grid grid-cols-12 gap-4 my-2">
                                 <div class="col-start-1 content-center">
-                                    <mat-radio-button class="example-radio-button" value="{{respuesta.id}}" (click)="capturarRespuesta(respuesta.id)">
-                                    </mat-radio-button>
-                                </div>
-                                <div class="col-span-11">
-                                    <p class="m-0">{{respuesta.texto}}</p>
+                                    <mat-radio-button class="example-radio-button" value="{{respuesta.id}}" (click)="capturarRespuesta(respuesta.id)">{{respuesta.texto}}</mat-radio-button>
                                 </div>
                             </div>
                         </ng-container>
@@ -27,46 +21,25 @@
             <div class="flex justify-center">
                 <div class="z-10 sticky hidden lg:flex bottom-4 p-4">
                     <div class="flex items-center justify-center mx-auto p-2 rounded-full shadow-lg bg-azul-fintra">
-                        <button
-                            class="flex-0 color-fintra"
-                            mat-flat-button
-                            (click)="anterior()">
-                            <mat-icon
-                                class="mr-2"
-                                [svgIcon]="'heroicons_outline:arrow-narrow-left'"></mat-icon>
-                            <span class="mr-1">Anterior</span>
+                        <button class="flex-0 color-fintra" mat-button (click)="anterior()" [disabled]="vistaPregunta==0">
+                            <mat-icon class="mr-2" [svgIcon]="'heroicons_outline:arrow-narrow-left'"></mat-icon>
+                            <span class="mr-1 text-on-primary">Anterior</span>
                         </button>
-                        <button
-                            class="flex-0 color-fintra"
-                            mat-flat-button
-                            (click)="continuar()">
-                            <span class="ml-1">Siguiente</span>
-                            <mat-icon
-                                class="ml-2"
-                                [svgIcon]="'heroicons_outline:arrow-narrow-right'"></mat-icon>
+                        <div class="flex items-center justify-center mx-2.5 font-medium leading-5 text-on-primary">
+                            <span>{{conteoup}}</span>
+                            <span class="mx-0.5 text-hint">/</span>
+                            <span>{{totalpreguntas}}</span>
+                        </div>
+                        <button *ngIf="vistaPregunta<3" class="flex-0 color-fintra" mat-button (click)="continuar()" [disabled]="temprespuesta==0">
+                            <span class="ml-1 text-on-primary">Siguiente</span>
+                            <mat-icon class="ml-2" [svgIcon]="'heroicons_outline:arrow-narrow-right'"></mat-icon>
+                        </button>
+                        <button *ngIf="vistaPregunta==3" class="flex-0 color-fintra" mat-button (click)="continuar()" [disabled]="lastbutton==false">
+                            <span class="ml-1 text-on-primary">Siguiente</span>
+                            <mat-icon class="ml-2" [svgIcon]="'heroicons_outline:arrow-narrow-right'"></mat-icon>
                         </button>
                     </div>
                 </div>
-                <!-- <div>
-                    <button class="mx-3 bg-accent fuse-mat-button-large w-90 mt-3 text-white" mat-flat-button
-                    type="button" (click)="anterior()" [disabled]="vistaPregunta==0">
-                    <span>
-                        Anterior
-                    </span>
-                    </button>
-                    <button *ngIf="vistaPregunta<3" class="mx-3 fuse-mat-button-large w-90 mt-3 bg-azul-fintra text-white" mat-flat-button
-                        type="button" (click)="continuar()" [disabled]="temprespuesta==0">
-                        <span>
-                            Continuar
-                        </span>
-                    </button>
-                    <button *ngIf="vistaPregunta==3" class="mx-3 fuse-mat-button-large w-90 mt-3 bg-azul-fintra text-white" mat-flat-button
-                        type="button" (click)="continuar()" [disabled]="lastbutton==false">
-                        <span>
-                            Continuar
-                        </span>
-                    </button>
-                </div> -->
             </div>
         </div>
     </div>

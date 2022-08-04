@@ -16,8 +16,12 @@ export class PreguntaComponent implements OnInit {
   temprespuesta: number = 0;
   cantPreguntas=0;
   vistaPregunta=0;
+  conteoup: number = 1;
+  totalpreguntas: number = 4;
   cargando: boolean;
   lastbutton: boolean = false;
+
+  textCapi: string;
 
   datosUsuario = {};
   questions = {};
@@ -40,6 +44,9 @@ export class PreguntaComponent implements OnInit {
     this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'))
     this.questions = JSON.parse(localStorage.getItem('questions'))
     this.infoToken = JSON.parse(localStorage.getItem('datosOtp'))
+    // console.log(this.preguntas[0].texto.slice(1).toLowerCase())
+    this.textCapi = this.preguntas[this.vistaPregunta].texto[0].toUpperCase()+this.preguntas[this.vistaPregunta].texto.slice(1).toLowerCase();
+    console.log(this.textCapi)
   }
 
   capturarRespuesta(item){
@@ -65,14 +72,25 @@ export class PreguntaComponent implements OnInit {
   continuar(){
     this.vistaPregunta = this.vistaPregunta+1;
     this.cantPreguntas = this.cantPreguntas-1;
-    if (this.cantPreguntas==0) {
-      this.confirmar()
+    this.conteoup = this.conteoup + 1
+    if (this.vistaPregunta == 4) {
+      if (this.cantPreguntas==0) {
+        this.confirmar()
+      }
+    }else{
+      this.textCapi = this.preguntas[this.vistaPregunta].texto[0].toUpperCase()+this.preguntas[this.vistaPregunta].texto.slice(1).toLowerCase();
+      console.log(this.textCapi)
     }
+    
+    
   }
 
   anterior(){
     this.vistaPregunta = this.vistaPregunta-1;
     this.cantPreguntas = this.cantPreguntas+1;
+    this.conteoup = this.conteoup - 1
+    this.textCapi = this.preguntas[this.vistaPregunta].texto[0].toUpperCase()+this.preguntas[this.vistaPregunta].texto.slice(1).toLowerCase();
+    console.log(this.textCapi)
   }
 
   confirmar(){
@@ -90,11 +108,15 @@ export class PreguntaComponent implements OnInit {
       
       Swal.fire({
         title: 'Cargando',
-        html: 'Enviando respuestas',
+        html:
+        '<div class="space-loading">' + 
+            '<div class="loading loading--full-height"></div>' +
+        '</div>',
         allowOutsideClick: false,
         showConfirmButton: false,
         didOpen: () => {
-          Swal.showLoading();
+          // Swal.showLoading();
+          
           this._documentLoginService.enviarPreguntas(data).subscribe(resp => {
             if (resp.data.mensaje=='NO APROBADO') {
               const error = JSON.stringify(resp.data);
