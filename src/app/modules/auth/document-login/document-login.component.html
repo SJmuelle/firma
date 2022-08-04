@@ -1,19 +1,22 @@
-<div class="flex flex-col flex-auto items-center sm:justify-center min-w-0">
-    <div class="w-full sm:w-auto py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card">
-        <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
-            <!-- Logo -->
-            <div class="w-30">
-                <img src="assets/images/logo/logo-fintra-blanco.png">
-                <!-- <img src="assets/images/logo/logo.svg"> -->
-            </div>
+<div class="flex flex-col h-screen flex-auto items-center sm:justify-center min-w-0 fondo">
+    <div class="w-4/5">
+        <div class="w-30 mb-8 ml-15">
+            <img src="assets/images/logo/logo-fintra-gris.png">
+        </div>
+    </div>
+    <div class="flex flex-row w-full sm:w-auto sm:rounded-2xl sm:shadow sm:bg-card">
 
-            <!-- Title -->
-            <div class="mt-8 text-2xl font-extrabold tracking-tight leading-tight">Número de documento</div>
-            <div class="mt-0.5">
-                Para continuar, diligenciar tu número de documento a continuación
-            </div>
+        <img class="imagen h-160" src="assets/images/pages/people.svg">
 
-            <!-- Alert -->
+        <div class="flex flex-col h-full justify-center items-center input">
+            <div class="text-3xl font-extrabold tracking-tight leading-tight">Número de documento</div>
+            <div class="mt-2 justify-center">
+                <p class="w-64 text-center">
+                    Para continuar, diligenciar tu número de documento a continuación
+                </p>
+                
+            </div>
+            
             <fuse-alert
                 class="mt-8 -mb-4"
                 *ngIf="showAlert"
@@ -24,37 +27,41 @@
                 {{alert.message}}
             </fuse-alert>
 
-            <!-- Coming soon form -->
-            <form class="mt-8" [formGroup]="comingSoonForm" #comingSoonNgForm="ngForm">
-                <!-- Email field -->
-                <mat-form-field class="w-full">
-                    <mat-label>Número de documento</mat-label>
-                    <input
-                        id="documento"
-                        matInput
-                        autocomplete="off"
-                        [formControlName]="'documento'">
-                    <mat-error *ngIf="comingSoonForm.get('documento').hasError('required')">
-                        Número de identificación es requerido
-                    </mat-error>
-                </mat-form-field>
+            <form class="w-full mt-8" [formGroup]="comingSoonForm" #comingSoonNgForm="ngForm">
 
-                <!-- Submit button -->
-                <button
-                    class="fuse-mat-button-large w-full mt-3 bg-azul-fintra text-white"
-                    mat-flat-button
-                    type="button"
-                    [disabled]="comingSoonForm.disabled"
-                    (click)="register()">
-                    <span *ngIf="!comingSoonForm.disabled">
-                       Continuar
-                    </span>
-                    <mat-progress-spinner
-                        *ngIf="comingSoonForm.disabled"
-                        [diameter]="24"
-                        [mode]="'indeterminate'"></mat-progress-spinner>
-                </button>
+                <div class="flex flex-col w-full">
 
+                    <div class="flex flex-row justify-center">
+                        <mat-form-field class="w-72">
+                            <mat-icon class="mr-2" [svgIcon]="'heroicons_outline:identification'"></mat-icon>
+                            <input id="documento" matInput placeholder="Número de documento" autocomplete="off" [formControlName]="'documento'">
+                            <mat-error *ngIf="comingSoonForm.get('documento').hasError('required')">
+                                Número de identificación es requerido
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex flex-row justify-center w-full">
+                        <button
+                            class="fuse-mat-button-large w-30 mt-5 bg-azul-fintra text-white"
+                            mat-flat-button
+                            type="button"
+                            [disabled]="comingSoonForm.disabled"
+                            (click)="register()">
+                            <span class="text-lg" *ngIf="!comingSoonForm.disabled">
+                                Continuar
+                            </span>
+                            <mat-progress-spinner
+                                *ngIf="comingSoonForm.disabled"
+                                [diameter]="24"
+                                [mode]="'indeterminate'"></mat-progress-spinner>
+                        </button>
+                    </div>
+                </div>
+
+                
+
+                
             </form>
         </div>
     </div>
