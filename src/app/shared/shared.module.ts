@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FuseAlertModule } from '@fuse/components/alert';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
     imports: [
@@ -29,7 +30,8 @@ import {MatRadioModule} from '@angular/material/radio';
         MatProgressSpinnerModule,
         FuseCardModule,
         FuseAlertModule,
-        MatRadioModule
+        MatRadioModule,
+        MatStepperModule
     ]
 })
 export class SharedModule

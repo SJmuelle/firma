@@ -12,6 +12,7 @@ import { GeneraOTPComponent } from './genera-otp/genera-otp.component';
 import { PreguntaComponent } from './pregunta/pregunta.component';
 import { NoAprobadoComponent } from './no-aprobado/no-aprobado.component';
 import { AprobadoComponent } from './aprobado/aprobado.component';
+import { CantPreguntasComponent } from './cant-preguntas/cant-preguntas.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { AprobadoComponent } from './aprobado/aprobado.component';
     GeneraOTPComponent,
     PreguntaComponent,
     NoAprobadoComponent,
-    AprobadoComponent
+    AprobadoComponent,
+    CantPreguntasComponent
   ],
   imports: [
     CommonModule,
