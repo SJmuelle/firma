@@ -37,32 +37,37 @@ export class DataUserComponent implements OnInit {
         "unidadNegocio": parseInt(this.uni)
       }
       this._documentLoginService.datosUsuarioEvidente(data).subscribe(resp => {
-        if(resp.data.status==400){
-          localStorage.setItem('ERROR', resp.data.mensaje);
-          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
-          return;
-        }else{
-          switch (resp.data.proceso) {
-            case 'PREGUNTAS':
-              const question = JSON.stringify(resp.data.procesoPreguntas);
-              localStorage.setItem('questions', question);
-              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/pregunta']);
-              break;
-            case 'OTP':
-              const responseData: any = JSON.stringify({
-                infoValidar: resp.data.infoValidar,
-                infoIniOTP: resp.data.infoIniOTP,
-                infoToken: resp.data.infoToken
-              });
-              localStorage.setItem('datosOtp', responseData);
-              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/generarOTP']);
-              break;
-            default:
-              break;
+        if (resp.data==400) {
+          this.Btndisabled = false;
+        } else {
+          if(resp.data.status==400){
+            localStorage.setItem('ERROR', resp.data.mensaje);
+            this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
+            return;
+          }else{
+            switch (resp.data.proceso) {
+              case 'PREGUNTAS':
+                const question = JSON.stringify(resp.data.procesoPreguntas);
+                localStorage.setItem('questions', question);
+                this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/pregunta']);
+                break;
+              case 'OTP':
+                const responseData: any = JSON.stringify({
+                  infoValidar: resp.data.infoValidar,
+                  infoIniOTP: resp.data.infoIniOTP,
+                  infoToken: resp.data.infoToken
+                });
+                localStorage.setItem('datosOtp', responseData);
+                this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/generarOTP']);
+                break;
+              default:
+                break;
+            }
+            
           }
-          
+          this.Btndisabled = false;
         }
-        this.Btndisabled = false;
+        
       })
     } else {
       let data={

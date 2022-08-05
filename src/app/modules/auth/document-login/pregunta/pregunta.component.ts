@@ -66,6 +66,7 @@ export class PreguntaComponent implements OnInit {
   capturarRespuesta(item){
     this.temprespuesta = item;
     this.selected = item;
+    this.containRespuesta = this.containRespuesta + 1;
     if (this.vistaPregunta==3) {
       this.lastbutton = true
     }
@@ -94,7 +95,6 @@ export class PreguntaComponent implements OnInit {
     this.vistaPregunta = this.vistaPregunta+1;
     this.cantPreguntas = this.cantPreguntas-1;
     this.conteoup = this.conteoup + 1
-    this.containRespuesta = this.containRespuesta + 1;
     this.goToStep(this.vistaPregunta)
     if (this.vistaPregunta == 4) {
       if (this.cantPreguntas==0) {
@@ -102,7 +102,6 @@ export class PreguntaComponent implements OnInit {
       }
     }else{
       this.textCapi = this.preguntas[this.vistaPregunta].texto[0].toUpperCase()+this.preguntas[this.vistaPregunta].texto.slice(1).toLowerCase();
-      console.log(this.textCapi)
     }
     
     
@@ -114,7 +113,6 @@ export class PreguntaComponent implements OnInit {
     this.conteoup = this.conteoup - 1
     this.goToStep(this.vistaPregunta)
     this.textCapi = this.preguntas[this.vistaPregunta].texto[0].toUpperCase()+this.preguntas[this.vistaPregunta].texto.slice(1).toLowerCase();
-    console.log(this.textCapi)
   }
 
   confirmar(){
@@ -129,27 +127,40 @@ export class PreguntaComponent implements OnInit {
         aplicaThomas: true,
         numeroSolicitud: parseInt(this.soli)
       }
-      
-      Swal.fire({
-        title: 'Cargando',
-        allowOutsideClick: false,
-        showConfirmButton: false,
-        didOpen: () => {
-          Swal.showLoading();
-          
-          this._documentLoginService.enviarPreguntas(data).subscribe(resp => {
-            if (resp.data.status==400) {
-              const error = JSON.stringify(resp.data);
-              localStorage.setItem('error', error);
-              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/no-aprobado']);
-            }else{
-              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/aprobado']);
-            }
-            this.cargando = false;
-            Swal.close()
-          })
-        },
+
+      this._documentLoginService.enviarPreguntas(data).subscribe(resp => {
+        if (resp.data.status==400) {
+          const error = JSON.stringify(resp.data);
+          localStorage.setItem('error', error);
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/no-aprobado']);
+        }else{
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/aprobado']);
+        }
+        this.cargando = false;
       })
+
+      // Swal.fire({
+      //   title: 'Cargando',
+      //   imageUrl: 'assets/images/pages/cargando.gif',
+      //   allowOutsideClick: false,
+      //   showConfirmButton: false,
+      //   customClass: 'swal-height',
+      //   didOpen: () => {
+      //     // Swal.showLoading();
+          
+      //     this._documentLoginService.enviarPreguntas(data).subscribe(resp => {
+      //       if (resp.data.status==400) {
+      //         const error = JSON.stringify(resp.data);
+      //         localStorage.setItem('error', error);
+      //         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/no-aprobado']);
+      //       }else{
+      //         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/aprobado']);
+      //       }
+      //       this.cargando = false;
+      //       Swal.close()
+      //     })
+      //   },
+      // })
       
   }
 
