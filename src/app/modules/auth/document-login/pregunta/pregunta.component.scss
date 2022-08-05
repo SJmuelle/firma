@@ -2,19 +2,39 @@
     color: #00c3fd;
 }
 
+.bg-lista {
+    background-color: #bed104;
+}
+
+.text-lista {
+    color: #bed104;
+}
+
+.ring-lista {
+    --tw-ring-opacity: 1 !important;
+    --tw-ring-color: rgba(190,209,4,255)
+}
+
 .space-carta-1{
     margin-bottom: 5%;
 }
 
 .carta-1 {
-    width: 30%;
+    width: 20%;
 }
+
 .contain-carta-1 {
-    width: 15%;
+    width: 25%;
+    height: 35%;
+    margin-bottom: 3%;
+}
+
+.shadow-right {
+    box-shadow: 5px 0 5px -5px #333;
 }
 
 .carta-2 {
-    width: 70%;
+    width: 80%;
 }
 
 

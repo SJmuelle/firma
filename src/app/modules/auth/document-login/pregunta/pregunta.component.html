@@ -1,6 +1,6 @@
-<div class="flex flex-row gap-9 h-full w-full">
+<div class="flex flex-row gap-9 h-full w-full">    
     <div class="flex flex-row h-full justify-end carta-1 items-center -mt-15">
-        <div class="flex flex-row h-80 justify-center bg-card rounded-2xl shadow pt-0 pb-0 pr-5 pl-5 contain-carta-1">
+        <div class="flex flex-row justify-center bg-card rounded-2xl shadow shadow-bottom pt-0 pb-0 pr-5 pl-5 contain-carta-1">
             <ol>
                 <ng-container *ngFor="let item of allNumQues; let last = last">
                     <li
@@ -9,17 +9,16 @@
                         <ng-container *ngIf="!last">
                             <div
                                 class="absolute top-6 left-4 w-0.5 h-full -ml-px"
-                                [ngClass]="{'bg-primary': item.order < currentStep,
-                                            'bg-gray-300 dark:bg-gray-600': item.order >= currentStep}"></div>
+                                [ngClass]="{'bg-green-800': item.order < currentStep,
+                                            'bg-gray-300 dark:bg-lime-500': item.order >= currentStep}"></div>
                         </ng-container>
                         <div
-                            class="relative flex items-start cursor-pointer"
-                            (click)="goToStep(item.order)" aria-disabled="true">
-                            <div
-                                class="flex flex-0 items-center justify-center w-8 h-8 rounded-full ring-2 ring-inset ring-transparent bg-card dark:bg-default"
-                                [ngClass]="{'bg-primary dark:bg-primary text-on-primary group-hover:bg-primary-800': item.order < currentStep,
-                                            'ring-primary': item.order === currentStep,
-                                            'ring-gray-300 dark:ring-gray-600 group-hover:ring-gray-400': item.order > currentStep}">
+                            class="relative flex items-start"
+                            >
+                            <div class="flex flex-0 items-center justify-center w-8 h-8 rounded-full ring-2 ring-inset bg-card dark:bg-default"
+                                [ngClass]="{'ring-lime-500 bg-lime-500 dark:bg-lime-500 text-on-primary ring-transparent': item.order < currentStep,
+                                            'ring-lime-500': item.order === currentStep,
+                                            'ring-gray-300 group-hover:ring-lime-400': item.order > currentStep}">
                                 
                                 <ng-container *ngIf="item.order < currentStep">
                                     <mat-icon
@@ -28,7 +27,7 @@
                                 </ng-container>
                                 
                                 <ng-container *ngIf="item.order === currentStep">
-                                    <div class="text-md font-semibold text-primary dark:text-primary-500">{{item.order + 1}}</div>
+                                    <div class="text-md font-semibold text-hint dark:text-lime-500">{{item.order + 1}}</div>
                                 </ng-container>
                                 
                                 <ng-container *ngIf="item.order > currentStep">
@@ -49,12 +48,12 @@
                         <ng-container *ngIf="i==vistaPregunta">
                             <div class="flex flex-row gap-3">
                                 <div>
-                                    <label id="label{{pregunta.id}}" class="font-semibold m-0 p-0">
+                                    <label id="label{{pregunta.id}}" class="font-semibold m-0 p-0 text-xl">
                                         {{i+1}})
                                     </label>
                                 </div>
                                 <div>
-                                    <label id="label{{pregunta.id}}" class="font-semibold m-0 p-0">
+                                    <label id="label{{pregunta.id}}" class="font-semibold m-0 p-0 text-xl">
                                         {{textCapi}}
                                     </label>
                                 </div>
@@ -64,7 +63,9 @@
                                     <ng-container *ngFor="let respuesta of pregunta.Respuesta">
                                         <div class="grid grid-cols-12 gap-4 my-2">
                                             <div class="col-start-1 content-center">
-                                                <mat-radio-button class="example-radio-button" value="{{respuesta.id}}" (click)="capturarRespuesta(respuesta.id)">{{respuesta.texto}}</mat-radio-button>
+                                                <mat-radio-button value="{{respuesta.id}}" (click)="capturarRespuesta(respuesta.id)">
+                                                    <span [ngClass]="{}">{{respuesta.texto}}</span>
+                                                </mat-radio-button>
                                             </div>
                                         </div>
                                     </ng-container>
@@ -82,7 +83,7 @@
                 <button *ngIf="vistaPregunta<3" class="fuse-mat-button-large w-40 mt-5 bg-azul-fintra text-white" mat-flat-button (click)="continuar()">
                     <span class="text-xl">Siguiente</span>
                 </button>
-                <button *ngIf="vistaPregunta==3" class="fuse-mat-button-large w-40 mt-5 bg-azul-fintra text-white" mat-flat-button (click)="continuar()" [disabled]="lastbutton==false">
+                <button *ngIf="vistaPregunta==3" class="fuse-mat-button-large w-40 mt-5 bg-azul-fintra text-white" mat-flat-button (click)="continuar()" [disabled]="containRespuesta==3">
                     <span class="text-xl">Siguiente</span>
                 </button>
             </div>
