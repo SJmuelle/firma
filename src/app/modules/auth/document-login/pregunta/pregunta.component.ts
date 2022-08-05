@@ -94,23 +94,19 @@ export class PreguntaComponent implements OnInit {
   continuar(){
     this.vistaPregunta = this.vistaPregunta+1;
     this.cantPreguntas = this.cantPreguntas-1;
-    this.conteoup = this.conteoup + 1
-    this.goToStep(this.vistaPregunta)
     if (this.vistaPregunta == 4) {
+      this.vistaPregunta = 3;
       if (this.cantPreguntas==0) {
         this.confirmar()
       }
     }else{
       this.textCapi = this.preguntas[this.vistaPregunta].texto[0].toUpperCase()+this.preguntas[this.vistaPregunta].texto.slice(1).toLowerCase();
     }
-    
-    
   }
 
   anterior(){
     this.vistaPregunta = this.vistaPregunta-1;
     this.cantPreguntas = this.cantPreguntas+1;
-    this.conteoup = this.conteoup - 1
     this.goToStep(this.vistaPregunta)
     this.textCapi = this.preguntas[this.vistaPregunta].texto[0].toUpperCase()+this.preguntas[this.vistaPregunta].texto.slice(1).toLowerCase();
   }
