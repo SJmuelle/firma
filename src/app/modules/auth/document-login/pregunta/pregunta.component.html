@@ -75,28 +75,16 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-row ml-1/4">
-                <div class="z-10 sticky hidden lg:flex bottom-4 p-4">
-                    <div class="flex items-center justify-center mx-auto p-2 rounded-full shadow-lg bg-azul-fintra">
-                        <button class="flex-0 color-fintra" mat-button (click)="anterior()" [disabled]="vistaPregunta==0">
-                            <mat-icon class="mr-2" [svgIcon]="'heroicons_outline:arrow-narrow-left'"></mat-icon>
-                            <span class="mr-1 text-on-primary">Anterior</span>
-                        </button>
-                        <div class="flex items-center justify-center mx-2.5 font-medium leading-5 text-on-primary">
-                            <span>{{conteoup}}</span>
-                            <span class="mx-0.5 text-hint">/</span>
-                            <span>{{totalpreguntas}}</span>
-                        </div>
-                        <button *ngIf="vistaPregunta<3" class="flex-0 color-fintra" mat-button (click)="continuar()">
-                            <span class="ml-1 text-on-primary">Siguiente</span>
-                            <mat-icon class="ml-2" [svgIcon]="'heroicons_outline:arrow-narrow-right'"></mat-icon>
-                        </button>
-                        <button *ngIf="vistaPregunta==3" class="flex-0 color-fintra" mat-button (click)="continuar()" [disabled]="lastbutton==false">
-                            <span class="ml-1 text-on-primary">Siguiente</span>
-                            <mat-icon class="ml-2" [svgIcon]="'heroicons_outline:arrow-narrow-right'"></mat-icon>
-                        </button>
-                    </div>
-                </div>
+            <div class="flex flex-row gap-8 ml-1/4 mt-10">
+                <button mat-fab class="mt-6 p-0 w-10 h-2" (click)="anterior()" [disabled]="vistaPregunta==0">
+                    <mat-icon [svgIcon]="'heroicons_outline:chevron-left'"></mat-icon>
+                </button>
+                <button *ngIf="vistaPregunta<3" class="fuse-mat-button-large w-40 mt-5 bg-azul-fintra text-white" mat-flat-button (click)="continuar()">
+                    <span class="text-xl">Siguiente</span>
+                </button>
+                <button *ngIf="vistaPregunta==3" class="fuse-mat-button-large w-40 mt-5 bg-azul-fintra text-white" mat-flat-button (click)="continuar()" [disabled]="lastbutton==false">
+                    <span class="text-xl">Siguiente</span>
+                </button>
             </div>
         </div>
         
