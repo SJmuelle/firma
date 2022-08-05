@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { DocumentLoginService } from 'app/core/service/document-login.service';
-import { MatRadioButton } from '@angular/material/radio';
+import { MatTabGroup } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-pregunta',
@@ -10,6 +10,11 @@ import { MatRadioButton } from '@angular/material/radio';
   styleUrls: ['./pregunta.component.scss']
 })
 export class PreguntaComponent implements OnInit {
+
+  @ViewChild('courseSteps', {static: true}) courseSteps: MatTabGroup;
+  currentStep: number = 0;
+  allNumQues: any[];
+
   preguntas: any[];
   respuestas = [];
   objres = {};
@@ -33,7 +38,8 @@ export class PreguntaComponent implements OnInit {
   constructor(
     private _documentLoginService: DocumentLoginService,
     private router: Router,
-    private activeroute: ActivatedRoute
+    private activeroute: ActivatedRoute,
+    private _changeDetectorRef: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -46,7 +52,13 @@ export class PreguntaComponent implements OnInit {
     this.infoToken = JSON.parse(localStorage.getItem('datosOtp'))
     // console.log(this.preguntas[0].texto.slice(1).toLowerCase())
     this.textCapi = this.preguntas[this.vistaPregunta].texto[0].toUpperCase()+this.preguntas[this.vistaPregunta].texto.slice(1).toLowerCase();
-    console.log(this.textCapi)
+    // console.log(this.textCapi)
+    this.allNumQues = [
+      {order   : 0},
+      {order   : 1 },
+      {order   : 2},
+      {order   : 3}
+    ]
   }
 
   capturarRespuesta(item){
@@ -69,10 +81,28 @@ export class PreguntaComponent implements OnInit {
     }
   }
 
+  goToStep(step: number): void {
+    // Set the current step
+    this.currentStep = step;
+    if (this.currentStep > this.vistaPregunta) {
+      this.continuar()
+    }
+
+    if (this.currentStep < this.vistaPregunta) {
+      this.anterior()
+    }
+    // Go to the step
+    // this.courseSteps.selectedIndex = this.currentStep;
+    // Mark for check
+    this._changeDetectorRef.markForCheck();
+    
+  }
+
   continuar(){
     this.vistaPregunta = this.vistaPregunta+1;
     this.cantPreguntas = this.cantPreguntas-1;
     this.conteoup = this.conteoup + 1
+    this.goToStep(this.vistaPregunta)
     if (this.vistaPregunta == 4) {
       if (this.cantPreguntas==0) {
         this.confirmar()
@@ -89,6 +119,7 @@ export class PreguntaComponent implements OnInit {
     this.vistaPregunta = this.vistaPregunta-1;
     this.cantPreguntas = this.cantPreguntas+1;
     this.conteoup = this.conteoup - 1
+    this.goToStep(this.vistaPregunta)
     this.textCapi = this.preguntas[this.vistaPregunta].texto[0].toUpperCase()+this.preguntas[this.vistaPregunta].texto.slice(1).toLowerCase();
     console.log(this.textCapi)
   }
