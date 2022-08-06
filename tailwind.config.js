@@ -1,7 +1,9 @@
 const path = require('path');
 const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
+const colorsFintra = require('./colors-fintra');
 const generatePalette = require(path.resolve(__dirname, ('src/@fuse/tailwind/utils/generate-palette')));
+const fintraColors = require('./colors-fintra');
 
 /**
  * Custom palettes
@@ -24,8 +26,8 @@ const themes = {
             DEFAULT: colors.indigo[600]
         },
         accent   : {
-            ...colors.slate,
-            DEFAULT: colors.slate[800]
+            ...colorsFintra.blueFintra,
+            DEFAULT: colorsFintra.blueFintra[50]
         },
         warn     : {
             ...colors.red,
@@ -33,7 +35,8 @@ const themes = {
         },
         'on-warn': {
             500: colors.red['50']
-        }
+        },
+
     },
     // Rest of the themes will use the 'default' as the base theme
     // and extend them with their given configuration
@@ -57,6 +60,12 @@ const themes = {
     },
     'amber' : {
         primary: colors.amber
+    },
+    'fintraTertiari': {
+        primary: {
+            ...fintraColors.blueFintra,
+            DEFAULT: fintraColors.blueFintra[50]
+        }
     }
 };
 
