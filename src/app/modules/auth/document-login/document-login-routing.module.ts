@@ -9,6 +9,7 @@ import { PreguntaComponent } from './pregunta/pregunta.component';
 import { ReplayComponent } from './replay/replay.component';
 import { NoAprobadoComponent } from './no-aprobado/no-aprobado.component';
 import { AprobadoComponent } from './aprobado/aprobado.component';
+import { CantPreguntasComponent } from './cant-preguntas/cant-preguntas.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path     : 'no-aprobado',
     component: NoAprobadoComponent
+  },
+  {
+    path     : 'ejemplo',
+    component: CantPreguntasComponent
   }
 ];
 

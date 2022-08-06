@@ -1,8 +1,74 @@
 .color-fintra {
     color: #00c3fd;
 }
-.h-carta {
+
+.fondo {
+    content:'';
+    z-index: 9;
+	position: absolute;
+    top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0,0,0,0.6);
+}
+
+.bg-lista {
+    background-color: #bed104;
+}
+
+.text-lista {
+    color: #bed104;
+}
+
+.numero{
+    width: 3%;
+}
+
+.pregunta{
+    width: 97%;
+}
+
+.circulo {
+    border-radius: 50%;
+    width: 100%;
+    text-align: center;
+    height: 30px;
+    border: 2px solid #3ec0f2; 
+    color: #3ec0f2;
+}
+
+.label-txt {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.swal-height {
+    height: 50%;
+    background-color: transparent;
+}
+.space-carta-1{
+    margin-bottom: 29%;
+}
+
+.carta-1 {
+    width: 20%;
+}
+
+.contain-carta-1 {
+    width: 25%;
     height: 35%;
+}
+
+.shadow-right {
+    box-shadow: 5px 0 5px -5px #333;
+}
+
+.carta-2 {
+    width: 80%;
+}
+
+
+.h-carta {
+    height: 1%;
 }
 
 .space-loading {

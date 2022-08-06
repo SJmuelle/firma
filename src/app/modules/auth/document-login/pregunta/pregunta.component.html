@@ -1,58 +1,104 @@
-<div class="flex flex-col flex-auto items-center sm:justify-center min-w-0">
-    <div class="flex flex-row justify-center h-carta w-2/5 py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card">
-        <div *ngIf="cargando != true" class="mx-auto min-h-100">
-            <div class="my-4" *ngFor="let pregunta of preguntas; let i=index">
-                <ng-container *ngIf="i==vistaPregunta">
-                    <div class="flex flex-row gap-3">
-                        <div>
-                            <label id="label{{pregunta.id}}" class="font-semibold m-0 p-0">
-                                {{i+1}})
-                            </label>
-                        </div>
-                        <div>
-                            <label id="label{{pregunta.id}}" class="font-semibold m-0 p-0">
-                                {{textCapi}}
-                            </label>
-                        </div>
-                    </div>
-                    <div class="ml-9">
-                        <mat-radio-group aria-labelledby="label{{pregunta.id}}" [(ngModel)]="pregunta.seleccionada">
-                            <ng-container *ngFor="let respuesta of pregunta.Respuesta">
-                                <div class="grid grid-cols-12 gap-4 my-2">
-                                    <div class="col-start-1 content-center">
-                                        <mat-radio-button class="example-radio-button" value="{{respuesta.id}}" (click)="capturarRespuesta(respuesta.id)">{{respuesta.texto}}</mat-radio-button>
-                                    </div>
-                                </div>
-                            </ng-container>
-                        </mat-radio-group>
-                    </div>
-                    
-                </ng-container>
-            </div>
+<div *ngIf="cargando == true" class="flex flex-row w-full h-full items-center justify-center fondo">
+    <img class="h-100 w-100" src="assets/images/pages/cargando.gif">
+</div>
+<div class="flex flex-col w-full">
+    <div class="flex flex-row justify-center w-full h-24 bg-white">
+        <div class="flex flex-col w-30 items-center justify-center">
+            <img src="assets/images/logo/logo-fintra-blanco.png">
         </div>
     </div>
-    
-    <div class="flex justify-center">
-        <div class="z-10 sticky hidden lg:flex bottom-4 p-4">
-            <div class="flex items-center justify-center mx-auto p-2 rounded-full shadow-lg bg-azul-fintra">
-                <button class="flex-0 color-fintra" mat-button (click)="anterior()" [disabled]="vistaPregunta==0">
-                    <mat-icon class="mr-2" [svgIcon]="'heroicons_outline:arrow-narrow-left'"></mat-icon>
-                    <span class="mr-1 text-on-primary">Anterior</span>
-                </button>
-                <div class="flex items-center justify-center mx-2.5 font-medium leading-5 text-on-primary">
-                    <span>{{conteoup}}</span>
-                    <span class="mx-0.5 text-hint">/</span>
-                    <span>{{totalpreguntas}}</span>
-                </div>
-                <button *ngIf="vistaPregunta<3" class="flex-0 color-fintra" mat-button (click)="continuar()" [disabled]="temprespuesta==0">
-                    <span class="ml-1 text-on-primary">Siguiente</span>
-                    <mat-icon class="ml-2" [svgIcon]="'heroicons_outline:arrow-narrow-right'"></mat-icon>
-                </button>
-                <button *ngIf="vistaPregunta==3" class="flex-0 color-fintra" mat-button (click)="continuar()" [disabled]="lastbutton==false">
-                    <span class="ml-1 text-on-primary">Siguiente</span>
-                    <mat-icon class="ml-2" [svgIcon]="'heroicons_outline:arrow-narrow-right'"></mat-icon>
-                </button>
+    <div class="flex flex-row gap-9 h-full w-full">    
+        <div class="flex flex-row h-full justify-end carta-1 items-center">
+            <div class="flex flex-row justify-center h-90 items-center bg-card rounded-2xl shadow shadow-bottom pt-0 pb-0 pr-5 pl-5 space-carta-1 contain-carta-1">
+                <ol>
+                    <ng-container *ngFor="let item of allNumQues; let last = last">
+                        <li
+                            class="relative group py-6"
+                            [class.current-step]="item.order === currentStep">
+                            <ng-container *ngIf="!last">
+                                <div class="absolute top-6 left-4 w-0.5 h-full -ml-px"
+                                    [ngClass]="{'bg-green-800': item.order < currentStep,
+                                                'bg-gray-300 dark:bg-lime-500': item.order >= currentStep}"></div>
+                            </ng-container>
+                            <div class="relative flex items-start">
+                                <div class="flex flex-0 items-center justify-center w-8 h-8 rounded-full ring-2 ring-inset bg-card dark:bg-default"
+                                    [ngClass]="{'ring-lime-500 bg-lime-500 dark:bg-lime-500 text-on-primary ring-transparent': item.order < currentStep,
+                                                'ring-lime-500': item.order === currentStep,
+                                                'ring-gray-300 group-hover:ring-lime-400': item.order > currentStep}">
+                                    
+                                    <ng-container *ngIf="item.order < currentStep">
+                                        <mat-icon
+                                            class="icon-size-5 text-current"
+                                            [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                                    </ng-container>
+                                    
+                                    <ng-container *ngIf="item.order === currentStep">
+                                        <div class="text-md font-semibold text-hint dark:text-lime-500">{{item.order + 1}}</div>
+                                    </ng-container>
+                                    
+                                    <ng-container *ngIf="item.order > currentStep">
+                                        <div class="text-md font-semibold text-hint group-hover:text-secondary">{{item.order + 1}}</div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </li>
+                    </ng-container>
+                </ol>
             </div>
         </div>
+        <div class="flex flex-row h-full carta-2 items-center">
+            <div class="flex flex-col">
+                <div class="h-90 w-4/5 py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card">
+                    <div class="mx-auto min-h-100">
+                        <div class="my-4" *ngFor="let pregunta of preguntas; let i=index">
+                            <ng-container *ngIf="i==vistaPregunta">
+                                <div class="flex flex-row gap-5 w-full h-full">
+                                    <div class="numero">
+                                        <div class="circulo h-8">
+                                            <label id="label{{pregunta.id}}" class="font-semibold mb-8 text-2xl">
+                                                {{i+1}}
+                                            </label>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="pregunta">
+                                        <label id="label{{pregunta.id}}" class="font-semibold m-0 p-0 text-xl">
+                                            {{textCapi}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="ml-14">
+                                    <mat-radio-group aria-labelledby="label{{pregunta.id}}" [(ngModel)]="pregunta.seleccionada">
+                                        <ng-container *ngFor="let respuesta of pregunta.Respuesta">
+                                            <div class="grid grid-cols-12 gap-4 my-2">
+                                                <div class="col-start-1 content-center">
+                                                    <mat-radio-button value="{{respuesta.id}}" (click)="capturarRespuesta(respuesta.id)">
+                                                        <span [ngClass]="{}">{{respuesta.texto}}</span>
+                                                    </mat-radio-button>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </mat-radio-group>
+                                </div>
+                                
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-row gap-8 ml-1/4 mt-10">
+                    <button mat-fab class="mt-6 p-0 w-10 h-2" (click)="anterior()" [disabled]="vistaPregunta==0">
+                        <mat-icon [svgIcon]="'heroicons_outline:chevron-left'"></mat-icon>
+                    </button>
+                    <button *ngIf="vistaPregunta<3" class="fuse-mat-button-large w-40 mt-5 bg-azul-fintra text-white" mat-flat-button (click)="continuar()">
+                        <span class="text-xl">Siguiente</span>
+                    </button>
+                    <button *ngIf="vistaPregunta==3" class="fuse-mat-button-large w-40 mt-5 bg-azul-fintra text-white" mat-flat-button (click)="continuar()" [disabled]="containRespuesta<4">
+                        <span class="text-xl">Siguiente</span>
+                    </button>
+                </div>
+            </div>
+            
+        </div>
+        
     </div>
 </div>

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { DocumentLoginService } from 'app/core/service/document-login.service';
-import { MatRadioButton } from '@angular/material/radio';
+import { MatTabGroup } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-pregunta',
@@ -10,16 +10,25 @@ import { MatRadioButton } from '@angular/material/radio';
   styleUrls: ['./pregunta.component.scss']
 })
 export class PreguntaComponent implements OnInit {
+
+  @ViewChild('courseSteps', {static: true}) courseSteps: MatTabGroup;
+  currentStep: number = 0;
+  allNumQues: any[];
+
   preguntas: any[];
   respuestas = [];
   objres = {};
   temprespuesta: number = 0;
   cantPreguntas=0;
+  containRespuesta: number = 0;
   vistaPregunta=0;
   conteoup: number = 1;
   totalpreguntas: number = 4;
   cargando: boolean;
   lastbutton: boolean = false;
+  selected: boolean = false;
+
+  hidecharge: boolean;
 
   textCapi: string;
 
@@ -33,7 +42,8 @@ export class PreguntaComponent implements OnInit {
   constructor(
     private _documentLoginService: DocumentLoginService,
     private router: Router,
-    private activeroute: ActivatedRoute
+    private activeroute: ActivatedRoute,
+    private _changeDetectorRef: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -44,13 +54,19 @@ export class PreguntaComponent implements OnInit {
     this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'))
     this.questions = JSON.parse(localStorage.getItem('questions'))
     this.infoToken = JSON.parse(localStorage.getItem('datosOtp'))
-    // console.log(this.preguntas[0].texto.slice(1).toLowerCase())
     this.textCapi = this.preguntas[this.vistaPregunta].texto[0].toUpperCase()+this.preguntas[this.vistaPregunta].texto.slice(1).toLowerCase();
-    console.log(this.textCapi)
+    this.allNumQues = [
+      {order   : 0},
+      {order   : 1 },
+      {order   : 2},
+      {order   : 3}
+    ]
   }
 
   capturarRespuesta(item){
     this.temprespuesta = item;
+    this.selected = item;
+    this.containRespuesta = this.containRespuesta + 1;
     if (this.vistaPregunta==3) {
       this.lastbutton = true
     }
@@ -69,28 +85,30 @@ export class PreguntaComponent implements OnInit {
     }
   }
 
+  goToStep(step: number): void {
+    this.currentStep = step;
+    this._changeDetectorRef.markForCheck();
+    
+  }
+
   continuar(){
     this.vistaPregunta = this.vistaPregunta+1;
     this.cantPreguntas = this.cantPreguntas-1;
-    this.conteoup = this.conteoup + 1
     if (this.vistaPregunta == 4) {
+      this.vistaPregunta = 3;
       if (this.cantPreguntas==0) {
         this.confirmar()
       }
     }else{
       this.textCapi = this.preguntas[this.vistaPregunta].texto[0].toUpperCase()+this.preguntas[this.vistaPregunta].texto.slice(1).toLowerCase();
-      console.log(this.textCapi)
     }
-    
-    
   }
 
   anterior(){
     this.vistaPregunta = this.vistaPregunta-1;
     this.cantPreguntas = this.cantPreguntas+1;
-    this.conteoup = this.conteoup - 1
+    this.goToStep(this.vistaPregunta)
     this.textCapi = this.preguntas[this.vistaPregunta].texto[0].toUpperCase()+this.preguntas[this.vistaPregunta].texto.slice(1).toLowerCase();
-    console.log(this.textCapi)
   }
 
   confirmar(){
@@ -105,31 +123,40 @@ export class PreguntaComponent implements OnInit {
         aplicaThomas: true,
         numeroSolicitud: parseInt(this.soli)
       }
-      
-      Swal.fire({
-        title: 'Cargando',
-        html:
-        '<div class="space-loading">' + 
-            '<div class="loading loading--full-height"></div>' +
-        '</div>',
-        allowOutsideClick: false,
-        showConfirmButton: false,
-        didOpen: () => {
-          // Swal.showLoading();
-          
-          this._documentLoginService.enviarPreguntas(data).subscribe(resp => {
-            if (resp.data.mensaje=='NO APROBADO') {
-              const error = JSON.stringify(resp.data);
-              localStorage.setItem('error', error);
-              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/no-aprobado']);
-            }else{
-              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/aprobado']);
-            }
-            this.cargando = false;
-            Swal.close()
-          })
-        },
+
+      this._documentLoginService.enviarPreguntas(data).subscribe(resp => {
+        if (resp.data.status==400) {
+          const error = JSON.stringify(resp.data);
+          localStorage.setItem('error', error);
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/no-aprobado']);
+        }else{
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/aprobado']);
+        }
+        this.cargando = false;
       })
+
+      // Swal.fire({
+      //   title: 'Cargando',
+      //   imageUrl: 'assets/images/pages/cargando.gif',
+      //   allowOutsideClick: false,
+      //   showConfirmButton: false,
+      //   customClass: 'swal-height',
+      //   didOpen: () => {
+      //     // Swal.showLoading();
+          
+      //     this._documentLoginService.enviarPreguntas(data).subscribe(resp => {
+      //       if (resp.data.status==400) {
+      //         const error = JSON.stringify(resp.data);
+      //         localStorage.setItem('error', error);
+      //         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/no-aprobado']);
+      //       }else{
+      //         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/aprobado']);
+      //       }
+      //       this.cargando = false;
+      //       Swal.close()
+      //     })
+      //   },
+      // })
       
   }
 
