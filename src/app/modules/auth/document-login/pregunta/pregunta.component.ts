@@ -88,12 +88,12 @@ export class PreguntaComponent implements OnInit {
     goToStep(step: number): void {
         this.currentStep = step;
         this._changeDetectorRef.markForCheck();
-
     }
 
     continuar() {
         this.vistaPregunta = this.vistaPregunta + 1;
         this.cantPreguntas = this.cantPreguntas - 1;
+        this.goToStep(this.vistaPregunta)
         if (this.vistaPregunta == 4) {
             this.vistaPregunta = 3;
             if (this.cantPreguntas == 0) {
@@ -123,7 +123,6 @@ export class PreguntaComponent implements OnInit {
             aplicaThomas: true,
             numeroSolicitud: parseInt(this.soli)
         }
-
         this._documentLoginService.enviarPreguntas(data).subscribe(resp => {
             if (resp.data.status == 400) {
                 const error = JSON.stringify(resp.data);
@@ -134,31 +133,6 @@ export class PreguntaComponent implements OnInit {
             }
             this.cargando = false;
         })
-
-        // Swal.fire({
-        //   title: 'Cargando',
-        //   imageUrl: 'assets/images/pages/cargando.gif',
-        //   allowOutsideClick: false,
-        //   showConfirmButton: false,
-        //   customClass: 'swal-height',
-        //   didOpen: () => {
-        //     // Swal.showLoading();
-
-        //     this._documentLoginService.enviarPreguntas(data).subscribe(resp => {
-        //       if (resp.data.status==400) {
-        //         const error = JSON.stringify(resp.data);
-        //         localStorage.setItem('error', error);
-        //         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/no-aprobado']);
-        //       }else{
-        //         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/aprobado']);
-        //       }
-        //       this.cargando = false;
-        //       Swal.close()
-        //     })
-        //   },
-        // })
-
     }
-
 }
 

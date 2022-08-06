@@ -73,7 +73,7 @@
                                             <div class="grid grid-cols-12 gap-4 my-2">
                                                 <div class="col-start-1 content-center">
                                                     <mat-radio-button value="{{respuesta.id}}" (click)="capturarRespuesta(respuesta.id)">
-                                                        <span [ngClass]="{}">{{respuesta.texto}}</span>
+                                                        <span [ngClass]="{'text-slate-500': selected!=respuesta.id}">{{respuesta.texto}}</span>
                                                     </mat-radio-button>
                                                 </div>
                                             </div>
