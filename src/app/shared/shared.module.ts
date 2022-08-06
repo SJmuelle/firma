@@ -8,8 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FuseAlertModule } from '@fuse/components/alert';
-import {MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio';
-import {MatStepperModule} from '@angular/material/stepper';
+import { MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
     imports: [
@@ -36,10 +36,9 @@ import {MatStepperModule} from '@angular/material/stepper';
     providers: [
         {
             provide: MAT_RADIO_DEFAULT_OPTIONS,
-            useValue: { color: 'accent' },
+            useValue: { color: 'primary' },
         }
     ]
 })
-export class SharedModule
-{
+export class SharedModule {
 }
