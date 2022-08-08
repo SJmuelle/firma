@@ -26,7 +26,7 @@ export class PreguntaComponent implements OnInit {
     totalpreguntas: number = 4;
     cargando: boolean;
     lastbutton: boolean = false;
-    selected: boolean = false;
+    selected: number = 0;
 
     hidecharge: boolean;
 
@@ -102,6 +102,7 @@ export class PreguntaComponent implements OnInit {
         } else {
             this.textCapi = this.preguntas[this.vistaPregunta].texto[0].toUpperCase() + this.preguntas[this.vistaPregunta].texto.slice(1).toLowerCase();
         }
+        this.selected = 0;
     }
 
     anterior() {
@@ -123,14 +124,19 @@ export class PreguntaComponent implements OnInit {
             aplicaThomas: true,
             numeroSolicitud: parseInt(this.soli)
         }
+        console.log(data)
+        
         this._documentLoginService.enviarPreguntas(data).subscribe(resp => {
             if (resp.data.status == 400) {
                 const error = JSON.stringify(resp.data);
                 localStorage.setItem('error', error);
                 this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/no-aprobado']);
             } else {
+                const aprob = JSON.stringify(resp.data);
+                localStorage.setItem('aprob', aprob);
                 this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/aprobado']);
             }
+            debugger;
             this.cargando = false;
         })
     }

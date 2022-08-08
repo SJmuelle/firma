@@ -20,6 +20,6 @@ export class NoAprobadoComponent implements OnInit {
 
   seguir() {
     this.router.navigate(['documentLogin']);
-}
+  }
 
 }

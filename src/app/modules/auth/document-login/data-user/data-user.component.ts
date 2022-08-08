@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DocumentLoginService } from 'app/core/service/document-login.service';
 import { UtilityEvidenteService } from 'app/core/service/utility-evidente.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-data-user',
@@ -58,16 +59,14 @@ export class DataUserComponent implements OnInit {
                   infoToken: resp.data.infoToken
                 });
                 localStorage.setItem('datosOtp', responseData);
-                this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/generarOTP']);
+                this.generarOTP();
                 break;
               default:
                 break;
             }
-            
           }
           this.Btndisabled = false;
         }
-        
       })
     } else {
       let data={
@@ -85,6 +84,44 @@ export class DataUserComponent implements OnInit {
         this.Btndisabled = false;
       })
     }
+  }
+
+  generarOTP(): void {
+    const response = JSON.parse(localStorage.getItem('datosOtp'));
+
+    const data: any = {
+        "identificacion":  this.datosUsuario.identificacion,
+        "unidadNegocio": parseInt(this.uni),
+        "infoValidar": response.infoValidar,
+        "infoIniOTP": response.infoIniOTP,
+        "infoToken": response.infoToken
+    };
+    
+    this._documentLoginService.generarOTP(data).subscribe(resp => {
+      console.log(resp)
+      if (resp.data.status==400) {
+        if (resp.data.proceso=='Lo sentimos no hay mas intentos disponibles.') {
+          Swal.fire(
+            'Aviso',
+            resp.data.proceso,
+            'error'
+          )
+        } else {
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
+        }
+      } else {
+        switch (resp.data.proceso) {
+          case 'PREGUNTAS':
+            const question = JSON.stringify(resp.data.procesoPreguntas);
+            localStorage.setItem('questions', question);
+            this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/pregunta']);
+            break;
+          case 'VALIDAR-OTP':
+            this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/generarOTP']);
+            break;
+        }
+      }
+    })
   }
 
 }

@@ -13,7 +13,6 @@ import Swal from 'sweetalert2';
 })
 export class GeneraOTPComponent implements OnInit {
   @ViewChild('comingSoonNgForm') comingSoonNgForm: NgForm;
-  paso=1;
   alert: { type: FuseAlertType; message: string } = {
     type: 'success',
     message: ''
@@ -41,45 +40,45 @@ export class GeneraOTPComponent implements OnInit {
     });
   }
 
-  generarOTP(): void {
-    this.botonff = true;
-    const response = JSON.parse(localStorage.getItem('datosOtp'));
+  // generarOTP(): void {
+  //   this.botonff = true;
+  //   const response = JSON.parse(localStorage.getItem('datosOtp'));
 
-    const data: any = {
-        "identificacion":  this.datosUsuario.identificacion,
-        "unidadNegocio": parseInt(this.uni),
-        "infoValidar": response.infoValidar,
-        "infoIniOTP": response.infoIniOTP,
-        "infoToken": response.infoToken
-    };
+  //   const data: any = {
+  //       "identificacion":  this.datosUsuario.identificacion,
+  //       "unidadNegocio": parseInt(this.uni),
+  //       "infoValidar": response.infoValidar,
+  //       "infoIniOTP": response.infoIniOTP,
+  //       "infoToken": response.infoToken
+  //   };
     
-    this._documentLoginService.generarOTP(data).subscribe(resp => {
-      console.log(resp)
-      if (resp.data.status==400) {
-        if (resp.data.proceso=='Lo sentimos no hay mas intentos disponibles.') {
-          Swal.fire(
-            'Aviso',
-            resp.data.proceso,
-            'error'
-          )
-        } else {
-          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
-        }
-      } else {
-        switch (resp.data.proceso) {
-          case 'PREGUNTAS':
-            const question = JSON.stringify(resp.data.procesoPreguntas);
-            localStorage.setItem('questions', question);
-            this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/pregunta']);
-            break;
-          case 'VALIDAR-OTP':
-            this.paso=2;
-            break;
-        }
-      }
-      this.botonff = false;
-    })
-  }
+  //   this._documentLoginService.generarOTP(data).subscribe(resp => {
+  //     console.log(resp)
+  //     if (resp.data.status==400) {
+  //       if (resp.data.proceso=='Lo sentimos no hay mas intentos disponibles.') {
+  //         Swal.fire(
+  //           'Aviso',
+  //           resp.data.proceso,
+  //           'error'
+  //         )
+  //       } else {
+  //         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
+  //       }
+  //     } else {
+  //       switch (resp.data.proceso) {
+  //         case 'PREGUNTAS':
+  //           const question = JSON.stringify(resp.data.procesoPreguntas);
+  //           localStorage.setItem('questions', question);
+  //           this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/pregunta']);
+  //           break;
+  //         case 'VALIDAR-OTP':
+  //           this.paso=2;
+  //           break;
+  //       }
+  //     }
+  //     this.botonff = false;
+  //   })
+  // }
 
   validateOtp() {
     const response = JSON.parse(localStorage.getItem('datosOtp'));
