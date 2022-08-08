@@ -17,13 +17,8 @@
                 
             </div>
             
-            <fuse-alert
-                class="mt-8 -mb-4"
-                *ngIf="showAlert"
-                [appearance]="'outline'"
-                [showIcon]="false"
-                [type]="alert.type"
-                [@shake]="alert.type === 'error'">
+            <fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false"
+                [type]="alert.type" [@shake]="alert.type === 'error'">
                 {{alert.message}}
             </fuse-alert>
 
@@ -57,11 +52,7 @@
                                 [mode]="'indeterminate'"></mat-progress-spinner>
                         </button>
                     </div>
-                </div>
-
-                
-
-                
+                </div>                
             </form>
         </div>
     </div>

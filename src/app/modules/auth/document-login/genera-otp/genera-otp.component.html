@@ -1,4 +1,4 @@
-<div class="flex flex-col flex-auto items-center sm:justify-center min-w-0">
+<!-- <div class="flex flex-col flex-auto items-center sm:justify-center min-w-0">
     <div class="flex flex-row w-3/4 gap-5 sm:w-auto py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card">
         <div class="w-80" *ngIf="paso==1">
             <img src="assets/images/pages/proceso.svg">
@@ -18,39 +18,63 @@
                 </mat-progress-spinner>
             </button>
         </div>
-        <div class="w-80" *ngIf="paso==2">
-            <img src="assets/images/pages/mobile_messages.svg">
+    </div>
+</div> -->
+
+
+<div class="flex flex-col h-screen flex-auto items-center sm:justify-center min-w-0 fondo" *ngIf="paso==2">
+    <div class="w-4/5">
+        <div class="w-30 mb-8 ml-64">
+            <img src="assets/images/logo/logo-fintra-gris.png" *ngIf="paso==2">
         </div>
-        <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0" *ngIf="paso==2">
-            <div class="mt-8 text-2xl font-extrabold tracking-tight leading-tight">Codigo OTP</div>
-            <div class="mt-0.5">
-                Porfavor digitar el codigo enviado al numero <strong>{{datosUsuario.celular}}</strong>
+    </div>
+
+    <div class="flex flex-row size-card sm:rounded-2xl sm:shadow sm:bg-card">
+
+        <img class="imagen sm:rounded-l-2xl h-160" src="assets/images/pages/codotp.png">
+
+        <div class="flex flex-col h-full justify-center items-center input">
+
+            <div class="text-3xl font-extrabold tracking-tight leading-tight">Código OTP</div>
+
+            <div class="mt-2 justify-center">
+                <p class="w-64 text-center">
+                    Por favor digite el código enviado al número: <strong>{{datosUsuario.celular}}</strong>
+                </p>    
             </div>
+
             <fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false"
                 [type]="alert.type" [@shake]="alert.type === 'error'">
                 {{alert.message}}
             </fuse-alert>
-            <!-- Coming soon form -->
+
             <form class="mt-8" [formGroup]="comingSoonForm" #comingSoonNgForm="ngForm">
-                <!-- Email field -->
-                <mat-form-field class="w-full">
-                    <mat-label>Número OTP</mat-label>
-                    <input id="documento" matInput autocomplete="off" [formControlName]="'documento'">
-                    <mat-error *ngIf="comingSoonForm.get('documento').hasError('required')">
-                        Número OTP invalido
-                    </mat-error>
-                </mat-form-field>
-                <!-- Submit button -->
-                <button class="fuse-mat-button-large w-full mt-3 bg-azul-fintra text-white" mat-flat-button
-                    type="button" [disabled]="comingSoonForm.disabled" (click)="validateOtp()">
-                    <span *ngIf="!comingSoonForm.disabled">
-                        Continuar
-                    </span>
-                    <mat-progress-spinner 
-                    *ngIf="comingSoonForm.disabled" [diameter]="24" [mode]="'indeterminate'">
-                    </mat-progress-spinner>
-                </button>
+
+                <div class="flex flex-col w-full">
+                    <div class="flex flex-row justify-center">
+                        <mat-form-field class="w-72">
+                            <mat-icon class="mr-2" [svgIcon]="'heroicons_outline:lock-closed'"></mat-icon>
+                            <input id="documento" matInput autocomplete="off" [formControlName]="'documento'">
+                            <mat-error *ngIf="comingSoonForm.get('documento').hasError('required')">
+                                Código OTP invalido
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    
+                    <div class="flex flex-row justify-center w-full">
+                        <button class="fuse-mat-button-large w-30 mt-5 bg-azul-fintra text-white" mat-flat-button type="button" [disabled]="comingSoonForm.disabled" (click)="validateOtp()">
+                            <span class="text-lg" *ngIf="!comingSoonForm.disabled">
+                                Verificar
+                            </span>
+                            <mat-progress-spinner *ngIf="comingSoonForm.disabled" [diameter]="24" [mode]="'indeterminate'">
+                            </mat-progress-spinner>
+                        </button>
+                    </div>
+                </div>
+                
             </form>
+
         </div>
+
     </div>
 </div>
