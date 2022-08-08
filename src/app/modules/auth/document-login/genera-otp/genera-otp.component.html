@@ -1,44 +1,25 @@
-<!-- <div class="flex flex-col flex-auto items-center sm:justify-center min-w-0">
-    <div class="flex flex-row w-3/4 gap-5 sm:w-auto py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card">
-        <div class="w-80" *ngIf="paso==1">
-            <img src="assets/images/pages/proceso.svg">
-        </div>
-        <div class="flex flex-col w-full max-w-80 sm:w-80 mx-auto sm:mx-0" *ngIf="paso==1">
-            <div class="text-2xl font-extrabold tracking-tight leading-tight">Validación de identidad</div>
-            <div class="mt-5">
-                Por favor dar click para iniciar el proceso.
-            </div>
-            <button class="mt-10 fuse-mat-button-large w-full bg-azul-fintra text-white" mat-flat-button type="button"
-               (click)="generarOTP()" [disabled]="botonff==true">
-                <span *ngIf="botonff!=true">
-                    Continuar
-                </span>
-                <mat-progress-spinner 
-                    *ngIf="botonff==true" [diameter]="24" [mode]="'indeterminate'">
-                </mat-progress-spinner>
-            </button>
-        </div>
-    </div>
-</div> -->
-
-
-<div class="flex flex-col h-screen flex-auto items-center sm:justify-center min-w-0 fondo" *ngIf="paso==2">
+<div class="flex flex-col h-screen flex-auto items-center sm:justify-center min-w-0 fondo">
     <div class="w-4/5">
         <div class="w-30 mb-8 ml-64">
-            <img src="assets/images/logo/logo-fintra-gris.png" *ngIf="paso==2">
+            <img src="assets/images/logo/logo-fintra-gris.png">
         </div>
     </div>
 
     <div class="flex flex-row size-card sm:rounded-2xl sm:shadow sm:bg-card">
 
-        <img class="imagen sm:rounded-l-2xl h-160" src="assets/images/pages/codotp.png">
+        <img class="imagen sm:rounded-l-2xl h-160" src="assets/images/pages/codotp.png" *ngIf="paso==1">
+        <img class="imagen sm:rounded-l-2xl h-160" src="assets/images/pages/codotp.png" *ngIf="paso==2">
 
         <div class="flex flex-col h-full justify-center items-center input">
 
-            <div class="text-3xl font-extrabold tracking-tight leading-tight">Código OTP</div>
+            <div class="text-3xl font-extrabold tracking-tight leading-tight" *ngIf="paso==1">Validación de identidad</div>
+            <div class="text-3xl font-extrabold tracking-tight leading-tight" *ngIf="paso==2">Código OTP</div>
 
             <div class="mt-2 justify-center">
-                <p class="w-64 text-center">
+                <p class="w-64 text-center" *ngIf="paso==1">
+                    Por favor dar click para iniciar el proceso.
+                </p> 
+                <p class="w-64 text-center" *ngIf="paso==2">
                     Por favor digite el código enviado al número: <strong>{{datosUsuario.celular}}</strong>
                 </p>    
             </div>
@@ -48,7 +29,19 @@
                 {{alert.message}}
             </fuse-alert>
 
-            <form class="mt-8" [formGroup]="comingSoonForm" #comingSoonNgForm="ngForm">
+            <div class="flex flex-row justify-center w-full" *ngIf="paso==1">
+                <button class="fuse-mat-button-large w-30 mt-5 bg-azul-fintra text-white" mat-flat-button type="button" (click)="generarOTP()" [disabled]="botonff==true">
+                    <span *ngIf="botonff!=true">
+                        Continuar
+                    </span>
+                    <mat-progress-spinner *ngIf="botonff==true" [diameter]="24" [mode]="'indeterminate'">
+                    </mat-progress-spinner>
+                </button>
+            </div>
+
+
+
+            <form class="mt-8" [formGroup]="comingSoonForm" #comingSoonNgForm="ngForm" *ngIf="paso==2">
 
                 <div class="flex flex-col w-full">
                     <div class="flex flex-row justify-center">

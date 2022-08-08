@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class GeneraOTPComponent implements OnInit {
   @ViewChild('comingSoonNgForm') comingSoonNgForm: NgForm;
-  paso=2;
+  paso=1;
   alert: { type: FuseAlertType; message: string } = {
     type: 'success',
     message: ''
