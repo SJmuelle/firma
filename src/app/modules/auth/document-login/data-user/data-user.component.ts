@@ -67,6 +67,8 @@ export class DataUserComponent implements OnInit {
           }
           this.Btndisabled = false;
         }
+      }, error => {
+        this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
       })
     } else {
       let data={

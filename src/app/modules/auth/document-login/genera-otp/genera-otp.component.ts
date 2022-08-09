@@ -40,46 +40,6 @@ export class GeneraOTPComponent implements OnInit {
     });
   }
 
-  // generarOTP(): void {
-  //   this.botonff = true;
-  //   const response = JSON.parse(localStorage.getItem('datosOtp'));
-
-  //   const data: any = {
-  //       "identificacion":  this.datosUsuario.identificacion,
-  //       "unidadNegocio": parseInt(this.uni),
-  //       "infoValidar": response.infoValidar,
-  //       "infoIniOTP": response.infoIniOTP,
-  //       "infoToken": response.infoToken
-  //   };
-    
-  //   this._documentLoginService.generarOTP(data).subscribe(resp => {
-  //     console.log(resp)
-  //     if (resp.data.status==400) {
-  //       if (resp.data.proceso=='Lo sentimos no hay mas intentos disponibles.') {
-  //         Swal.fire(
-  //           'Aviso',
-  //           resp.data.proceso,
-  //           'error'
-  //         )
-  //       } else {
-  //         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
-  //       }
-  //     } else {
-  //       switch (resp.data.proceso) {
-  //         case 'PREGUNTAS':
-  //           const question = JSON.stringify(resp.data.procesoPreguntas);
-  //           localStorage.setItem('questions', question);
-  //           this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/pregunta']);
-  //           break;
-  //         case 'VALIDAR-OTP':
-  //           this.paso=2;
-  //           break;
-  //       }
-  //     }
-  //     this.botonff = false;
-  //   })
-  // }
-
   validateOtp() {
     const response = JSON.parse(localStorage.getItem('datosOtp'));
     let data = {
@@ -95,6 +55,8 @@ export class GeneraOTPComponent implements OnInit {
     this._documentLoginService.validarOTP(data).subscribe(resp => {
       if (resp.status == 200) {
         if (resp.data.status==400) {
+          const error = JSON.stringify(resp.data.mensaje);
+          localStorage.setItem('error', error);
           this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
         } else {
           switch (resp.data.PROCESO) {
@@ -107,15 +69,17 @@ export class GeneraOTPComponent implements OnInit {
               this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizado']);
               break;
             case 'NO APROBADO':
+              const error = JSON.stringify(resp.data.mensaje);
+              localStorage.setItem('ERROR', error);
               this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
               break;
             case 'REINICIAR FLUJO':
+              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
               Swal.fire(
                 'Información',
                 'Debe reiniciar el proceso nuevamente',
                 'info'
               )
-              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
               break;
           }
         }
