@@ -108,6 +108,7 @@ export class DataUserComponent implements OnInit {
             resp.data.proceso,
             'error'
           )
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
         } else {
           this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
         }

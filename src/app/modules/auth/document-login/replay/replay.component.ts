@@ -14,7 +14,7 @@ export class ReplayComponent implements OnInit {
   constructor(private router: Router, private activeroute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.mensaje=localStorage.getItem('error')
+    this.mensaje=localStorage.getItem('ERROR')
   }
 
   seguir() {
