@@ -41,6 +41,7 @@ export class GeneraOTPComponent implements OnInit {
   }
 
   validateOtp() {
+    this.botonff = true;
     const response = JSON.parse(localStorage.getItem('datosOtp'));
     let data = {
       "identificacion":  this.datosUsuario.identificacion,
@@ -55,6 +56,7 @@ export class GeneraOTPComponent implements OnInit {
     this._documentLoginService.validarOTP(data).subscribe(resp => {
       if (resp.status == 200) {
         if (resp.data.status==400) {
+          this.botonff = false;
           const error = JSON.stringify(resp.data.mensaje);
           localStorage.setItem('ERROR', error);
           this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
@@ -74,15 +76,16 @@ export class GeneraOTPComponent implements OnInit {
               this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
               break;
             case 'REINICIAR FLUJO':
-              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
               Swal.fire(
                 'Información',
                 'Debe reiniciar el proceso nuevamente',
                 'info'
               )
+              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
               break;
           }
         }
+        this.botonff = false;
       }
     });
   }

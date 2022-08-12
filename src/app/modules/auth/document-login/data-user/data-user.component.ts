@@ -43,6 +43,7 @@ export class DataUserComponent implements OnInit {
         } else {
           if(resp.data.status==400){
             localStorage.setItem('ERROR', resp.data.mensaje);
+            this.Btndisabled = false;
             this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
             return;
           }else{
@@ -50,6 +51,7 @@ export class DataUserComponent implements OnInit {
               case 'PREGUNTAS':
                 const question = JSON.stringify(resp.data.procesoPreguntas);
                 localStorage.setItem('questions', question);
+                this.Btndisabled = false;
                 this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/pregunta']);
                 break;
               case 'OTP':
@@ -65,7 +67,7 @@ export class DataUserComponent implements OnInit {
                 break;
             }
           }
-          this.Btndisabled = false;
+          
         }
       }, error => {
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
@@ -108,8 +110,10 @@ export class DataUserComponent implements OnInit {
             resp.data.proceso,
             'error'
           )
+          this.Btndisabled = false;
           this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
         } else {
+          this.Btndisabled = false;
           this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
         }
       } else {
@@ -117,9 +121,11 @@ export class DataUserComponent implements OnInit {
           case 'PREGUNTAS':
             const question = JSON.stringify(resp.data.procesoPreguntas);
             localStorage.setItem('questions', question);
+            this.Btndisabled = false;
             this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/pregunta']);
             break;
           case 'VALIDAR-OTP':
+            this.Btndisabled = false;
             this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/generarOTP']);
             break;
         }

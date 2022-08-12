@@ -30,7 +30,7 @@
                     <div class="flex flex-row justify-center">
                         <mat-form-field class="w-72">
                             <mat-icon class="mr-2" [svgIcon]="'heroicons_outline:lock-closed'"></mat-icon>
-                            <input id="documento" matInput autocomplete="off" [formControlName]="'documento'">
+                            <input id="documento" matInput autocomplete="off" [formControlName]="'documento'" [disabled]="botonff==true">
                             <mat-error *ngIf="comingSoonForm.get('documento').hasError('required')">
                                 Código OTP invalido
                             </mat-error>
@@ -38,11 +38,11 @@
                     </div>
                     
                     <div class="flex flex-row justify-center w-full">
-                        <button class="fuse-mat-button-large w-30 mt-5 bg-azul-fintra text-white" mat-flat-button type="button" [disabled]="comingSoonForm.disabled" (click)="validateOtp()">
-                            <span class="text-lg" *ngIf="!comingSoonForm.disabled">
+                        <button class="fuse-mat-button-large w-30 mt-5 bg-azul-fintra text-white" mat-flat-button type="button" [disabled]="botonff==true" (click)="validateOtp()">
+                            <span class="text-lg" *ngIf="botonff!=true">
                                 Verificar
                             </span>
-                            <mat-progress-spinner *ngIf="comingSoonForm.disabled" [diameter]="24" [mode]="'indeterminate'">
+                            <mat-progress-spinner *ngIf="botonff==true" [diameter]="24" [mode]="'indeterminate'">
                             </mat-progress-spinner>
                         </button>
                     </div>
