@@ -136,7 +136,6 @@ export class PreguntaComponent implements OnInit {
                 localStorage.setItem('aprob', aprob);
                 this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/aprobado']);
             }
-            debugger;
             this.cargando = false;
         })
     }

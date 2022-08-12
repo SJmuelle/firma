@@ -61,19 +61,25 @@ export class GeneraOTPComponent implements OnInit {
           localStorage.setItem('ERROR', error);
           this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
         } else {
-          switch (resp.data.PROCESO) {
+          const aprob = JSON.stringify(resp.data);
+          switch (resp.data.proceso) {
             case 'PREGUNTAS':
               const question = JSON.stringify(resp.data.procesoPreguntas);
               localStorage.setItem('questions', question);
               this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/pregunta']);
               break;
+            case 'FIRMA THOMAS':
+              localStorage.setItem('aprob', aprob);
+              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/aprobado']);
+              break;
             case 'APROBADO':
-              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizado']);
+              localStorage.setItem('aprob', aprob);
+              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/aprobado']);
               break;
             case 'NO APROBADO':
               const error = JSON.stringify(resp.data.mensaje);
-              localStorage.setItem('ERROR', error);
-              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
+              localStorage.setItem('error', error);
+              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/no-aprobado']);
               break;
             case 'REINICIAR FLUJO':
               Swal.fire(
