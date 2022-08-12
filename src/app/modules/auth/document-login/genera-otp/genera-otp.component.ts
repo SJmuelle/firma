@@ -56,7 +56,7 @@ export class GeneraOTPComponent implements OnInit {
       if (resp.status == 200) {
         if (resp.data.status==400) {
           const error = JSON.stringify(resp.data.mensaje);
-          localStorage.setItem('error', error);
+          localStorage.setItem('ERROR', error);
           this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
         } else {
           switch (resp.data.PROCESO) {
