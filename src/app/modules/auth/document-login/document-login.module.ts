@@ -13,6 +13,10 @@ import { PreguntaComponent } from './pregunta/pregunta.component';
 import { NoAprobadoComponent } from './no-aprobado/no-aprobado.component';
 import { AprobadoComponent } from './aprobado/aprobado.component';
 import { CantPreguntasComponent } from './cant-preguntas/cant-preguntas.component';
+import { FirmaInternaComponent } from './firma-interna/firma-interna.component';
+import { ClausulaComponent } from './firma-interna/clausula/clausula.component';
+import { DocumentosFirmarComponent } from './documentos-firmar/documentos-firmar.component';
+import { ValidarOtpFirmaComponent } from './validar-otp-firma/validar-otp-firma.component';
 
 
 @NgModule({
@@ -26,7 +30,11 @@ import { CantPreguntasComponent } from './cant-preguntas/cant-preguntas.componen
     PreguntaComponent,
     NoAprobadoComponent,
     AprobadoComponent,
-    CantPreguntasComponent
+    CantPreguntasComponent,
+    FirmaInternaComponent,
+    ClausulaComponent,
+    DocumentosFirmarComponent,
+    ValidarOtpFirmaComponent
   ],
   imports: [
     CommonModule,

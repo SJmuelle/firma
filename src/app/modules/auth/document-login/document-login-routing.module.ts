@@ -10,6 +10,9 @@ import { ReplayComponent } from './replay/replay.component';
 import { NoAprobadoComponent } from './no-aprobado/no-aprobado.component';
 import { AprobadoComponent } from './aprobado/aprobado.component';
 import { CantPreguntasComponent } from './cant-preguntas/cant-preguntas.component';
+import { FirmaInternaComponent } from './firma-interna/firma-interna.component';
+import { DocumentosFirmarComponent } from './documentos-firmar/documentos-firmar.component';
+import { ValidarOtpFirmaComponent } from './validar-otp-firma/validar-otp-firma.component';
 
 const routes: Routes = [
   {
@@ -51,6 +54,18 @@ const routes: Routes = [
   {
     path     : 'ejemplo',
     component: CantPreguntasComponent
+  },
+  {
+    path     : 'interna',
+    component: FirmaInternaComponent
+  },
+  {
+    path     : 'docu-firma',
+    component: DocumentosFirmarComponent
+  },
+  {
+    path     : 'otp-firma',
+    component: ValidarOtpFirmaComponent
   }
 ];
 

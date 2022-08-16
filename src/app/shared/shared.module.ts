@@ -7,6 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FuseAlertModule } from '@fuse/components/alert';
 import { MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -31,7 +33,9 @@ import { MatStepperModule } from '@angular/material/stepper';
         FuseCardModule,
         FuseAlertModule,
         MatRadioModule,
-        MatStepperModule
+        MatStepperModule,
+        MatCheckboxModule,
+        MatDialogModule
     ],
     providers: [
         {
