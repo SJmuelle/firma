@@ -1,0 +1,80 @@
+<div class="flex flex-col h-screen flex-auto items-center sm:justify-center min-w-0 fondo">
+  <div class="w-4/5">
+      <div class="w-30 mb-8 ml-64">
+          <img src="assets/images/logo/logo-fintra-gris.png">
+      </div>
+  </div>
+
+  <div class="flex flex-row size-card sm:rounded-2xl sm:shadow sm:bg-card">
+
+      <img class="imagen sm:rounded-l-2xl h-160" src="assets/images/pages/codotp.png">
+
+      <div class="flex flex-col h-full justify-center items-center input">
+
+          <div class="text-3xl font-extrabold tracking-tight leading-tight">Generar firma electrónica</div>
+
+          <div class="mt-6 justify-center">
+              <p class="text-lg text-center">
+                La clave debe cumplir con los siguientes requisitos.
+              </p>    
+          </div>
+
+          <div class="mt-4 flex flex-col text-justify text-size lista-requesitos">
+            <p [className]="(generarForm.get('pass').errors?.minlength || generarForm.get('pass').errors?.maxlength)  ? 'invalid' : 'valid'">
+              Debe tener mínimo 8 caracteres y máximo 15.
+            </p> 
+            <p [className]="generarForm.get('pass').errors?.notNumber  ? 'invalid' : 'valid'">
+              Debe tener al menos un (1) número.
+            </p> 
+            <p [className]="generarForm.get('pass').errors?.notLowerUpper  ? 'invalid' : 'valid'">
+              Debe tener almenos dos letras. Mínimo debe tener una mayúscula
+            </p>
+            <p [className]="generarForm.get('pass').errors?.notRepite  ? 'invalid' : 'valid'">
+              No debe tener más de 5 caracteres seguidos con las misma letra.
+            </p> 
+          </div>
+
+          <fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false"
+              [type]="alert.type" [@shake]="alert.type === 'error'">
+              {{alert.message}}
+          </fuse-alert>
+
+          <form class="mt-8" [formGroup]="generarForm">
+
+            <div class="flex flex-col w-full">
+                <div class="flex flex-row justify-center">
+                    <mat-form-field class="w-72">
+                        <mat-icon class="mr-2" [svgIcon]="'heroicons_outline:lock-closed'"></mat-icon>
+                        <input id="pass" type="password" matInput autocomplete="off" [formControlName]="'pass'" placeholder="Ingrese nueva clave">
+                        <mat-error *ngIf="generarForm.get('pass').hasError('required')">
+                            No cumple con las condiciones.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="flex flex-row justify-center">
+                  <mat-form-field class="w-72">
+                      <mat-icon class="mr-2" [svgIcon]="'heroicons_outline:lock-closed'"></mat-icon>
+                      <input id="confpass" type="password" matInput autocomplete="off" [formControlName]="'confpass'" placeholder="Confirme nueva clave">
+                      <mat-error *ngIf="generarForm.get('confpass').hasError('required')">
+                          No cumple con las condiciones.
+                      </mat-error>
+                      <mat-error *ngIf="generarForm.get('confpass').errors?.notSame">
+                        No coinciden las contraseñas
+                      </mat-error>
+                  </mat-form-field>
+                </div>
+                
+                <div class="flex flex-row justify-center w-full">
+                    <button class="fuse-mat-button-large w-40 mt-5 bg-azul-fintra text-white" mat-flat-button type="button" [disabled]="generarForm.invalid">
+                        <span class="text-lg">
+                            Ir a firmar
+                        </span>
+                    </button>
+                </div>
+            </div>
+            
+        </form>
+      </div>
+  </div>
+</div>

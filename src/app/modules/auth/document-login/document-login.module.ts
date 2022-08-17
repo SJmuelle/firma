@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { DocumentLoginRoutingModule } from './document-login-routing.module';
 import { DocumentLoginComponent } from './document-login.component';
 import { SharedModule } from 'app/shared/shared.module';
@@ -17,6 +16,7 @@ import { FirmaInternaComponent } from './firma-interna/firma-interna.component';
 import { ClausulaComponent } from './firma-interna/clausula/clausula.component';
 import { DocumentosFirmarComponent } from './documentos-firmar/documentos-firmar.component';
 import { ValidarOtpFirmaComponent } from './validar-otp-firma/validar-otp-firma.component';
+import { GenerarFirmaComponent } from './generar-firma/generar-firma.component';
 
 
 @NgModule({
@@ -34,7 +34,8 @@ import { ValidarOtpFirmaComponent } from './validar-otp-firma/validar-otp-firma.
     FirmaInternaComponent,
     ClausulaComponent,
     DocumentosFirmarComponent,
-    ValidarOtpFirmaComponent
+    ValidarOtpFirmaComponent,
+    GenerarFirmaComponent
   ],
   imports: [
     CommonModule,

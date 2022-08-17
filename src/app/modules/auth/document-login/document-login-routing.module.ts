@@ -13,6 +13,7 @@ import { CantPreguntasComponent } from './cant-preguntas/cant-preguntas.componen
 import { FirmaInternaComponent } from './firma-interna/firma-interna.component';
 import { DocumentosFirmarComponent } from './documentos-firmar/documentos-firmar.component';
 import { ValidarOtpFirmaComponent } from './validar-otp-firma/validar-otp-firma.component';
+import { GenerarFirmaComponent } from './generar-firma/generar-firma.component';
 
 const routes: Routes = [
   {
@@ -66,6 +67,10 @@ const routes: Routes = [
   {
     path     : 'otp-firma',
     component: ValidarOtpFirmaComponent
+  },
+  {
+    path     : 'generar-firma',
+    component: GenerarFirmaComponent
   }
 ];
 

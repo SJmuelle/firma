@@ -1,4 +1,3 @@
-
 <div class="flex flex-col h-screen flex-auto items-center sm:justify-center min-w-0 fondo">
   <div class="w-4/5">
       <div class="w-30 mb-8 ml-64">
@@ -21,36 +20,45 @@
           </div>
 
           <div class="mt-4 justify-center">
-            <p class="w-64 text-center"><span>{{seconds}} segundos</span></p>
+            <p class="w-64 text-center contador"><span class="text-4xl">{{seconds}}</span> segundos</p>
           </div>
+
+          <div class="mt-2 justify-center">
+            <p class="w-64 text-center">
+                Tiempo de vida de la clave dinamica.
+            </p>    
+        </div>
 
           <fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false"
               [type]="alert.type" [@shake]="alert.type === 'error'">
               {{alert.message}}
           </fuse-alert>
 
-          <!-- <form class="mt-8" [formGroup]="comingSoonForm" #comingSoonNgForm="ngForm">
-              <div class="flex flex-col w-full">
-                  <div class="flex flex-row justify-center">
-                      <mat-form-field class="w-72">
-                          <mat-icon class="mr-2" [svgIcon]="'heroicons_outline:lock-closed'"></mat-icon>
-                          <input id="documento" matInput autocomplete="off" [formControlName]="'documento'" [disabled]="botonff==true">
-                          <mat-error *ngIf="comingSoonForm.get('documento').hasError('required')">
-                              Código OTP invalido
-                          </mat-error>
-                      </mat-form-field>
-                  </div>
-                  <div class="flex flex-row justify-center w-full">
-                      <button class="fuse-mat-button-large w-30 mt-5 bg-azul-fintra text-white" mat-flat-button type="button" [disabled]="botonff==true" (click)="validateOtp()">
-                          <span class="text-lg" *ngIf="botonff!=true">
-                              Verificar
-                          </span>
-                          <mat-progress-spinner *ngIf="botonff==true" [diameter]="24" [mode]="'indeterminate'">
-                          </mat-progress-spinner>
-                      </button>
-                  </div>
-              </div>
-          </form> -->
+          <form class="mt-8" [formGroup]="validarForm" #validarForm="ngForm">
+
+            <div class="flex flex-col w-full">
+                <div class="flex flex-row justify-center">
+                    <mat-form-field class="w-72">
+                        <mat-icon class="mr-2" [svgIcon]="'heroicons_outline:lock-closed'"></mat-icon>
+                        <input id="codigo" matInput autocomplete="off" [formControlName]="'codigo'" [disabled]="botonff==true">
+                        <mat-error *ngIf="validarForm.get('codigo').hasError('required')">
+                            Código OTP invalido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                
+                <div class="flex flex-row justify-center w-full">
+                    <button class="fuse-mat-button-large w-40 mt-5 bg-azul-fintra text-white" mat-flat-button type="button" [disabled]="botonff==true || validarForm.invalid">
+                        <span class="text-lg" *ngIf="botonff!=true">
+                            Validar OTP
+                        </span>
+                        <mat-progress-spinner *ngIf="botonff==true" [diameter]="24" [mode]="'indeterminate'">
+                        </mat-progress-spinner>
+                    </button>
+                </div>
+            </div>
+            
+        </form>
       </div>
   </div>
 </div>

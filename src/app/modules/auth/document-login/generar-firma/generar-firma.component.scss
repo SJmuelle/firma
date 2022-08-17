@@ -1,0 +1,35 @@
+.fondo {
+    background: #eff3f6;
+}
+
+.size-card {
+    width: 50%;
+}
+
+.imagen {
+    width: 50%;
+}
+
+.input{
+    width: 60%;
+}
+
+.text-size {
+    font-size: 0.70rem;
+}
+
+.lista-requesitos {
+    p.valid {
+        color: #198754;
+        &::before {
+          border: 1px solid #198754 !important;
+        }
+    }
+  
+    p.invalid {
+        color: #dc3545;
+        &::before {
+            border: 1px solid #dc3545 !important;
+        }
+    }
+}
