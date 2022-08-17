@@ -107,7 +107,7 @@ export class DocumentLoginComponent implements OnInit {
 
   public datosUsuario(): void {
     let doc = this.comingSoonForm.value.documento;
-    let unidadNegocio = '32';
+    let unidadNegocio = this.uni;
     this._documentLoginService.datosUsuario(this.comingSoonForm.value.documento,unidadNegocio).subscribe(resp => {
       if (resp.data!=null) {
         localStorage.setItem('datosUsuario', JSON.stringify(resp.data));

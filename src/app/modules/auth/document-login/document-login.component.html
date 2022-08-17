@@ -40,7 +40,7 @@
                             class="fuse-mat-button-large w-30 mt-5 bg-azul-fintra text-white"
                             mat-flat-button
                             type="button"
-                            [disabled]="comingSoonForm.disabled"
+                            [disabled]="comingSoonForm.invalid"
                             (click)="register()">
                             <span class="text-lg" *ngIf="!comingSoonForm.disabled">
                                 Continuar

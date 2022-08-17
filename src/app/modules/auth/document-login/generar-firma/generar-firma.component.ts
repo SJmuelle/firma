@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FirmaInternaService } from 'app/core/service/firma-interna.service';
 
 @Component({
   selector: 'app-generar-firma',
@@ -8,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./generar-firma.component.scss']
 })
 export class GenerarFirmaComponent implements OnInit {
-
+  Btndisabled: boolean;
   generarForm: FormGroup;
   showAlert: boolean = false;
 
@@ -18,13 +19,37 @@ export class GenerarFirmaComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder, 
     private router: Router,
-    private activeroute: ActivatedRoute) { }
+    private activeroute: ActivatedRoute,
+    private firmainterna: FirmaInternaService) { }
 
   ngOnInit() {
     this.generarForm = this._formBuilder.group({
       pass: ['', [Validators.required, Validators.maxLength(15), Validators.minLength(8), this.numberValid, this.lowercaseUppercaseValid, this.repeatLetter]],
       confpass: ['', [Validators.required]]
     }, { validator: this.confirmPassword });
+  }
+
+  seguir() {
+    this.Btndisabled = true;
+    let data = {
+      "numeroSolicitud": parseInt(this.soli),
+      "tipoTercero":"S",
+      "unidadNegocio":parseInt(this.uni),
+      "claveFirma":this.generarForm.value.pass
+    }
+
+    this.firmainterna.solicitarFirmar(data).subscribe(resp => {
+      if (resp.status == 200) {
+        const titulo = JSON.stringify(resp.data.title);
+        const cuerpo = JSON.stringify(resp.data.body);
+        const correo = JSON.stringify(resp.data.value);
+        localStorage.setItem('titulo', titulo);
+        localStorage.setItem('cuerpo', cuerpo);
+        localStorage.setItem('correo', correo);
+        this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizar-firma']);  
+        this.Btndisabled = false;
+      }
+    })
   }
 
   numberValid(control: FormControl): { [s: string]: boolean } {

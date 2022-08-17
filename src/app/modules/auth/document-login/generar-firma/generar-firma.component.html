@@ -66,7 +66,11 @@
                 </div>
                 
                 <div class="flex flex-row justify-center w-full">
-                    <button class="fuse-mat-button-large w-40 mt-5 bg-azul-fintra text-white" mat-flat-button type="button" [disabled]="generarForm.invalid">
+                    <button class="fuse-mat-button-large w-40 mt-5 bg-azul-fintra text-white" 
+                    mat-flat-button 
+                    type="button" 
+                    (click)="seguir()" 
+                    [disabled]="generarForm.invalid || Btndisabled==true">
                         <span class="text-lg">
                             Ir a firmar
                         </span>

@@ -14,6 +14,17 @@
           Los siguientes documentos se requieren para legalizar tu crédito, acepta en los recuadros uno a uno los términos y condiciones si estás de acuerdo.
         </p>
       </div>
+
+      <div class="mt-2 flex flex-col">
+        <div *ngFor="let item of listadoArchivos; let i=index" class=" mt-2 flex flex-row w-72 justify-between">
+          <div>
+            <p>{{item.informacion_archivo.descripcion}}</p>
+          </div>
+          <div>
+            <a class="cursor-pointer" (click)="descargar(item, i)"><mat-icon svgIcon="heroicons_outline:document-download"></mat-icon></a>
+          </div>
+        </div>
+      </div>
       <fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false"
                 [type]="alert.type" [@shake]="alert.type === 'error'">
                 {{alert.message}}

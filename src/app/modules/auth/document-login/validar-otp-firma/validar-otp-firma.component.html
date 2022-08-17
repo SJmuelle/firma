@@ -15,7 +15,7 @@
 
           <div class="mt-2 justify-center">
               <p class="w-64 text-center">
-                  Por favor digite el código enviado al número: <strong>3116824866</strong>
+                  Por favor digite el código enviado al número: <strong>{{telefono}}</strong>
               </p>    
           </div>
 
@@ -34,7 +34,7 @@
               {{alert.message}}
           </fuse-alert>
 
-          <form class="mt-8" [formGroup]="validarForm" #validarForm="ngForm">
+          <form class="mt-8" [formGroup]="validarForm">
 
             <div class="flex flex-col w-full">
                 <div class="flex flex-row justify-center">
@@ -48,7 +48,9 @@
                 </div>
                 
                 <div class="flex flex-row justify-center w-full">
-                    <button class="fuse-mat-button-large w-40 mt-5 bg-azul-fintra text-white" mat-flat-button type="button" [disabled]="botonff==true || validarForm.invalid">
+                    <button class="fuse-mat-button-large w-40 mt-5 bg-azul-fintra text-white" mat-flat-button 
+                    type="button" 
+                    [disabled]="botonff==true || validarForm.invalid" (click)="seguir()">
                         <span class="text-lg" *ngIf="botonff!=true">
                             Validar OTP
                         </span>

@@ -36,7 +36,11 @@ export class AppSettingsService {
       usuarioEvidenteNo: EndPoints.urlPrueba('api-fintra/api/credito/archivos-thomas'),
       generarOtp: EndPoints.urlPrueba('api-fintra/api/evidente/generar-otp'),
       validarOtp: EndPoints.urlPrueba('api-fintra/api/evidente/validar-otp'),
-      enviarPreguntas: EndPoints.urlPrueba('api-fintra/api/evidente/verificar-preguntas')
+      enviarPreguntas: EndPoints.urlPrueba('api-fintra/api/evidente/verificar-preguntas'),
+      solicitudGenerar: EndPoints.urlPrueba('api-fintra/api/firma/solicitud-generar-otp'),
+      solicitudValidar: EndPoints.urlPrueba('api-fintra/api/firma/solicitud-validar-otp'),
+      solicitudFirmar: EndPoints.urlPrueba('api-fintra/api/firma/solicitud-generar-firma'),
+      documentosFirmar: EndPoints.urlPrueba('api-fintra/api/firma/obtener_documentos_firma'),
     }
   };
 }

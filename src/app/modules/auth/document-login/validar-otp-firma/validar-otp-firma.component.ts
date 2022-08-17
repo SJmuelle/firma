@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FirmaInternaService } from 'app/core/service/firma-interna.service';
 
 @Component({
   selector: 'app-validar-otp-firma',
@@ -17,14 +18,17 @@ export class ValidarOtpFirmaComponent implements OnInit {
 
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
+  telefono: any;
 
   constructor(
     private _formBuilder: FormBuilder, 
     private router: Router,
-    private activeroute: ActivatedRoute
+    private activeroute: ActivatedRoute,
+    private firmainterna: FirmaInternaService
     ) { }
 
   ngOnInit() {
+    this.telefono = localStorage.getItem('telefono')
     this.validarForm = this._formBuilder.group({
       codigo: ['', [Validators.required]]
     });
@@ -38,7 +42,20 @@ export class ValidarOtpFirmaComponent implements OnInit {
   }
 
   seguir() {
-    this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/generar-firma']);
+    
+    clearInterval(this.intervalo);
+
+    let data = {
+      "numeroSolicitud": parseInt(this.soli),
+      "tipoTercero":"S",
+      "numeroOTP": this.validarForm.value.codigo
+    }
+
+    this.firmainterna.solicitarValidar(data).subscribe(resp => {
+      if (resp.status == 200) {
+        this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/generar-firma']);  
+      }
+    })
   }
   
 }
