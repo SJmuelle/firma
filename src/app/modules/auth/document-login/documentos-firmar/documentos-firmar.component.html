@@ -10,8 +10,8 @@
     <div class="flex flex-col h-full justify-center items-center input">
       <div class="text-3xl font-extrabold tracking-tight leading-tight">Documentos por firmar</div>
       <div class="mt-2 justify-center">
-        <p class="w-120 text-center">
-          Los siguientes documentos se requieren para legalizar tu crédito, acepta en los recuadros uno a uno los términos y condiciones si estás de acuerdo.
+        <p class="w-100 text-justify">
+          Los siguientes documentos se requieren para legalizar tu crédito, te invitamos a descargarlos uno a uno, antes de firmarlos.
         </p>
       </div>
 
@@ -21,7 +21,7 @@
             <p>{{item.informacion_archivo.descripcion}}</p>
           </div>
           <div>
-            <a class="cursor-pointer" (click)="descargar(item, i)"><mat-icon svgIcon="heroicons_outline:document-download"></mat-icon></a>
+            <a class="cursor-pointer" (click)="descargar(item.informacion_archivo, item.base64)"><mat-icon svgIcon="heroicons_outline:document-download"></mat-icon></a>
           </div>
         </div>
       </div>
@@ -30,8 +30,8 @@
                 {{alert.message}}
       </fuse-alert>
       <div class="mt-2 justify-center">
-        <p class="w-120 text-center">
-          Confirmo que he leído, comprendido, y estoy de acuerdo con los términos y condiciones planteados en los documentos anteriormente detallados.
+        <p class="w-100 text-justify">
+          Confirmo que he leído, comprendido, y estoy de acuerdo con los documentos anteriormente detallados.
         </p>
       </div>
       <div class="flex flex-row justify-center w-full">

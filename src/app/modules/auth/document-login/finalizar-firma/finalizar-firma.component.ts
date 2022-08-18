@@ -11,15 +11,21 @@ export class FinalizarFirmaComponent implements OnInit {
   titulo: string;
   cuerpo: string;
   correo: string;
+  captura: {}
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
 
   constructor(private router: Router, private activeroute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.titulo = localStorage.getItem('titulo')
-    this.cuerpo = localStorage.getItem('cuerpo')
-    this.correo = localStorage.getItem('correo')
+    this.captura=JSON.parse(localStorage.getItem('final'))
+    this.titulo = this.captura['title']
+    this.cuerpo = this.captura['body']
+    this.correo = this.captura['value']
+  }
+
+  finalizar() {
+    this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
   }
 
 }

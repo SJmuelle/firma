@@ -17,6 +17,7 @@ import { ClausulaComponent } from './firma-interna/clausula/clausula.component';
 import { DocumentosFirmarComponent } from './documentos-firmar/documentos-firmar.component';
 import { ValidarOtpFirmaComponent } from './validar-otp-firma/validar-otp-firma.component';
 import { GenerarFirmaComponent } from './generar-firma/generar-firma.component';
+import { CondicionesComponent } from './generar-firma/condiciones/condiciones.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { GenerarFirmaComponent } from './generar-firma/generar-firma.component';
     ClausulaComponent,
     DocumentosFirmarComponent,
     ValidarOtpFirmaComponent,
-    GenerarFirmaComponent
+    GenerarFirmaComponent,
+    CondicionesComponent
   ],
   imports: [
     CommonModule,

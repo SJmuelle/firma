@@ -11,11 +11,11 @@
 
       <div class="flex flex-col h-full justify-center items-center input">
 
-          <div class="text-3xl font-extrabold tracking-tight leading-tight">Validacion de código OTP</div>
+          <div class="text-3xl font-extrabold tracking-tight leading-tight">Validación de código OTP</div>
 
-          <div class="mt-2 justify-center">
+          <div class="mt-4 justify-center">
               <p class="w-64 text-center">
-                  Por favor digite el código enviado al número: <strong>{{telefono}}</strong>
+                  Por favor digite el código enviado a su celular: <strong>{{telefono}}</strong>
               </p>    
           </div>
 
@@ -25,7 +25,7 @@
 
           <div class="mt-2 justify-center">
             <p class="w-64 text-center">
-                Tiempo de vida de la clave dinamica.
+                Tiempo de vida de la clave dinámica.
             </p>    
         </div>
 
@@ -48,15 +48,23 @@
                 </div>
                 
                 <div class="flex flex-row justify-center w-full">
-                    <button class="fuse-mat-button-large w-40 mt-5 bg-azul-fintra text-white" mat-flat-button 
-                    type="button" 
-                    [disabled]="botonff==true || validarForm.invalid" (click)="seguir()">
-                        <span class="text-lg" *ngIf="botonff!=true">
-                            Validar OTP
-                        </span>
-                        <mat-progress-spinner *ngIf="botonff==true" [diameter]="24" [mode]="'indeterminate'">
-                        </mat-progress-spinner>
-                    </button>
+                    <div class="flex flex-col">
+                        <button class="fuse-mat-button-large w-40 mt-5 bg-azul-fintra text-white" mat-flat-button 
+                            type="button" [disabled]="botonff==true || validarForm.invalid || validarForm.disabled" (click)="seguir()">
+                            <span class="text-lg" *ngIf="botonff!=true">
+                                Validar OTP
+                            </span>
+                            <mat-progress-spinner *ngIf="botonff==true" [diameter]="24" [mode]="'indeterminate'">
+                            </mat-progress-spinner>
+                        </button>
+                        <button class="fuse-mat-button-large w-40 mt-5 bg-gray-400 text-white disabled:bg-gray-300" mat-flat-button 
+                            type="button" [disabled]="reenvio==false" (click)="reenviar()">
+                            <span class="text-lg">
+                                Reenviar OTP
+                            </span>
+                        </button>
+                    </div>
+                    
                 </div>
             </div>
             

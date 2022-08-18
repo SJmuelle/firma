@@ -8,10 +8,10 @@
     <img class="imagen sm:rounded-l-2xl h-160" src="assets/images/pages/people.png">
 
     <div class="flex flex-col h-full justify-center items-center input">
-      <div class="text-3xl font-extrabold tracking-tight leading-tight">Aceptar politica y clausula</div>
+      <div class="text-3xl font-extrabold tracking-tight leading-tight">Política y cláusula de datos</div>
       <div class="mt-2 justify-center">
         <p class="w-72 text-center">
-          Se requiere que acepte nuestra política de tratamiento de datos personales.
+          Para continuar se requiere aceptar los siguientes términos.
         </p>
       </div>
       <fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false"
@@ -21,10 +21,10 @@
 
       <form class="w-full mt-8" [formGroup]="checkForm">
         <div class="flex flex-col w-full">
-          <div class="flex flex-row justify-center">
+          <div class="flex flex-row justify-start ml-15">
             <p><mat-checkbox formControlName="politica"></mat-checkbox>Acepto <a href="/assets/documentos/politica.pdf" target="_blank" class="dowlader">Política de tratamiento de datos personales.</a></p>
           </div>
-          <div class="flex flex-row justify-center mt-2">
+          <div class="flex flex-row justify-start ml-15 mt-2">
             <p><mat-checkbox formControlName="clausula"></mat-checkbox>Acepto <a class="dowlader" (click)="abrirClausula()">Cláusula de veracidad de los datos.</a></p>
           </div>
           <div class="flex flex-row justify-center w-full">

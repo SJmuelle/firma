@@ -14,7 +14,8 @@ export class ValidarOtpFirmaComponent implements OnInit {
   showAlert: boolean = false;
   intervalo: any;
   validarForm: FormGroup;
-  botonff: boolean;
+  botonff: boolean = false;
+  reenvio: boolean = false;
 
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
@@ -28,7 +29,7 @@ export class ValidarOtpFirmaComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.telefono = localStorage.getItem('telefono')
+    this.telefono = JSON.parse(localStorage.getItem('telefono'))
     this.validarForm = this._formBuilder.group({
       codigo: ['', [Validators.required]]
     });
@@ -36,26 +37,51 @@ export class ValidarOtpFirmaComponent implements OnInit {
     this.intervalo = setInterval(() => {
       this.seconds = this.seconds - 1;
       if(this.seconds == 0){
+        this.reenvio = true;
+        this.validarForm.disable();
         clearInterval(this.intervalo);
       }
     }, 1000);
   }
 
   seguir() {
-    
     clearInterval(this.intervalo);
-
     let data = {
       "numeroSolicitud": parseInt(this.soli),
       "tipoTercero":"S",
       "numeroOTP": this.validarForm.value.codigo
     }
-
     this.firmainterna.solicitarValidar(data).subscribe(resp => {
       if (resp.status == 200) {
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/generar-firma']);  
       }
     })
+  }
+
+  reenviar(){
+    this.seconds = 150;
+    this.validarForm.enable();
+    this.reenvio = false;
+
+    let data = {
+      "numeroSolicitud": this.soli,
+      "tipo":"S"
+    }
+
+    this.firmainterna.solicitarGenerar(data).subscribe(resp => {
+      if (resp.status == 200) {
+        this.intervalo = setInterval(() => {
+          this.seconds = this.seconds - 1;
+          if(this.seconds == 0){
+            this.reenvio = true;
+            this.validarForm.disable();
+            clearInterval(this.intervalo);
+          }
+        }, 1000);
+      }
+    })
+
+    
   }
   
 }

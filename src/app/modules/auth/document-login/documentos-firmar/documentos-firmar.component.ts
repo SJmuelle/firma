@@ -25,7 +25,9 @@ export class DocumentosFirmarComponent implements OnInit {
 
   ngOnInit() {
     let data = {
-      "unidadNegocio": parseInt(this.uni)
+      "unidadNegocio": parseInt(this.uni),
+      "tipoDoc":1,
+      "numeroSolicitud":parseInt(this.soli)
     }
     this.firmainterna.documentosFirmar(data).subscribe(resp => {
       if (resp.status == 200) {
@@ -38,14 +40,14 @@ export class DocumentosFirmarComponent implements OnInit {
     })
   }
 
-  descargar(item, index) {
-    const archivo = item.informacion_archivo.filePath.split(',');
+  descargar(item, base64) {
+    const archivo = base64.split(',');
     const extension = 'pdf'
     const link = document.createElement('a');
     document.body.appendChild(link);
     link.href = `data:application/${extension};base64,${archivo}`;
     link.target = '_self';
-    link.download = item.informacion_archivo.nombreArchivo
+    link.download = item.nombreArchivo
     link.click();
   }
 

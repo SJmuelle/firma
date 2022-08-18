@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FirmaInternaService } from 'app/core/service/firma-interna.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CondicionesComponent } from './condiciones/condiciones.component';
 
 @Component({
   selector: 'app-generar-firma',
@@ -20,13 +22,29 @@ export class GenerarFirmaComponent implements OnInit {
     private _formBuilder: FormBuilder, 
     private router: Router,
     private activeroute: ActivatedRoute,
-    private firmainterna: FirmaInternaService) { }
+    private firmainterna: FirmaInternaService,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
     this.generarForm = this._formBuilder.group({
+      condiciones: ['', Validators.requiredTrue],
       pass: ['', [Validators.required, Validators.maxLength(15), Validators.minLength(8), this.numberValid, this.lowercaseUppercaseValid, this.repeatLetter]],
       confpass: ['', [Validators.required]]
     }, { validator: this.confirmPassword });
+  }
+
+  abrirCondiciones(){
+    const dialogRef = this.dialog.open(CondicionesComponent, {
+      disableClose: true,
+      width: '60%'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.generarForm.setValue({
+        condiciones: true,
+        pass: '',
+        confpass: ''
+      })
+    })
   }
 
   seguir() {
@@ -40,12 +58,8 @@ export class GenerarFirmaComponent implements OnInit {
 
     this.firmainterna.solicitarFirmar(data).subscribe(resp => {
       if (resp.status == 200) {
-        const titulo = JSON.stringify(resp.data.title);
-        const cuerpo = JSON.stringify(resp.data.body);
-        const correo = JSON.stringify(resp.data.value);
-        localStorage.setItem('titulo', titulo);
-        localStorage.setItem('cuerpo', cuerpo);
-        localStorage.setItem('correo', correo);
+        const final = JSON.stringify(resp.data);
+        localStorage.setItem('final', final);
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizar-firma']);  
         this.Btndisabled = false;
       }
