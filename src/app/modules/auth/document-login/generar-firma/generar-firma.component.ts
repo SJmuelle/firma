@@ -53,7 +53,8 @@ export class GenerarFirmaComponent implements OnInit {
       "numeroSolicitud": parseInt(this.soli),
       "tipoTercero":"S",
       "unidadNegocio":parseInt(this.uni),
-      "claveFirma":this.generarForm.value.pass
+      "claveFirma":this.generarForm.value.pass,
+      "aplicaThomas": true
     }
 
     this.firmainterna.solicitarFirmar(data).subscribe(resp => {

@@ -50,7 +50,6 @@ export class GeneraOTPComponent implements OnInit {
       "infoValidar": response.infoValidar,
       "infoIniOTP": response.infoIniOTP,
       "infoToken": response.infoToken,
-      "aplicaThomas": true,
       "numeroSolicitud": parseInt(this.soli)
     }
     this._documentLoginService.validarOTP(data).subscribe(resp => {
@@ -70,11 +69,11 @@ export class GeneraOTPComponent implements OnInit {
               break;
             case 'FIRMA THOMAS':
               localStorage.setItem('aprob', aprob);
-              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/aprobado']);
+              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/interna']);
               break;
             case 'APROBADO':
               localStorage.setItem('aprob', aprob);
-              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/aprobado']);
+              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/interna']);
               break;
             case 'NO APROBADO':
               const error = JSON.stringify(resp.data.mensaje);

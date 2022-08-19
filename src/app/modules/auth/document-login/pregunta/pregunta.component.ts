@@ -134,7 +134,7 @@ export class PreguntaComponent implements OnInit {
             } else {
                 const aprob = JSON.stringify(resp.data);
                 localStorage.setItem('aprob', aprob);
-                this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/aprobado']);
+                this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/interna']);
             }
             this.cargando = false;
         })
