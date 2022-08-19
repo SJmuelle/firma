@@ -1,10 +1,10 @@
 <div class="flex flex-col h-screen flex-auto items-center sm:justify-center min-w-0 fondo">
   <div class="w-4/5">
-    <div class="w-30 mb-8 xl:ml-64">
+    <div class="w-30 lg:mb-5 xl:mb-8 xl:ml-64">
         <img src="assets/images/logo/logo-fintra-gris.png">
     </div>
   </div>
-  <div class="flex flex-row lg:w-3/4 xl:w-1/2 lg:h-120 xl:h-140 sm:rounded-2xl sm:shadow sm:bg-card">
+  <div class="flex flex-row lg:w-3/4 xl:w-1/2 lg:h-140 xl:h-160 sm:rounded-2xl sm:shadow sm:bg-card">
     <img class="imagen sm:rounded-l-2xl fondo-img" src="assets/images/pages/documentos_firmar.png">
 
     <div *ngIf="cargando!=true" class="flex flex-col h-full justify-center items-center input">
@@ -15,10 +15,15 @@
         </p>
       </div>
 
-      <div class="mt-2 flex flex-col">
-        <div *ngFor="let item of listadoArchivos; let i=index" class=" mt-2 flex flex-row w-72 justify-between">
-          <div>
-            <p>{{item.informacion_archivo.descripcion}}</p>
+      <div class="mt-2 flex flex-col divide-y">
+        <div *ngFor="let item of listadoArchivos; let i=index" class="py-3 flex flex-row justify-between gap-9">
+          <div class="flex flex-row gap-2">
+            <div>
+              <mat-icon svgIcon="heroicons_outline:information-circle"></mat-icon>
+            </div>
+            <div>
+              <p>{{item.informacion_archivo.descripcion}}</p>
+            </div>
           </div>
           <div>
             <a class="cursor-pointer" (click)="descargar(item.informacion_archivo, item.base64)"><mat-icon svgIcon="heroicons_outline:document-download"></mat-icon></a>

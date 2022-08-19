@@ -10,7 +10,7 @@ import { FirmaInternaService } from 'app/core/service/firma-interna.service';
 })
 export class ValidarOtpFirmaComponent implements OnInit {
 
-  seconds: number = 30;
+  seconds: number = 150;
   showAlert: boolean = false;
   intervalo: any;
   validarForm: FormGroup;
@@ -68,7 +68,7 @@ export class ValidarOtpFirmaComponent implements OnInit {
   }
 
   reenviar(){
-    this.seconds = 30;
+    this.seconds = 150;
     this.validarForm.enable();
     this.reenvio = false;
     this.btnreenvio = true;
