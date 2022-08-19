@@ -10,16 +10,19 @@ import { FirmaInternaService } from 'app/core/service/firma-interna.service';
 })
 export class ValidarOtpFirmaComponent implements OnInit {
 
-  seconds: number = 150;
+  seconds: number = 30;
   showAlert: boolean = false;
   intervalo: any;
   validarForm: FormGroup;
-  botonff: boolean = false;
+  botonff: boolean;
   reenvio: boolean = false;
+  btnreenvio: boolean;
 
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
   telefono: any;
+  correo: any;
+  captura: {}
 
   constructor(
     private _formBuilder: FormBuilder, 
@@ -30,6 +33,8 @@ export class ValidarOtpFirmaComponent implements OnInit {
 
   ngOnInit() {
     this.telefono = JSON.parse(localStorage.getItem('telefono'))
+    this.captura=JSON.parse(localStorage.getItem('correo'))
+    this.correo = this.captura['value']
     this.validarForm = this._formBuilder.group({
       codigo: ['', [Validators.required]]
     });
@@ -45,6 +50,7 @@ export class ValidarOtpFirmaComponent implements OnInit {
   }
 
   seguir() {
+    this.botonff = true;
     clearInterval(this.intervalo);
     let data = {
       "numeroSolicitud": parseInt(this.soli),
@@ -53,15 +59,19 @@ export class ValidarOtpFirmaComponent implements OnInit {
     }
     this.firmainterna.solicitarValidar(data).subscribe(resp => {
       if (resp.status == 200) {
+        this.botonff = false;
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/generar-firma']);  
+      }else{
+        this.botonff = true;
       }
     })
   }
 
   reenviar(){
-    this.seconds = 150;
+    this.seconds = 30;
     this.validarForm.enable();
     this.reenvio = false;
+    this.btnreenvio = true;
 
     let data = {
       "numeroSolicitud": this.soli,
@@ -74,11 +84,14 @@ export class ValidarOtpFirmaComponent implements OnInit {
           this.seconds = this.seconds - 1;
           if(this.seconds == 0){
             this.reenvio = true;
+            this.btnreenvio = false;
             this.validarForm.disable();
             clearInterval(this.intervalo);
           }
         }, 1000);
       }
+      this.reenvio = false;
+      this.btnreenvio = true;
     })
 
     

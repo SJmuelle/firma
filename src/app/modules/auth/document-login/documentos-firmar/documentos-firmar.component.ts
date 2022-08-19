@@ -13,6 +13,8 @@ export class DocumentosFirmarComponent implements OnInit {
   listadoArchivos: any = [];
   listaBreve: any = [1 , 2, 3]
   datoTel: any;
+  Btndisabled: boolean;
+  cargando: boolean;
 
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
@@ -24,6 +26,7 @@ export class DocumentosFirmarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.cargando = true;
     let data = {
       "unidadNegocio": parseInt(this.uni),
       "tipoDoc":1,
@@ -31,6 +34,7 @@ export class DocumentosFirmarComponent implements OnInit {
     }
     this.firmainterna.documentosFirmar(data).subscribe(resp => {
       if (resp.status == 200) {
+        this.cargando = false;
         console.log(resp.data)
         console.log(resp.data[0].informacion_archivo.nombreArchivo)
         this.listadoArchivos = resp.data
@@ -52,6 +56,7 @@ export class DocumentosFirmarComponent implements OnInit {
   }
 
   seguir() {
+    this.Btndisabled = true;
     let data = {
       "numeroSolicitud": this.soli,
       "tipo":"S"
@@ -59,12 +64,16 @@ export class DocumentosFirmarComponent implements OnInit {
 
     this.firmainterna.solicitarGenerar(data).subscribe(resp => {
       if (resp.status == 200) {
+        this.Btndisabled = false;
         const telefono = JSON.stringify(resp.data.value);
+        const correo = JSON.stringify(resp.data.correo.data);
         localStorage.setItem('telefono', telefono);
+        localStorage.setItem('correo', correo);
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + 'otp-firma']);
       }
+    }, err => {
+      this.Btndisabled = false;
     })
-    
   }
 
 }

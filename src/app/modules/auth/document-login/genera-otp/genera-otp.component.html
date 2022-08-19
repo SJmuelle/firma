@@ -38,7 +38,7 @@
                     </div>
                     
                     <div class="flex flex-row justify-center w-full">
-                        <button class="fuse-mat-button-large w-30 mt-5 bg-azul-fintra text-white" mat-flat-button type="button" [disabled]="botonff==true" (click)="validateOtp()">
+                        <button class="fuse-mat-button-large w-30 mt-5 bg-azul-fintra text-white disabled:bg-gray-200" mat-flat-button type="button" [disabled]="botonff==true" (click)="validateOtp()">
                             <span class="text-lg" *ngIf="botonff!=true">
                                 Verificar
                             </span>

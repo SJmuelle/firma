@@ -75,14 +75,16 @@
                 </div>
                 
                 <div class="flex flex-row justify-center w-full">
-                    <button class="fuse-mat-button-large w-40 mt-5 bg-azul-fintra text-white" 
+                    <button class="fuse-mat-button-large w-40 mt-5 bg-azul-fintra text-white disabled:bg-gray-200" 
                     mat-flat-button 
                     type="button" 
                     (click)="seguir()" 
                     [disabled]="generarForm.invalid || Btndisabled==true">
-                        <span class="text-lg">
+                        <span class="text-lg" *ngIf="Btndisabled!=true">
                             Ir a firmar
                         </span>
+                        <mat-progress-spinner *ngIf="Btndisabled==true" [diameter]="24" [mode]="'indeterminate'">
+                        </mat-progress-spinner>
                     </button>
                 </div>
             </div>

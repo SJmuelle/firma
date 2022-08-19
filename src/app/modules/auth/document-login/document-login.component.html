@@ -32,15 +32,18 @@
                             <mat-error *ngIf="comingSoonForm.get('documento').hasError('required')">
                                 Número de identificación es requerido
                             </mat-error>
+                            <mat-error *ngIf="comingSoonForm.get('documento').hasError('minlength')">
+                                Documentos de identidad minimo requieren 10 caracteres.
+                            </mat-error>
                         </mat-form-field>
                     </div>
 
                     <div class="flex flex-row justify-center w-full">
                         <button
-                            class="fuse-mat-button-large w-30 mt-5 bg-azul-fintra text-white"
+                            class="fuse-mat-button-large w-30 mt-5 bg-azul-fintra text-white disabled:bg-gray-200"
                             mat-flat-button
                             type="button"
-                            [disabled]="comingSoonForm.invalid"
+                            [disabled]="comingSoonForm.invalid || comingSoonForm.disabled"
                             (click)="register()">
                             <span class="text-lg" *ngIf="!comingSoonForm.disabled">
                                 Continuar

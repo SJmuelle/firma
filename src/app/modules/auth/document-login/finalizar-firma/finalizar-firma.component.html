@@ -15,10 +15,15 @@
         </p>
       </div>
 
-      <div class="mt-2 flex flex-col">
-        <div *ngFor="let item of documentos; let i=index" class="mt-2 flex flex-row justify-between gap-9">
-          <div>
-            <p>{{item.nombre}}</p>
+      <div class="mt-2 flex flex-col divide-y">
+        <div *ngFor="let item of documentos; let i=index" class="py-3 flex flex-row justify-between gap-9">
+          <div class="flex flex-row gap-2">
+            <div>
+              <mat-icon svgIcon="heroicons_outline:check-circle"></mat-icon>
+            </div>
+            <div>
+              <p>{{item.nombre}}</p>
+            </div>
           </div>
           <div>
             <a class="cursor-pointer" (click)="descargar(item.nombre, item.base64)"><mat-icon svgIcon="heroicons_outline:document-download"></mat-icon></a>
@@ -26,13 +31,24 @@
         </div>
       </div>
 
-      <div class="mt-4 flex flex-col w-100">
-        <div class="text-center">
-          <p>{{cuerpo}}</p>
+      <div class="border-l-4 border-2 rounded-md verde-fintra mt-4 flex flex-col w-100">
+        <div class="mt-1 flex flex-row mb-2 gap-2 pr-2">
+          <div class="ml-2">
+            <mat-icon svgIcon="heroicons_outline:information-circle"></mat-icon>
+          </div>
+          <div class="text-justify">
+            <p>{{cuerpo}}</p>
+          </div>
         </div>
-        <div class="text-center">
-          <p><strong>{{correo}}</strong></p>
+        <div class="flex flex-row gap-2">
+          <div class="ml-2">
+            <mat-icon svgIcon="heroicons_outline:mail"></mat-icon>
+          </div>
+          <div class="text-justify">
+            <p><strong>{{correo}}</strong></p>
+          </div>
         </div>
+        
       </div>
       <!-- <fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false"
                 [type]="alert.type" [@shake]="alert.type === 'error'">

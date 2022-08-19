@@ -50,7 +50,7 @@ export class DocumentLoginComponent implements OnInit {
   ngOnInit(): void {
     // Create the form
     this.comingSoonForm = this._formBuilder.group({
-      documento: ['', [Validators.required]]
+      documento: ['', [Validators.required, Validators.minLength(10)]]
     });
 
 
