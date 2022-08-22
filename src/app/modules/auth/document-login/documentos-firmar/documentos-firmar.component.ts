@@ -59,7 +59,7 @@ export class DocumentosFirmarComponent implements OnInit {
     this.Btndisabled = true;
     let data = {
       "numeroSolicitud": this.soli,
-      "tipo":"S"
+      "tipo":"T"
     }
 
     this.firmainterna.solicitarGenerar(data).subscribe(resp => {

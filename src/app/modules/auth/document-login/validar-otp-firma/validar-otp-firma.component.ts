@@ -54,7 +54,7 @@ export class ValidarOtpFirmaComponent implements OnInit {
     clearInterval(this.intervalo);
     let data = {
       "numeroSolicitud": parseInt(this.soli),
-      "tipoTercero":"S",
+      "tipoTercero":"T",
       "numeroOTP": this.validarForm.value.codigo
     }
     this.firmainterna.solicitarValidar(data).subscribe(resp => {

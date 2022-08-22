@@ -51,7 +51,7 @@ export class GenerarFirmaComponent implements OnInit {
     this.Btndisabled = true;
     let data = {
       "numeroSolicitud": parseInt(this.soli),
-      "tipoTercero":"S",
+      "tipoTercero":"T",
       "unidadNegocio":parseInt(this.uni),
       "claveFirma":this.generarForm.value.pass,
       "aplicaThomas": true

@@ -8,6 +8,9 @@
 
 .imagen {
     width: 50%;
+    @media (max-width:767px) {
+        display: none;
+    }
 }
 
 .input{
