@@ -1,22 +1,29 @@
-<div class="absolute inset-0 bg-white">
+<div class="absolute inset-0 fondo">
     <!-- Main -->
     <div class="flex flex-col flex-auto items-center justify-center h-full p-6 sm:p-10">
         <!-- @formatter:off -->
-        <div class="relative w-1/2">
-            <img class="absolute w-30" src="assets/images/logo/logo-fintra-blanco.png">
+        <div class="relative w-1/2 mb-8">
+            <img class="absolute w-30" src="assets/images/logo/logo-fintra-gris.png">
             <!-- <img src="assets/images/logo/logo.svg"> -->
         </div>
         <div class="w-1/2 ">
             <img src="assets/images/pages/404.svg">
         </div>
         <!-- @formatter:on -->
-        <div class="text-2xl font-extrabold tracking-tight leading-tight md:leading-none text-center">Página no encontrada</div>
+        <div class="mt-1 w-1/2 font-extrabold tracking-tight leading-tight md:leading-none text-center">
+            <span class="text-3xl letra-grande">Página no encontrada</span>
+        </div>
         <!-- <div class="mt-2 text-lg md:text-xl font-medium tracking-tight text-center text-secondary">Favor intente nuevamente</div> -->
         <!-- Submit button -->
-        <!-- <button class="mt-2 mat-button w-30 bg-azul-fintra text-white"  type="button">
-            <span>
-                Continuar
-            </span>
-        </button> -->
+        <div class="flex flex-row justify-center w-full">
+            <button
+                class="fuse-mat-button-large w-40 mt-8 bg-azul-fintra text-white"
+                mat-flat-button
+                type="button" onclick="location.href='https://www.fintra.co/'">
+                <span class="text-2xl">
+                    Regresar
+                </span>
+            </button>
+        </div>
     </div>
 </div>

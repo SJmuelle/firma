@@ -18,15 +18,15 @@ import { FinalizarFirmaComponent } from './finalizar-firma/finalizar-firma.compo
 
 const routes: Routes = [
   {
-    path     : '',
+    path     : ':num/:uni',
     component: DocumentLoginComponent,
   },
   {
-    path     : 'user/:doc',
+    path     : ':num/:uni/user/:doc',
     component: DataUserComponent
   },
   {
-    path     : 'replay',
+    path     : ':num/:uni/replay',
     component: ReplayComponent
   },
   {
@@ -34,23 +34,23 @@ const routes: Routes = [
     component: Pages404Component
   },
   {
-    path     : 'pregunta',
+    path     : ':num/:uni/pregunta',
     component: PreguntaComponent
   },
   {
-    path     : 'finalizado',
+    path     : ':num/:uni/finalizado',
     component: FinalizadoComponent
   },
   {
-    path     : 'generarOTP',
+    path     : ':num/:uni/generarOTP',
     component: GeneraOTPComponent
   },
   {
-    path     : 'aprobado',
+    path     : ':num/:uni/aprobado',
     component: AprobadoComponent
   },
   {
-    path     : 'no-aprobado',
+    path     : ':num/:uni/no-aprobado',
     component: NoAprobadoComponent
   },
   {
@@ -58,23 +58,23 @@ const routes: Routes = [
     component: CantPreguntasComponent
   },
   {
-    path     : 'interna',
+    path     : ':num/:uni/interna',
     component: FirmaInternaComponent
   },
   {
-    path     : 'docu-firma',
+    path     : ':num/:uni/docu-firma',
     component: DocumentosFirmarComponent
   },
   {
-    path     : 'otp-firma',
+    path     : ':num/:uni/otp-firma',
     component: ValidarOtpFirmaComponent
   },
   {
-    path     : 'generar-firma',
+    path     : ':num/:uni/generar-firma',
     component: GenerarFirmaComponent
   },
   {
-    path     : 'finalizar-firma',
+    path     : ':num/:uni/finalizar-firma',
     component: FinalizarFirmaComponent
   }
 ];

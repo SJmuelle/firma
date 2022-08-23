@@ -10,7 +10,14 @@ import { InitialDataResolver } from 'app/app.resolvers';
 export const appRoutes: Route[] = [
 
     // Redirect empty path to '/example'
-    {path: '', pathMatch : 'full', redirectTo: 'documentLogin'},
+    {path: '', pathMatch : 'full', redirectTo: 'documentLogin/page404'},
+    {path: 'documentLogin', pathMatch : 'full', redirectTo: 'documentLogin/page404'},
+    {path: 'documentLogin/:uni', pathMatch : 'full', redirectTo: 'documentLogin/page404'},
+    {path: 'documentLogin/:soli', pathMatch : 'full', redirectTo: 'documentLogin/page404'},
+    {path: 'documentLogin/:soli:uni', pathMatch : 'full', redirectTo: 'documentLogin/page404'},
+    {path: 'documentLogin:soli:uni', pathMatch : 'full', redirectTo: 'documentLogin/page404'},
+    {path: 'documentLogin:soli/:uni', pathMatch : 'full', redirectTo: 'documentLogin/page404'},
+    {path: 'documentLogin/', pathMatch : 'full', redirectTo: 'documentLogin/page404'},
 
     // Redirect signed in user to the '/example'
     //
@@ -28,7 +35,7 @@ export const appRoutes: Route[] = [
             layout: 'empty'
         },
         children: [
-            {path: 'documentLogin/:num/:uni', loadChildren: () => import('app/modules/auth/document-login/document-login.module').then(m => m.DocumentLoginModule)},
+            {path: 'documentLogin', loadChildren: () => import('app/modules/auth/document-login/document-login.module').then(m => m.DocumentLoginModule)},
         ]
     }
 ];
