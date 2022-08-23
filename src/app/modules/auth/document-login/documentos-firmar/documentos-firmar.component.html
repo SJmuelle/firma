@@ -15,7 +15,7 @@
         </p>
       </div>
 
-      <div class="mt-2 flex flex-col divide-y">
+      <div class="mt-2 flex flex-col divide-y h-40 overflow-y-scroll">
         <div *ngFor="let item of listadoArchivos; let i=index" class="py-3 flex flex-row justify-between gap-9">
           <div class="flex flex-row gap-2">
             <div>
@@ -29,7 +29,6 @@
             <a class="cursor-pointer" (click)="descargar(item.informacion_archivo, item.base64)"><mat-icon svgIcon="heroicons_outline:document-download"></mat-icon></a>
           </div>
         </div>
-        <!-- <mat-progress-spinner *ngIf="Btndisabled==true" [diameter]="48" [mode]="'indeterminate'"></mat-progress-spinner> -->
       </div>
       <fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false"
                 [type]="alert.type" [@shake]="alert.type === 'error'">
