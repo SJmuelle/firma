@@ -76,7 +76,7 @@ export class GenerarFirmaComponent implements OnInit {
   }
 
   lowercaseUppercaseValid(control: FormControl): { [s: string]: boolean } {
-    const mayuscula = new RegExp('.*[a-zA-Z].*');
+    const mayuscula = new RegExp('.*[A-Z].*');
     if (!control.value.match(mayuscula) && control.value !== '') {
       return { notLowerUpper: true };
     }
