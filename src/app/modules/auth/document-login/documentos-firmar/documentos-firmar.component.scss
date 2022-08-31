@@ -8,14 +8,82 @@
 
 .imagen {
     width: 50%;
+    @media (max-width:767px) {
+        display: none;
+    }
 }
 
 .input{
     width: 60%;
 }
 
-.fondo-img {
-    background: linear-gradient(180deg, #7DD8FF 0%, #0068C9 100%)
+.tamano {
+    @media (min-width:360px) {
+        width: 90%;
+    }
+    @media (min-width:1280px) {
+        width: 60%;
+    }
+    @media (min-width:1536px) {
+        width: 50%;
+    }
+}
+
+.acomodar {
+    @media (min-width:360px) {
+        margin-left: 1%;
+    }
+    @media (min-width:1280px) {
+        margin-left: 18%;
+    }
+    @media (min-width:1440px) {
+        margin-left: 18.5%;
+    }
+    @media (min-width:1536px) {
+        margin-left: 23%;
+    }
+}
+
+.altura-file {
+    @media (min-width:360px) {
+        height: 20%;
+    }
+    @media (min-width:768px) {
+        height: 20%;
+    }
+    @media (min-width:1024px) {
+        height: 40%;
+    }
+    @media (min-width:1200px) {
+        height: 35%;
+    }
+    @media (min-width:1440px) {
+        height: 35%;
+    }
+    @media (min-width:1536px) {
+        height: 35%;
+    }
+}
+
+.altura-card {
+    @media (min-width:360px) {
+        height: 60%;
+    }
+    @media (min-width:768px) {
+        height: 55%;
+    }
+    @media (min-width:1024px) {
+        height: 65%;
+    }
+    @media (min-width:1200px) {
+        height: 75%;
+    }
+    @media (min-width:1440px) {
+        height: 70%;
+    }
+    @media (min-width:1536px) {
+        height: 65%;
+    }
 }
 
 .dowlader{

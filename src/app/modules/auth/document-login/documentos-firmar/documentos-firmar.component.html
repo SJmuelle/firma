@@ -1,21 +1,21 @@
 <div class="flex flex-col h-screen flex-auto items-center sm:justify-center min-w-0 fondo">
-  <div class="w-4/5">
-    <div class="w-30 lg:mb-5 xl:mb-8 xl:ml-64">
+  <div class="w-full">
+    <div class="w-30 mt-26 sm:mt-0 mb-4 md:mb-8 acomodar">
         <img src="assets/images/logo/logo-fintra-gris.png">
     </div>
   </div>
-  <div class="flex flex-row lg:w-3/4 xl:w-1/2 lg:h-140 xl:h-160 sm:rounded-2xl sm:shadow sm:bg-card">
-    <img class="imagen sm:rounded-l-2xl fondo-img" src="assets/images/pages/documentos_firmar.png">
+  <div class="flex flex-row justify-center tamano altura-card rounded-2xl shadow bg-card">
+    <img class="imagen sm:rounded-l-2xl" src="assets/images/pages/documentos_firmar.png">
 
-    <div *ngIf="cargando!=true" class="flex flex-col h-full justify-center items-center input">
-      <div class="text-3xl font-extrabold tracking-tight leading-tight">Documentos por firmar</div>
-      <div class="w-100 mt-2 justify-center">
-        <p class="text-justify">
+    <div *ngIf="cargando!=true" class="flex flex-col sm:h-full justify-center items-center input w-3/5">
+      <div class="text-lg sm:text-2xl font-extrabold tracking-tight leading-tight">Documentos por firmar</div>
+      <div class="mt-2 mb-4 w-full sm:w-80 md:w-full text-justify md:text-center">
+        <p>
           Los siguientes documentos se requieren para legalizar tu crédito, te invitamos a descargarlos uno a uno, antes de firmarlos.
         </p>
       </div>
 
-      <div class="mt-2 flex flex-col divide-y h-40">
+      <div class="flex flex-col divide-y altura-file overflow-y-auto">
         <div *ngFor="let item of listadoArchivos; let i=index" class="py-3 flex flex-row justify-between gap-9">
           <div class="flex flex-row gap-2">
             <div>
@@ -34,8 +34,8 @@
                 [type]="alert.type" [@shake]="alert.type === 'error'">
                 {{alert.message}}
       </fuse-alert>
-      <div class="mt-4 justify-center">
-        <p class="w-100 text-justify">
+      <div class="mt-2 w-full sm:w-80 md:w-full text-justify md:text-center">
+        <p>
           Confirmo que he leído, comprendido, y estoy de acuerdo con los documentos anteriormente detallados.
         </p>
       </div>
