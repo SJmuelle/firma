@@ -8,8 +8,8 @@
         </div>
     </div>
     <div class="flex flex-row gap-9 h-full w-full">
-        <div class="flex flex-row h-full justify-end carta-1 items-center">
-            <div class="flex flex-row justify-center h-90 items-center bg-card rounded-2xl shadow shadow-bottom pt-0 pb-0 pr-5 pl-5 space-carta-1 contain-carta-1">
+        <div class="hidden md:flex flex-row h-full justify-end carta-1 items-center">
+            <div class="flex flex-row justify-center items-center bg-card rounded-2xl shadow shadow-bottom pt-0 pb-0 pr-5 pl-5 space-carta-1 contain-carta-1">
                 <ol>
                     <ng-container *ngFor="let item of allNumQues; let last = last">
                         <li
@@ -46,23 +46,22 @@
                 </ol>
             </div>
         </div>
-        <div class="flex flex-row h-full carta-2 items-center">
+        <div class="ml-4 sm:ml-8 flex flex-row h-full carta-2 items-center">
             <div class="flex flex-col">
-                <div class="h-90 tamano-laptop xl:w-4/5 py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card">
-                    <div class="mx-auto min-h-100">
+                <div class="tamano-laptop py-4 sm:py-8 px-4 sm:px-6 rounded-2xl sm:shadow bg-card">
+                    <div class="mx-auto">
                         <div class="my-4" *ngFor="let pregunta of preguntas; let i=index">
                             <ng-container *ngIf="i==vistaPregunta">
-                                <div class="flex flex-row gap-5 w-full h-full">
+                                <div class="flex flex-row gap-5 lg:gap-0 xl:gap-3 w-full h-full">
                                     <div class="numero">
                                         <div class="circulo h-8">
                                             <label id="label{{pregunta.id}}" class="font-semibold mb-8 text-2xl">
                                                 {{i+1}}
                                             </label>
                                         </div>
-
                                     </div>
-                                    <div class="pregunta">
-                                        <label id="label{{pregunta.id}}" class="font-semibold m-0 p-0 text-xl">
+                                    <div class="pregunta sm:mt-1 md:mt-0">
+                                        <label id="label{{pregunta.id}}" class="font-semibold m-0 p-0 text-base sm:text-lg md:text-xl">
                                             {{textCapi}}
                                         </label>
                                     </div>
@@ -70,17 +69,19 @@
                                 <div class="ml-14">
                                     <mat-radio-group aria-labelledby="label{{pregunta.id}}" [(ngModel)]="pregunta.seleccionada">
                                         <ng-container *ngFor="let respuesta of pregunta.Respuesta">
-                                            <div class="grid grid-cols-12 gap-4 my-2">
-                                                <div class="col-start-1 content-center">
-                                                    <mat-radio-button value="{{respuesta.id}}" (click)="capturarRespuesta(respuesta.id)">
-                                                        <span [ngClass]="{'text-slate-500': selected!=respuesta.id}">{{respuesta.texto}}</span>
-                                                    </mat-radio-button>
+                                            <div class="flex flex-row gap-2 sm:gap-1 my-2">
+                                                <div class="radio">
+                                                    <mat-radio-button value="{{respuesta.id}}" (click)="capturarRespuesta(respuesta.id)"></mat-radio-button>
+                                                </div>
+                                                <div class="respuesta">
+                                                    <span [ngClass]="{'text-slate-500': selected!=respuesta.id}">
+                                                        {{respuesta.texto}}
+                                                    </span>
                                                 </div>
                                             </div>
                                         </ng-container>
                                     </mat-radio-group>
                                 </div>
-
                             </ng-container>
                         </div>
                     </div>
