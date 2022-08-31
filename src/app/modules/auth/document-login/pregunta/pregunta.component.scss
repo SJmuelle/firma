@@ -121,6 +121,24 @@
     }
 }
 
+.acomodo-btn {
+    @media (min-width:360px) {
+        margin-left: 17%;
+    }
+
+    @media (min-width:425px) {
+        margin-left: 22%;
+    }
+
+    @media (min-width:768px) {
+        margin-left: 30%;
+    }
+
+    @media (min-width:1024px) {
+        margin-left: 32%;
+    }
+}
+
 .carta-1 {
     @media (min-width:1024px) {
         width: 15%;
