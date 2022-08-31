@@ -8,8 +8,38 @@
 
 .imagen {
     width: 50%;
+    @media (max-width:767px) {
+        display: none;
+    }
 }
 
 .input{
     width: 60%;
+}
+
+.tamano {
+    @media (min-width:360px) {
+        width: 90%;
+    }
+    @media (min-width:1280px) {
+        width: 60%;
+    }
+    @media (min-width:1536px) {
+        width: 50%;
+    }
+}
+
+.acomodar {
+    @media (min-width:360px) {
+        margin-left: 1%;
+    }
+    @media (min-width:1280px) {
+        margin-left: 18%;
+    }
+    @media (min-width:1440px) {
+        margin-left: 18.5%;
+    }
+    @media (min-width:1536px) {
+        margin-left: 23%;
+    }
 }

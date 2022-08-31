@@ -37,7 +37,7 @@ export class FirmaInternaComponent implements OnInit {
 
   abrirClausula(){
     const dialogRef = this.dialog.open(ClausulaComponent, {
-      width: '30%'
+      width: '80%'
     });
   }
 

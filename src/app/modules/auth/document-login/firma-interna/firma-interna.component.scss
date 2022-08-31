@@ -2,16 +2,90 @@
     background: #eff3f6;
 }
 
-.size-card {
-    width: 50%;
-}
-
 .imagen {
     width: 50%;
+    @media (max-width:767px) {
+        display: none;
+    }
+}
+
+.altura-card {
+    @media (min-width:360px) {
+        height: 40%;
+    }
+    @media (min-width:425px) {
+        height: 30%;
+    }
+    @media (min-width:768px) {
+        height: 55%;
+    }
+    @media (min-width:1024px) {
+        height: 65%;
+    }
+    @media (min-width:1200px) {
+        height: 75%;
+    }
+    @media (min-width:1440px) {
+        height: 70%;
+    }
+    @media (min-width:1536px) {
+        height: 65%;
+    }
 }
 
 .input{
-    width: 60%;
+    @media (min-width:360px) {
+        width: 90%;
+    }
+
+    @media (min-width:768px) {
+        width: 60%;
+    }
+}
+
+.tamano {
+    @media (min-width:360px) {
+        width: 90%;
+    }
+    @media (min-width:1280px) {
+        width: 60%;
+    }
+    @media (min-width:1536px) {
+        width: 50%;
+    }
+}
+
+.acomodar {
+    @media (min-width:360px) {
+        margin-left: 1%;
+    }
+    @media (min-width:1280px) {
+        margin-left: 18%;
+    }
+    @media (min-width:1440px) {
+        margin-left: 18.5%;
+    }
+    @media (min-width:1536px) {
+        margin-left: 23%;
+    }
+}
+
+.chekes {
+    @media (min-width:768px) {
+        margin-left: 5%;
+    }
+    @media (min-width:1024px) {
+        margin-left: 8%;
+    }
+    @media (min-width:1200px) {
+        margin-left: 3%;
+    }
+    @media (min-width:1440px) {
+        margin-left: 5%;
+    }
+    @media (min-width:1536px) {
+        margin-left: 12%;
+    }
 }
 
 .dowlader{

@@ -1,16 +1,17 @@
 <div class="flex flex-col h-screen flex-auto items-center sm:justify-center min-w-0 fondo">
-  <div class="w-4/5">
-    <div class="w-30 mb-8 lg:ml-26 xl:ml-64">
+  <div class="w-full">
+    <div class="w-30 mt-48 sm:mt-0 mb-4 md:mb-8 acomodar">
         <img src="assets/images/logo/logo-fintra-gris.png">
     </div>
   </div>
-  <div class="flex flex-row lg:w-3/5 xl:w-1/2 lg:h-128 xl:h-160 sm:rounded-2xl sm:shadow sm:bg-card">
+  <div class="flex flex-row justify-center tamano altura-card rounded-2xl shadow bg-card">
+
     <img class="imagen sm:rounded-l-2xl" src="assets/images/pages/people.png">
 
     <div class="flex flex-col h-full justify-center items-center input">
-      <div class="text-3xl font-extrabold tracking-tight leading-tight">Política y cláusula de datos</div>
-      <div class="mt-2 justify-center">
-        <p class="lg:w-80 xl:w-100 lg:text-center xl:text-justify">
+      <div class="text-xl sm:text-2xl font-extrabold tracking-tight leading-tight">Política y cláusula de datos</div>
+      <div class="mt-2 mb-4 w-full sm:w-80 md:w-full text-justify md:text-center">
+        <p>
           Para continuar se requiere aceptar los siguientes términos:
         </p>
       </div>
@@ -19,12 +20,12 @@
                 {{alert.message}}
       </fuse-alert>
 
-      <form class="w-full lg:mt-5 xl:mt-8" [formGroup]="checkForm">
+      <form class="w-full lg:mt-2" [formGroup]="checkForm">
         <div class="flex flex-col w-full">
-          <div class="flex flex-row justify-start ml-15">
+          <div class="flex flex-row justify-start chekes">
             <mat-checkbox formControlName="politica"></mat-checkbox><p>Acepto <a href="/assets/documentos/politica.pdf" target="_blank" class="dowlader">Política de tratamiento de datos personales.</a></p>
           </div>
-          <div class="flex flex-row justify-start ml-15 mt-2">
+          <div class="flex flex-row justify-start chekes mt-2">
             <mat-checkbox formControlName="clausula"></mat-checkbox><p>Acepto <a class="dowlader" (click)="abrirClausula()">Cláusula de veracidad de los datos.</a></p>
           </div>
           <div class="flex flex-row justify-center w-full">

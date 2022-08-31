@@ -80,7 +80,7 @@ export class GeneraOTPComponent implements OnInit {
               localStorage.setItem('error', error);
               this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/no-aprobado']);
               break;
-            case 'REINICIAR FLUJO':
+            case 'reiniciar flujo':
               Swal.fire(
                 'Información',
                 'Debe reiniciar el proceso nuevamente',
