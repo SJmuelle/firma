@@ -36,7 +36,7 @@ export class GenerarFirmaComponent implements OnInit {
   abrirCondiciones(){
     const dialogRef = this.dialog.open(CondicionesComponent, {
       disableClose: true,
-      width: '60%'
+      width: '90%'
     });
     dialogRef.afterClosed().subscribe(result => {
       this.generarForm.setValue({
