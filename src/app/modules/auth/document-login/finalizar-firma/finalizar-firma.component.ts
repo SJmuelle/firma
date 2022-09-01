@@ -13,7 +13,10 @@ export class FinalizarFirmaComponent implements OnInit {
   cuerpo: string;
   correo: string;
   documentos: any = [];
+  filePagare: any = [];
+  objPagare: {}
   captura: {}
+  pagare: {}
   listadoArchivos: any = [];
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
@@ -25,11 +28,16 @@ export class FinalizarFirmaComponent implements OnInit {
 
   ngOnInit() {
     this.captura=JSON.parse(localStorage.getItem('final'))
+    this.pagare=JSON.parse(localStorage.getItem('pagare'))
     this.titulo = this.captura['title']
     this.cuerpo = this.captura['body']
     this.correo = this.captura['value']
     this.documentos = this.captura['base64']
-
+    this.objPagare = {
+      "base64":this.pagare,
+      "nombre":"Pagare Deceval"
+    }
+    this.documentos.push(this.objPagare)
     console.log(this.documentos)
   }
 

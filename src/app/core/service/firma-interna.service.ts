@@ -38,5 +38,12 @@ export class FirmaInternaService {
     }));
   }
 
+  pagare(datos: any){
+    return this._utilityService.postQuery(this._appSettings.configuracionInicial.url.mostrarPagare, datos)
+      .pipe(map((res: any) => {
+        return res;
+      }));
+  }
+
 
 }

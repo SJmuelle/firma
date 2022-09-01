@@ -15,7 +15,7 @@
         </p>
       </div>
 
-      <div class="flex flex-col divide-y altura-file overflow-y-auto sm:overflow-hidden">
+      <div class="flex flex-col divide-y altura-file overflow-y-auto md:overflow-hidden">
         <div *ngFor="let item of listadoArchivos; let i=index" class="py-3 flex flex-row justify-between gap-9">
           <div class="flex flex-row gap-2">
             <div>
@@ -34,7 +34,7 @@
                 [type]="alert.type" [@shake]="alert.type === 'error'">
                 {{alert.message}}
       </fuse-alert>
-      <div class="mt-5 w-full sm:w-80 md:w-full lg:w-90 text-justify md:text-center">
+      <div class="mt-5 w-full sm:w-80 md:w-full lg:w-90 xl:w-full text-justify md:text-center">
         <p>
           Confirmo que he leído, comprendido, y estoy de acuerdo con los documentos anteriormente detallados.
         </p>

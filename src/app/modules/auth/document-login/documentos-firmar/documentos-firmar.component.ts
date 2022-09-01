@@ -59,7 +59,7 @@ export class DocumentosFirmarComponent implements OnInit {
   seguir() {
     this.Btndisabled = true;
     let data = {
-      "numeroSolicitud": this.soli,
+      "numeroSolicitud": parseInt(this.soli),
       "tipo":"T"
     }
 
@@ -67,10 +67,14 @@ export class DocumentosFirmarComponent implements OnInit {
       if (resp.status == 200) {
         this.Btndisabled = false;
         const telefono = JSON.stringify(resp.data.value);
-        const correo = JSON.stringify(resp.data.correo.data);
+        // const correo = JSON.stringify(resp.data.correo.data);
+        console.log(telefono)
+        // console.log(correo)
         localStorage.setItem('telefono', telefono);
-        localStorage.setItem('correo', correo);
+        // localStorage.setItem('correo', correo);
+        console.log('Aqui estoy')
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + 'otp-firma']);
+        console.log('Aqui estuve')
       }
     }, err => {
       this.Btndisabled = false;
