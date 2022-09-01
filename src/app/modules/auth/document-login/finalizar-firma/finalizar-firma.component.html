@@ -10,16 +10,19 @@
     <div class="mt-0 mb-0 sm:mt-2 sm:mb-2 flex flex-col sm:h-full justify-center items-center size-col sm:ml-0 sm:mr-5">
       <div class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight leading-tight">{{titulo}}</div>
       <div class="md:ml-2 xl:ml-3 mt-4 justify-center">
-        <p class="lg:w-80 xl:w-100 text-center xl:text-justify">
+        <p class="w-80 xl:w-100 text-center xl:text-justify">
           Los siguientes documentos han sido firmados por usted durante el proceso:
         </p>
       </div>
 
       <div class="md:ml-3 xl:ml-4 flex flex-col divide-y altura-file ancho-file overflow-y-auto md:overflow-hidden">
         <div *ngFor="let item of documentos; let i=index" class="py-3 flex flex-row justify-between gap-2 sm:gap-4 md:gap-9">
-          <div class="flex flex-row gap-2">
-            <div>
-              <mat-icon svgIcon="heroicons_outline:document-text"></mat-icon>
+          <div class="flex flex-row gap-4">
+            <div class="relative flex flex-row">
+              <mat-icon class="text-hint" [svgIcon]="'iconsmind:file'"></mat-icon>
+              <div class="pdf z-10 rounded font-semibold text-white bg-red-600">
+                PDF
+              </div>
             </div>
             <div>
               <p>{{item.nombre}}</p>

@@ -17,9 +17,12 @@
 
       <div class="flex flex-col divide-y altura-file overflow-y-auto md:overflow-hidden">
         <div *ngFor="let item of listadoArchivos; let i=index" class="py-3 flex flex-row justify-between gap-9">
-          <div class="flex flex-row gap-2">
-            <div>
-              <mat-icon svgIcon="heroicons_outline:document-text"></mat-icon>
+          <div class="flex flex-row gap-4">
+            <div class="relative flex flex-row">
+              <mat-icon class="text-hint" [svgIcon]="'iconsmind:file'"></mat-icon>
+              <div class="pdf z-10 rounded font-semibold text-white bg-red-600">
+                PDF
+              </div>
             </div>
             <div>
               <p>{{item.informacion_archivo.descripcion}}</p>

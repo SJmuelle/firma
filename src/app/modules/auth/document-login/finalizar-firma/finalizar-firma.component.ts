@@ -18,6 +18,7 @@ export class FinalizarFirmaComponent implements OnInit {
   captura: {}
   pagare: {}
   listadoArchivos: any = [];
+  extension: string = 'pdf';
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
 
