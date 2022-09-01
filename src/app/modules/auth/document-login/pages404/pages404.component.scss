@@ -7,5 +7,22 @@
 }
 
 .tamano-img {
-    width: 40%;
+    @media (min-width:360px) {
+        width: 150%;
+    }
+    @media (min-width:425px) {
+        width: 120%;
+    }
+    @media (min-width:768px) {
+        width: 90%;
+    }
+    @media (min-width:1024px) {
+        width: 60%;
+    }
+    @media (min-width:1200px) {
+        width: 50%;
+    }
+    @media (min-width:1440px) {
+        width: 45%;
+    }
 }

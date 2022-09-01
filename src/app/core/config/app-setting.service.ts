@@ -41,6 +41,7 @@ export class AppSettingsService {
       solicitudValidar: EndPoints.urlPrueba('api-fintra/api/firma/solicitud-validar-otp'),
       solicitudFirmar: EndPoints.urlPrueba('api-fintra/api/firma/solicitud-generar-firma'),
       documentosFirmar: EndPoints.urlPrueba('api-fintra/api/firma/obtener_documentos_firma'),
+      mostrarPagare: EndPoints.urlPrueba('api-fintra/api/deceval/mostrar-pagare-pdf-general')
     }
   };
 }

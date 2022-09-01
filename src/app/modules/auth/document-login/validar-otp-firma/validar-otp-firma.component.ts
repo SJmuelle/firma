@@ -33,8 +33,8 @@ export class ValidarOtpFirmaComponent implements OnInit {
 
   ngOnInit() {
     this.telefono = JSON.parse(localStorage.getItem('telefono'))
-    this.captura=JSON.parse(localStorage.getItem('correo'))
-    this.correo = this.captura['value']
+    // this.captura=JSON.parse(localStorage.getItem('correo'))
+    // this.correo = this.captura['value']
     this.validarForm = this._formBuilder.group({
       codigo: ['', [Validators.required]]
     });

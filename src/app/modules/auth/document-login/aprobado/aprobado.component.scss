@@ -5,3 +5,45 @@
 .letra-grande {
     color: #6d6d6d;
 }
+
+.tamano-img {
+    @media (min-width:360px) {
+        width: 150%;
+    }
+    @media (min-width:425px) {
+        width: 120%;
+    }
+    @media (min-width:768px) {
+        width: 90%;
+    }
+    @media (min-width:1024px) {
+        width: 60%;
+    }
+    @media (min-width:1200px) {
+        width: 50%;
+    }
+    @media (min-width:1440px) {
+        width: 45%;
+    }
+}
+
+.acomodar {
+    @media (min-width:360px) {
+        margin-left: 1%;
+    }
+    @media (min-width:768px) {
+        margin-left: 15%;
+    }
+    @media (min-width:1024px) {
+        margin-left: 20%;
+    }
+    @media (min-width:1200px) {
+        margin-left: 28%;
+    }
+    @media (min-width:1440px) {
+        margin-left: 28%;
+    }
+    @media (min-width:1536px) {
+        margin-left: 28%;
+    }
+}

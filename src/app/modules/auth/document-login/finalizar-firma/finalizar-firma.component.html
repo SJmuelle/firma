@@ -1,25 +1,25 @@
 <div class="flex flex-col h-screen flex-auto items-center sm:justify-center min-w-0 fondo">
-  <div class="w-4/5">
-    <div class="w-30 lg:mb-5 xl:mb-8 lg:ml-20 xl:ml-64">
+  <div class="w-full">
+    <div class="w-30 mt-30 sm:mt-0 mb-4 md:mb-8 acomodar">
         <img src="assets/images/logo/logo-fintra-gris.png">
     </div>
   </div>
-  <div class="flex flex-row lg:space-laptop xl:w-1/2 lg:h-140 xl:h-160 sm:rounded-2xl sm:shadow sm:bg-card">
+  <div class="flex flex-row justify-center tamano lg:h-128 xl:h-160 rounded-2xl shadow bg-card">
     <img class="imagen sm:rounded-l-2xl fondo-img" src="assets/images/pages/documentos_firmados.png">
 
-    <div class="flex flex-col h-full justify-center items-center input">
-      <div class="text-3xl font-extrabold tracking-tight leading-tight">{{titulo}}</div>
-      <div class="mt-2 justify-center">
-        <p class="w-100 text-justify">
-          Los siguientes documentos han sido firmados por usted durante el proceso.
+    <div class="mt-4 sm:mt-2 mb-4 sm:mb-2 flex flex-col sm:h-full justify-center items-center size-col sm:ml-5 sm:mr-5">
+      <div class="text-xl sm:text-3xl font-extrabold tracking-tight leading-tight">{{titulo}}</div>
+      <div class="mt-4 justify-center">
+        <p class="lg:w-80 xl:w-100 lg:text-center xl:text-justify">
+          Los siguientes documentos han sido firmados por usted durante el proceso:
         </p>
       </div>
 
-      <div class="mt-2 flex flex-col divide-y h-40 overflow-y-scroll">
+      <div class="flex flex-col divide-y altura-file overflow-y-auto sm:overflow-hidden">
         <div *ngFor="let item of documentos; let i=index" class="py-3 flex flex-row justify-between gap-9">
           <div class="flex flex-row gap-2">
             <div>
-              <mat-icon svgIcon="heroicons_outline:check-circle"></mat-icon>
+              <mat-icon svgIcon="heroicons_outline:document-text"></mat-icon>
             </div>
             <div>
               <p>{{item.nombre}}</p>
@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      <div class="border-l-4 border-2 rounded-md verde-fintra mt-4 flex flex-col w-100">
+      <div class="border-l-4 border-2 rounded-md verde-fintra mt-4 flex flex-col ancho-mensaje">
         <div class="mt-1 flex flex-row mb-2 gap-2 pr-2">
           <div class="ml-2">
             <mat-icon svgIcon="heroicons_outline:information-circle"></mat-icon>

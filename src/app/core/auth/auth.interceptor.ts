@@ -34,8 +34,13 @@ export class AuthInterceptor implements HttpInterceptor
         // for the protected API routes which our response interceptor will
         // catch and delete the access token from the local storage while logging
         // the user out from the app.
-        
-
+        if ( this._authService.accessToken && !AuthUtils.isTokenExpired(this._authService.accessToken) )
+        {
+           
+            newReq = req.clone({
+                headers: req.headers.set('Authentication',  this._authService.accessToken)
+            });
+        }
         //no enviar token a la url externas cambiar 2
         const url = newReq.url.split('api-')[0];
         if(url==environment.apiPath){

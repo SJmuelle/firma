@@ -119,8 +119,6 @@ export class DocumentLoginComponent implements OnInit {
           'info'
         )
       }
-      
-
     })
   }
 }

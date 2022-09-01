@@ -30,7 +30,8 @@ export class DocumentosFirmarComponent implements OnInit {
     let data = {
       "unidadNegocio": parseInt(this.uni),
       "tipoDoc":1,
-      "numeroSolicitud":parseInt(this.soli)
+      "numeroSolicitud":parseInt(this.soli),
+      "tipoTercero":"T"
     }
     this.firmainterna.documentosFirmar(data).subscribe(resp => {
       if (resp.status == 200) {
