@@ -26,7 +26,15 @@ export class PreguntaComponent implements OnInit {
     totalpreguntas: number = 4;
     cargando: boolean;
     lastbutton: boolean = false;
+
     selected: number = 0;
+
+    selectUno:number = 0;
+    selectDos:number = 0;
+    selectTres:number = 0;
+    selectCuatro:number = 0;
+
+    respondidas:any[] = [];
 
     hidecharge: boolean;
 
@@ -63,9 +71,14 @@ export class PreguntaComponent implements OnInit {
         ]
     }
 
-    capturarRespuesta(item) {
+    capturarRespuesta(item, index) {
         this.temprespuesta = item;
         this.selected = item;
+        if (this.respondidas[index]==null) {
+            this.respondidas.push(this.selected)
+        } else {
+            this.respondidas[index] = this.selected;
+        }
         this.containRespuesta = this.containRespuesta + 1;
         if (this.vistaPregunta == 3) {
             this.lastbutton = true
@@ -90,7 +103,7 @@ export class PreguntaComponent implements OnInit {
         this._changeDetectorRef.markForCheck();
     }
 
-    continuar() {
+    continuar(index) {
         this.vistaPregunta = this.vistaPregunta + 1;
         this.cantPreguntas = this.cantPreguntas - 1;
         this.goToStep(this.vistaPregunta)
@@ -102,14 +115,23 @@ export class PreguntaComponent implements OnInit {
         } else {
             this.textCapi = this.preguntas[this.vistaPregunta].texto[0].toUpperCase() + this.preguntas[this.vistaPregunta].texto.slice(1).toLowerCase();
         }
-        this.selected = 0;
+        if (this.respondidas[index+1]==null) {
+            this.selected = 0;
+        }else{
+            this.selected = this.respondidas[index+1];
+        }
     }
 
-    anterior() {
+    anterior(index) {
         this.vistaPregunta = this.vistaPregunta - 1;
         this.cantPreguntas = this.cantPreguntas + 1;
         this.goToStep(this.vistaPregunta)
         this.textCapi = this.preguntas[this.vistaPregunta].texto[0].toUpperCase() + this.preguntas[this.vistaPregunta].texto.slice(1).toLowerCase();
+        if (this.respondidas[index-1]!=null) {
+            this.selected = this.respondidas[index-1];
+        }else{
+            this.selected = 0;
+        }
     }
 
     confirmar() {

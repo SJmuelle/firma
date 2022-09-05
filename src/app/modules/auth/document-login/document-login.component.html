@@ -33,7 +33,10 @@
                                 Número de identificación es requerido
                             </mat-error>
                             <mat-error *ngIf="comingSoonForm.get('documento').hasError('minlength')">
-                                Documentos de identidad minimo requieren 10 caracteres.
+                                Documentos de identidad permiten minimo 10 caracteres numericos.
+                            </mat-error>
+                            <mat-error *ngIf="comingSoonForm.get('documento').hasError('notNumber')">
+                                Solo se aceptan valores numericos.
                             </mat-error>
                         </mat-form-field>
                     </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgForm, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/service/auth.service';
@@ -50,10 +50,16 @@ export class DocumentLoginComponent implements OnInit {
   ngOnInit(): void {
     // Create the form
     this.comingSoonForm = this._formBuilder.group({
-      documento: ['', [Validators.required, Validators.minLength(10)]]
+      documento: ['', [Validators.required, Validators.minLength(10), this.numberValid]]
     });
+  }
 
-
+  numberValid(control: FormControl): { [s: string]: boolean } {
+    const mayuscula = new RegExp('.*[0-9].*');
+    if (control.value !== '' && !control.value.match(mayuscula)) {
+      return { notNumber: true };
+    }
+    return null;
   }
 
   // -----------------------------------------------------------------------------------------------------
