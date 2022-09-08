@@ -80,6 +80,8 @@ export class GenerarFirmaComponent implements OnInit {
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizar-firma']);  
         this.Btndisabled = false;
       }
+    }, err=> {
+      this.Btndisabled = false;
     })
   }
 
