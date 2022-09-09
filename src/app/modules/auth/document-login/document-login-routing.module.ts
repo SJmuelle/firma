@@ -29,31 +29,37 @@ const routes: Routes = [
   },
   {
     path     : ':num/:uni/replay',
-    component: ReplayComponent
+    component: ReplayComponent,
+    canActivate: [VigilanteGuard]
   },
   {
     path     : 'page404',
-    component: Pages404Component
+    component: Pages404Component,
   },
   {
     path     : ':num/:uni/pregunta',
-    component: PreguntaComponent
+    component: PreguntaComponent,
+    canActivate: [VigilanteGuard]
   },
   {
     path     : ':num/:uni/finalizado',
-    component: FinalizadoComponent
+    component: FinalizadoComponent,
+    canActivate: [VigilanteGuard]
   },
   {
     path     : ':num/:uni/generarOTP',
-    component: GeneraOTPComponent
+    component: GeneraOTPComponent,
+    canActivate: [VigilanteGuard]
   },
   {
     path     : ':num/:uni/aprobado',
-    component: AprobadoComponent
+    component: AprobadoComponent,
+    canActivate: [VigilanteGuard]
   },
   {
     path     : ':num/:uni/no-aprobado',
-    component: NoAprobadoComponent
+    component: NoAprobadoComponent,
+    canActivate: [VigilanteGuard]
   },
   {
     path     : 'ejemplo',
@@ -61,23 +67,28 @@ const routes: Routes = [
   },
   {
     path     : ':num/:uni/interna',
-    component: FirmaInternaComponent
+    component: FirmaInternaComponent,
+    canActivate: [VigilanteGuard]
   },
   {
     path     : ':num/:uni/docu-firma',
-    component: DocumentosFirmarComponent
+    component: DocumentosFirmarComponent,
+    canActivate: [VigilanteGuard]
   },
   {
     path     : ':num/:uni/otp-firma',
-    component: ValidarOtpFirmaComponent
+    component: ValidarOtpFirmaComponent,
+    canActivate: [VigilanteGuard]
   },
   {
     path     : ':num/:uni/generar-firma',
-    component: GenerarFirmaComponent
+    component: GenerarFirmaComponent,
+    canActivate: [VigilanteGuard]
   },
   {
     path     : ':num/:uni/finalizar-firma',
-    component: FinalizarFirmaComponent
+    component: FinalizarFirmaComponent,
+    canActivate: [VigilanteGuard]
   }
 ];
 
