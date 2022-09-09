@@ -15,6 +15,7 @@ import { DocumentosFirmarComponent } from './documentos-firmar/documentos-firmar
 import { ValidarOtpFirmaComponent } from './validar-otp-firma/validar-otp-firma.component';
 import { GenerarFirmaComponent } from './generar-firma/generar-firma.component';
 import { FinalizarFirmaComponent } from './finalizar-firma/finalizar-firma.component';
+import { VigilanteGuard } from './vigilante.guard';
 
 const routes: Routes = [
   {
@@ -23,7 +24,8 @@ const routes: Routes = [
   },
   {
     path     : ':num/:uni/user/:doc',
-    component: DataUserComponent
+    component: DataUserComponent,
+    canActivate: [VigilanteGuard]
   },
   {
     path     : ':num/:uni/replay',

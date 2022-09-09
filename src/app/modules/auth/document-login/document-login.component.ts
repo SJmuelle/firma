@@ -48,6 +48,8 @@ export class DocumentLoginComponent implements OnInit {
    * On init
    */
   ngOnInit(): void {
+    localStorage.setItem('solicitud', this.soli);
+    localStorage.setItem('unidad', this.uni);
     // Create the form
     this.comingSoonForm = this._formBuilder.group({
       documento: ['', [Validators.required, Validators.minLength(10), this.numberValid]]
