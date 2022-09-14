@@ -25,7 +25,7 @@ const routerConfig: ExtraOptions = {
     imports     : [
         BrowserModule,
         BrowserAnimationsModule,
-        RouterModule.forRoot(appRoutes, routerConfig),
+        RouterModule.forRoot(appRoutes, {useHash:true}),
 
         // Fuse, FuseConfig & FuseMockAPI
         FuseModule,
@@ -39,7 +39,7 @@ const routerConfig: ExtraOptions = {
         LayoutModule,
 
         // 3rd party modules that require global configuration via forRoot
-        MarkdownModule.forRoot({})
+        MarkdownModule.forRoot({}) 
     ],
     bootstrap   : [
         AppComponent
