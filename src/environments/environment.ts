@@ -6,7 +6,7 @@ export const environment = {
     production: false,
     // apiPath:"https://231c-181-57-229-82.ngrok.io/",
     apiPath: 'https://prometheus.fintra.co:8443/',
-    apiPrueba:"https://prometheus.fintra.co:8443/",
+
     userName: "APPWEB",
     password: "123456",
 };
