@@ -19,29 +19,19 @@ export class AppSettingsService {
    * @description: End-point simulador
   */
   public configuracionInicial = {
-    // url: {
-    //     configuracionExperia: EndPoints.urlBase('api-fintra/api/generic/qry/configuracion-experian/'),
-    //     datosUsuarioEvidente: EndPoints.urlBase('api-evidente/api/evidente/datos-usuario'),
-    //     datosUsuario: EndPoints.urlBase('api-fintra/api/generic/qry/informacion-cliente-evidente/'),
-    //     usuarioEvidenteNo: EndPoints.urlBase('api-fintra/api/credito/archivos-thomas'),
-    //     generarOtp: EndPoints.urlBase('api-evidente/api/evidente/generar-otp'),
-    //     validarOtp: EndPoints.urlBase('api-evidente/api/evidente/validar-otp'),
-    //     enviarPreguntas: EndPoints.urlBase('api-evidente/api/evidente/verificar-preguntas')
-    // }
-
     url: {
-      configuracionExperia: EndPoints.urlPrueba('api-fintra/api/generic/qry/configuracion-experian/'),
-      datosUsuarioEvidente: EndPoints.urlPrueba('api-fintra/api/evidente/datos-usuario'),
+      configuracionExperia: EndPoints.urlBase('api-fintra/api/generic/qry/configuracion-experian/'),
+      datosUsuarioEvidente: EndPoints.urlBase('api-fintra/api/evidente/datos-usuario'),
       datosUsuario: EndPoints.urlBase('api-fintra/api/generic/qry/informacion-cliente-evidente/'),
-      usuarioEvidenteNo: EndPoints.urlPrueba('api-fintra/api/credito/archivos-thomas'),
-      generarOtp: EndPoints.urlPrueba('api-fintra/api/evidente/generar-otp'),
-      validarOtp: EndPoints.urlPrueba('api-fintra/api/evidente/validar-otp'),
-      enviarPreguntas: EndPoints.urlPrueba('api-fintra/api/evidente/verificar-preguntas'),
-      solicitudGenerar: EndPoints.urlPrueba('api-fintra/api/firma/solicitud-generar-otp'),
-      solicitudValidar: EndPoints.urlPrueba('api-fintra/api/firma/solicitud-validar-otp'),
-      solicitudFirmar: EndPoints.urlPrueba('api-fintra/api/firma/solicitud-generar-firma'),
-      documentosFirmar: EndPoints.urlPrueba('api-fintra/api/firma/obtener_documentos_firma'),
-      mostrarPagare: EndPoints.urlPrueba('api-fintra/api/deceval/firmar-pagare-general')
+      usuarioEvidenteNo: EndPoints.urlBase('api-fintra/api/credito/archivos-thomas'),
+      generarOtp: EndPoints.urlBase('api-fintra/api/evidente/generar-otp'),
+      validarOtp: EndPoints.urlBase('api-fintra/api/evidente/validar-otp'),
+      enviarPreguntas: EndPoints.urlBase('api-fintra/api/evidente/verificar-preguntas'),
+      solicitudGenerar: EndPoints.urlBase('api-fintra/api/firma/solicitud-generar-otp'),
+      solicitudValidar: EndPoints.urlBase('api-fintra/api/firma/solicitud-validar-otp'),
+      solicitudFirmar: EndPoints.urlBase('api-fintra/api/firma/solicitud-generar-firma'),
+      documentosFirmar: EndPoints.urlBase('api-fintra/api/firma/obtener_documentos_firma'),
+      mostrarPagare: EndPoints.urlBase('api-fintra/api/deceval/firmar-pagare-general')
     }
   };
 }
