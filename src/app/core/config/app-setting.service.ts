@@ -22,7 +22,7 @@ export class AppSettingsService {
     url: {
       configuracionExperia: EndPoints.urlPrueba('api-fintra/api/generic/qry/configuracion-experian/'),
       datosUsuarioEvidente: EndPoints.urlPrueba('api-fintra/api/evidente/datos-usuario'),
-      datosUsuario: EndPoints.urlBase('api-fintra/api/generic/qry/informacion-cliente-evidente/'),
+      datosUsuario: EndPoints.urlPrueba('api-fintra/api/generic/qry/informacion-cliente-evidente/'),
       usuarioEvidenteNo: EndPoints.urlPrueba('api-fintra/api/credito/archivos-thomas'),
       generarOtp: EndPoints.urlPrueba('api-fintra/api/evidente/generar-otp'),
       validarOtp: EndPoints.urlPrueba('api-fintra/api/evidente/validar-otp'),
