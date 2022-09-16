@@ -63,25 +63,24 @@ export class GenerarFirmaComponent implements OnInit {
       if (resp.status == 200) {
         const final = JSON.stringify(resp.data);
         localStorage.setItem('final', final);
+        let datos = {
+          "numeroSolicitud":parseInt(this.soli),
+          "unidadNegocio":parseInt(this.uni),
+          "tipoTercero":"T",
+          "firma":this.generarForm.value.pass
+        }
+        this.firmainterna.pagare(datos).subscribe(resp => {
+          if (resp.status == 200) {
+            const base64 = JSON.stringify(resp.data.base64);
+            console.log(base64)
+            localStorage.setItem('pagare', base64);
+            this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizar-firma']);  
+            this.Btndisabled = false;
+          }
+        }, err=> {
+          this.Btndisabled = false;
+        })
       }
-    })
-
-    let datos = {
-      "numeroSolicitud":parseInt(this.soli),
-      "unidadNegocio":parseInt(this.uni),
-      "tipoTercero":"T",
-      "firma":this.generarForm.value.pass
-    }
-    this.firmainterna.pagare(datos).subscribe(resp => {
-      if (resp.status == 200) {
-        const base64 = JSON.stringify(resp.data.base64);
-        console.log(base64)
-        localStorage.setItem('pagare', base64);
-        this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizar-firma']);  
-        this.Btndisabled = false;
-      }
-    }, err=> {
-      this.Btndisabled = false;
     })
   }
 
