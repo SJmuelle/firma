@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FirmaInternaService } from 'app/core/service/firma-interna.service';
+import { GuardianService } from 'app/core/service/guardian.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-validar-otp-firma',
@@ -17,7 +19,9 @@ export class ValidarOtpFirmaComponent implements OnInit {
   botonff: boolean;
   reenvio: boolean = false;
   btnreenvio: boolean;
-
+  concedido: any;
+  subscripcion: Subscription;
+  acceso: boolean;
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
   telefono: any;
@@ -28,10 +32,17 @@ export class ValidarOtpFirmaComponent implements OnInit {
     private _formBuilder: FormBuilder, 
     private router: Router,
     private activeroute: ActivatedRoute,
+    private guardia: GuardianService,
     private firmainterna: FirmaInternaService
     ) { }
 
   ngOnInit() {
+    this.subscripcion = this.guardia.concedeOtpFirma.subscribe(({ accesoOtpFirma }) => {
+      this.concedido = accesoOtpFirma;
+    })
+    // if (this.concedido!=true) {
+    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    // }
     this.telefono = JSON.parse(localStorage.getItem('telefono'))
     // this.captura=JSON.parse(localStorage.getItem('correo'))
     // this.correo = this.captura['value']
@@ -49,6 +60,15 @@ export class ValidarOtpFirmaComponent implements OnInit {
     }, 1000);
   }
 
+  ngOnDestroy() {
+    this.subscripcion.unsubscribe();
+  }
+
+  concederAccesoGenFirma(){
+    this.acceso = true;
+    this.guardia.concedeGenFirma.next({accesoGenFirma: this.acceso})
+  }
+
   seguir() {
     this.botonff = true;
     clearInterval(this.intervalo);
@@ -60,6 +80,7 @@ export class ValidarOtpFirmaComponent implements OnInit {
     this.firmainterna.solicitarValidar(data).subscribe(resp => {
       if (resp.status == 200) {
         this.botonff = false;
+        this.concederAccesoGenFirma();
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/generar-firma']);  
       }else{
         this.botonff = true;

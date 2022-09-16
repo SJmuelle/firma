@@ -5,6 +5,8 @@ import { AuthService } from 'app/core/auth/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DocumentLoginService } from 'app/core/service/document-login.service';
 import { ClausulaComponent } from './clausula/clausula.component';
+import { Subscription } from 'rxjs';
+import { GuardianService } from 'app/core/service/guardian.service';
 
 @Component({
   selector: 'app-firma-interna',
@@ -15,24 +17,40 @@ export class FirmaInternaComponent implements OnInit {
 
   checkForm: FormGroup;
   showAlert: boolean = false;
-
+  concedido: any;
+  subscripcion: Subscription;
+  acceso: boolean;
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
 
   constructor(
-    private _authService: AuthService,
     private _formBuilder: FormBuilder,
     private router: Router,
+    private guardia: GuardianService,
     private activeroute: ActivatedRoute,
-    private _documentLoginService: DocumentLoginService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit() {
+    this.subscripcion = this.guardia.concedeInterna.subscribe(({ accesoInterna }) => {
+      this.concedido = accesoInterna;
+    })
+    // if (this.concedido!=true) {
+    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    // }
     this.checkForm = this._formBuilder.group({
       politica: ['', Validators.requiredTrue],
       clausula: ['', Validators.requiredTrue]
     });
+  }
+
+  ngOnDestroy() {
+    this.subscripcion.unsubscribe();
+  }
+
+  concederAccesoDocu(){
+    this.acceso = true;
+    this.guardia.concedeDocu.next({accesoDocu: this.acceso})
   }
 
   abrirClausula(){
@@ -42,6 +60,7 @@ export class FirmaInternaComponent implements OnInit {
   }
 
   seguir() {
+    this.concederAccesoDocu()
     this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + 'docu-firma']);
   }
 

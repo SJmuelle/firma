@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { DocumentLoginService } from 'app/core/service/document-login.service';
 import { MatTabGroup } from '@angular/material/tabs';
+import { Subscription } from 'rxjs';
+import { GuardianService } from 'app/core/service/guardian.service';
 
 @Component({
     selector: 'app-pregunta',
@@ -47,14 +49,25 @@ export class PreguntaComponent implements OnInit {
     soli: string = this.activeroute.snapshot.paramMap.get('num')
     uni: string = this.activeroute.snapshot.paramMap.get('uni')
 
+    concedido:any;
+    subscripcion: Subscription;
+
     constructor(
         private _documentLoginService: DocumentLoginService,
         private router: Router,
         private activeroute: ActivatedRoute,
-        private _changeDetectorRef: ChangeDetectorRef
+        private _changeDetectorRef: ChangeDetectorRef,
+        private guardia: GuardianService
     ) { }
 
     ngOnInit(): void {
+        this.subscripcion = this.guardia.concedePregunta.subscribe(({ accesoPregunta }) => {
+            this.concedido = accesoPregunta;
+        })
+        // console.log(this.concedido);
+        // if (this.concedido!=true) {
+        //     this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+        // }
         let data = [];
         data.push(JSON.parse(localStorage.getItem('questions')));
         this.preguntas = data[0].Pregunta
@@ -69,6 +82,10 @@ export class PreguntaComponent implements OnInit {
             { order: 2 },
             { order: 3 }
         ]
+    }
+
+    ngOnDestroy() {
+        this.subscripcion.unsubscribe();
     }
 
     capturarRespuesta(item, index) {

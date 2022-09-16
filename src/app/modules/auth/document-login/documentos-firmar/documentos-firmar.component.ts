@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FirmaInternaService } from 'app/core/service/firma-interna.service';
+import { GuardianService } from 'app/core/service/guardian.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-documentos-firmar',
@@ -15,17 +17,26 @@ export class DocumentosFirmarComponent implements OnInit {
   datoTel: any;
   Btndisabled: boolean;
   cargando: boolean;
-
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
+  concedido: any;
+  subscripcion: Subscription;
+  acceso: boolean;
 
   constructor(
     private router: Router,
     private activeroute: ActivatedRoute,
+    private guardia: GuardianService,
     private firmainterna: FirmaInternaService
   ) { }
 
   ngOnInit() {
+    this.subscripcion = this.guardia.concedeDocu.subscribe(({ accesoDocu }) => {
+      this.concedido = accesoDocu;
+    })
+    // if (this.concedido!=true) {
+    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    // }
     this.cargando = true;
     let data = {
       "unidadNegocio": parseInt(this.uni),
@@ -43,6 +54,15 @@ export class DocumentosFirmarComponent implements OnInit {
         this.listadoArchivos = [];
       }
     })
+  }
+
+  ngOnDestroy() {
+    this.subscripcion.unsubscribe();
+}
+
+  concederAccesoOtpFirma(){
+    this.acceso = true;
+    this.guardia.concedeOtpFirma.next({accesoOtpFirma: this.acceso})
   }
 
   descargar(item, base64) {
@@ -67,14 +87,9 @@ export class DocumentosFirmarComponent implements OnInit {
       if (resp.status == 200) {
         this.Btndisabled = false;
         const telefono = JSON.stringify(resp.data.value);
-        // const correo = JSON.stringify(resp.data.correo.data);
-        console.log(telefono)
-        // console.log(correo)
         localStorage.setItem('telefono', telefono);
-        // localStorage.setItem('correo', correo);
-        console.log('Aqui estoy')
+        this.concederAccesoOtpFirma();
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + 'otp-firma']);
-        console.log('Aqui estuve')
       }
     }, err => {
       this.Btndisabled = false;
