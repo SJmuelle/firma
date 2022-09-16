@@ -32,12 +32,13 @@ export class FirmaInternaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.subscripcion = this.guardia.concedeInterna.subscribe(({ accesoInterna }) => {
-      this.concedido = accesoInterna;
+    this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+      this.concedido = acceso;
     })
-    // if (this.concedido!=true) {
-    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    // }
+    if (this.concedido!=true) {
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }
+    this.guardia.conceder.next({acceso: this.acceso=false})
     this.checkForm = this._formBuilder.group({
       politica: ['', Validators.requiredTrue],
       clausula: ['', Validators.requiredTrue]
@@ -48,9 +49,9 @@ export class FirmaInternaComponent implements OnInit {
     this.subscripcion.unsubscribe();
   }
 
-  concederAccesoDocu(){
+  conceder(){
     this.acceso = true;
-    this.guardia.concedeDocu.next({accesoDocu: this.acceso})
+    this.guardia.conceder.next({acceso: this.acceso})
   }
 
   abrirClausula(){
@@ -60,7 +61,7 @@ export class FirmaInternaComponent implements OnInit {
   }
 
   seguir() {
-    this.concederAccesoDocu()
+    this.conceder()
     this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + 'docu-firma']);
   }
 

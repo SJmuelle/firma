@@ -34,12 +34,13 @@ export class FinalizarFirmaComponent implements OnInit {
     private firmainterna: FirmaInternaService) { }
 
   ngOnInit() {
-    this.subscripcion = this.guardia.concedeFinFirma.subscribe(({ accesoFinFirma }) => {
-      this.concedido = accesoFinFirma;
+    this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+      this.concedido = acceso;
     })
-    // if (this.concedido!=true) {
-    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    // }
+    if (this.concedido!=true) {
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }
+    this.guardia.conceder.next({acceso: this.acceso=false})
     this.captura=JSON.parse(localStorage.getItem('final'))
     this.pagare=JSON.parse(localStorage.getItem('pagare'))
     this.titulo = this.captura['title']

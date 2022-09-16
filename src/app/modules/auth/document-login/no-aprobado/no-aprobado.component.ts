@@ -22,12 +22,13 @@ export class NoAprobadoComponent implements OnInit {
 
   ngOnInit() {
     this.captura=JSON.parse(localStorage.getItem('error'))
-    this.subscripcion = this.guardia.concedeNoAprob.subscribe(({ accesoNoAprob }) => {
-      this.concedido = accesoNoAprob;
+    this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+      this.concedido = acceso;
     })
-    // if (this.concedido!=true) {
-    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    // }
+    if (this.concedido!=true) {
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }
+    this.guardia.conceder.next({acceso: this.acceso=false})
     this.mensaje = this.captura['mensaje']
   }
 

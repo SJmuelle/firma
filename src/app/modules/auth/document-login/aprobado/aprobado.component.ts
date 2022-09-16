@@ -22,12 +22,13 @@ export class AprobadoComponent implements OnInit {
 
   ngOnInit() {
     this.captura=JSON.parse(localStorage.getItem('aprob'))
-    this.subscripcion = this.guardia.concedeAprob.subscribe(({ accesoAprob }) => {
-      this.concedido = accesoAprob;
+    this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+      this.concedido = acceso;
     })
-    // if (this.concedido!=true) {
-    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    // }
+    if (this.concedido!=true) {
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }
+    this.guardia.conceder.next({acceso: this.acceso=false})
     this.mensaje = this.captura['mensaje']
   }
 
@@ -35,7 +36,13 @@ export class AprobadoComponent implements OnInit {
     this.subscripcion.unsubscribe();
   }
 
+  conceder(){
+    this.acceso = true;
+    this.guardia.conceder.next({acceso: this.acceso})
+  }
+
   seguir() {
+    this.conceder();
     this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + 'interna']);
   }
 
