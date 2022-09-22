@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 export class ReplayComponent implements OnInit {
   mensaje: string;
   concedido:any;
+  acceso: boolean;
   subscripcion: Subscription;
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
@@ -18,13 +19,14 @@ export class ReplayComponent implements OnInit {
   constructor(private router: Router, private activeroute: ActivatedRoute, private guardia: GuardianService,) { }
 
   ngOnInit(): void {
-    this.subscripcion = this.guardia.concedeReplay.subscribe(({ accesoReplay }) => {
-      this.concedido = accesoReplay;
+    this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+      this.concedido = acceso;
     })
     // if (this.concedido!=true) {
     //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
     // }
     this.mensaje=localStorage.getItem('ERROR')
+    this.guardia.conceder.next({acceso: this.acceso=false})
   }
 
   ngOnDestroy() {

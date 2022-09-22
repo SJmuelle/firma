@@ -37,15 +37,16 @@ export class ValidarOtpFirmaComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.subscripcion = this.guardia.concedeOtpFirma.subscribe(({ accesoOtpFirma }) => {
-      this.concedido = accesoOtpFirma;
+    this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+      this.concedido = acceso;
     })
     // if (this.concedido!=true) {
     //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
     // }
+    this.guardia.conceder.next({acceso: this.acceso=false})
     this.telefono = JSON.parse(localStorage.getItem('telefono'))
-    // this.captura=JSON.parse(localStorage.getItem('correo'))
-    // this.correo = this.captura['value']
+    this.captura=JSON.parse(localStorage.getItem('correo'))
+    this.correo = this.captura['value']
     this.validarForm = this._formBuilder.group({
       codigo: ['', [Validators.required]]
     });
@@ -64,9 +65,9 @@ export class ValidarOtpFirmaComponent implements OnInit {
     this.subscripcion.unsubscribe();
   }
 
-  concederAccesoGenFirma(){
+  conceder(){
     this.acceso = true;
-    this.guardia.concedeGenFirma.next({accesoGenFirma: this.acceso})
+    this.guardia.conceder.next({acceso: this.acceso})
   }
 
   seguir() {
@@ -80,7 +81,7 @@ export class ValidarOtpFirmaComponent implements OnInit {
     this.firmainterna.solicitarValidar(data).subscribe(resp => {
       if (resp.status == 200) {
         this.botonff = false;
-        this.concederAccesoGenFirma();
+        this.conceder();
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/generar-firma']);  
       }else{
         this.botonff = true;
@@ -95,8 +96,8 @@ export class ValidarOtpFirmaComponent implements OnInit {
     this.btnreenvio = true;
 
     let data = {
-      "numeroSolicitud": this.soli,
-      "tipo":"S"
+      "numeroSolicitud": parseInt(this.soli),
+      "tipo":"T"
     }
 
     this.firmainterna.solicitarGenerar(data).subscribe(resp => {

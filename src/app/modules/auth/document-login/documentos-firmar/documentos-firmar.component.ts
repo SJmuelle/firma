@@ -13,6 +13,8 @@ export class DocumentosFirmarComponent implements OnInit {
 
   showAlert: boolean = false;
   listadoArchivos: any = [];
+  listadoFalso: any = [];
+  fileFalso: any = {};
   listaBreve: any = [1 , 2, 3]
   datoTel: any;
   Btndisabled: boolean;
@@ -31,12 +33,28 @@ export class DocumentosFirmarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.subscripcion = this.guardia.concedeDocu.subscribe(({ accesoDocu }) => {
-      this.concedido = accesoDocu;
+    // this.listadoFalso = [
+    //   this.fileFalso = {
+    //     "nombre":"hola"
+    //   },
+    //   {
+    //     "nombre":"como"
+    //   },
+    //   {
+    //     "nombre":"estas"
+    //   },
+    //   {
+    //     "nombre":"bien"
+    //   }
+    // ]
+    console.log(this.listadoFalso)
+    this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+      this.concedido = acceso;
     })
     // if (this.concedido!=true) {
     //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
     // }
+    this.guardia.conceder.next({acceso: this.acceso=false})
     this.cargando = true;
     let data = {
       "unidadNegocio": parseInt(this.uni),
@@ -58,11 +76,11 @@ export class DocumentosFirmarComponent implements OnInit {
 
   ngOnDestroy() {
     this.subscripcion.unsubscribe();
-}
+  }
 
-  concederAccesoOtpFirma(){
+  conceder(){
     this.acceso = true;
-    this.guardia.concedeOtpFirma.next({accesoOtpFirma: this.acceso})
+    this.guardia.conceder.next({acceso: this.acceso})
   }
 
   descargar(item, base64) {
@@ -88,7 +106,7 @@ export class DocumentosFirmarComponent implements OnInit {
         this.Btndisabled = false;
         const telefono = JSON.stringify(resp.data.value);
         localStorage.setItem('telefono', telefono);
-        this.concederAccesoOtpFirma();
+        this.conceder();
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + 'otp-firma']);
       }
     }, err => {

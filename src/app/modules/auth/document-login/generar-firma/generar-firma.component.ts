@@ -33,12 +33,13 @@ export class GenerarFirmaComponent implements OnInit {
     private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.subscripcion = this.guardia.concedeGenFirma.subscribe(({ accesoGenFirma }) => {
-      this.concedido = accesoGenFirma;
+    this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+      this.concedido = acceso;
     })
     // if (this.concedido!=true) {
     //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
     // }
+    this.guardia.conceder.next({acceso: this.acceso=false})
     this.generarForm = this._formBuilder.group({
       condiciones: ['', Validators.requiredTrue],
       pass: ['', [Validators.required, Validators.maxLength(15), Validators.minLength(8), this.numberValid, this.lowercaseUppercaseValid, this.repeatLetter]],
@@ -50,9 +51,9 @@ export class GenerarFirmaComponent implements OnInit {
     this.subscripcion.unsubscribe();
   }
   
-  concederAccesoFinFirma(){
+  conceder(){
     this.acceso = true;
-    this.guardia.concedeFinFirma.next({accesoFinFirma: this.acceso})
+    this.guardia.conceder.next({acceso: this.acceso})
   }
 
   abrirCondiciones(){
@@ -114,7 +115,7 @@ export class GenerarFirmaComponent implements OnInit {
         const base64 = JSON.stringify(resp.data.base64);
         console.log(base64)
         localStorage.setItem('pagare', base64);
-        this.concederAccesoFinFirma();
+        this.conceder();
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizar-firma']);  
         this.Btndisabled = false;
       }

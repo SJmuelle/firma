@@ -51,6 +51,7 @@ export class PreguntaComponent implements OnInit {
 
     concedido:any;
     subscripcion: Subscription;
+    acceso: boolean;
 
     constructor(
         private _documentLoginService: DocumentLoginService,
@@ -61,13 +62,13 @@ export class PreguntaComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.subscripcion = this.guardia.concedePregunta.subscribe(({ accesoPregunta }) => {
-            this.concedido = accesoPregunta;
+        this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+            this.concedido = acceso;
         })
-        // console.log(this.concedido);
         // if (this.concedido!=true) {
         //     this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
         // }
+        this.guardia.conceder.next({acceso: this.acceso=false})
         let data = [];
         data.push(JSON.parse(localStorage.getItem('questions')));
         this.preguntas = data[0].Pregunta
@@ -86,6 +87,11 @@ export class PreguntaComponent implements OnInit {
 
     ngOnDestroy() {
         this.subscripcion.unsubscribe();
+    }
+
+    conceder(){
+        this.acceso = true;
+        this.guardia.conceder.next({acceso: this.acceso})
     }
 
     capturarRespuesta(item, index) {
@@ -169,10 +175,12 @@ export class PreguntaComponent implements OnInit {
             if (resp.data.status == 400) {
                 const error = JSON.stringify(resp.data);
                 localStorage.setItem('error', error);
+                this.conceder();
                 this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/no-aprobado']);
             } else {
                 const aprob = JSON.stringify(resp.data);
                 localStorage.setItem('aprob', aprob);
+                this.conceder();
                 this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/interna']);
             }
             this.cargando = false;

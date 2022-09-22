@@ -9,7 +9,6 @@ import { PreguntaComponent } from './pregunta/pregunta.component';
 import { ReplayComponent } from './replay/replay.component';
 import { NoAprobadoComponent } from './no-aprobado/no-aprobado.component';
 import { AprobadoComponent } from './aprobado/aprobado.component';
-import { CantPreguntasComponent } from './cant-preguntas/cant-preguntas.component';
 import { FirmaInternaComponent } from './firma-interna/firma-interna.component';
 import { DocumentosFirmarComponent } from './documentos-firmar/documentos-firmar.component';
 import { ValidarOtpFirmaComponent } from './validar-otp-firma/validar-otp-firma.component';
@@ -60,10 +59,6 @@ const routes: Routes = [
     path     : ':num/:uni/no-aprobado',
     component: NoAprobadoComponent,
     canActivate: [VigilanteGuard]
-  },
-  {
-    path     : 'ejemplo',
-    component: CantPreguntasComponent
   },
   {
     path     : ':num/:uni/interna',

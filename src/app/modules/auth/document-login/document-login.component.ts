@@ -71,7 +71,7 @@ export class DocumentLoginComponent implements OnInit {
   // -----------------------------------------------------------------------------------------------------
   // @ Public methods
   // -----------------------------------------------------------------------------------------------------
-  concederAcceso(){
+  conceder(){
     this.guardia.conceder.next({acceso: this.acceso})
   }
   /**
@@ -125,7 +125,7 @@ export class DocumentLoginComponent implements OnInit {
     this._documentLoginService.datosUsuario(this.comingSoonForm.value.documento,unidadNegocio).subscribe(resp => {
       if (resp.data!=null) {
         localStorage.setItem('datosUsuario', JSON.stringify(resp.data));
-        this.concederAcceso();
+        this.conceder();
         this.router.navigate(['documentLogin'+ '/' + this.soli + '/' + this.uni + '/user/' + doc]);
       } else {
         Swal.fire(

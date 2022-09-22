@@ -41,12 +41,13 @@ export class GeneraOTPComponent implements OnInit {
 
   ngOnInit(): void {
     this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
-    this.subscripcion = this.guardia.concedeGenOtp.subscribe(({ accesoGenOtp }) => {
-      this.concedido = accesoGenOtp;
+    this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+      this.concedido = acceso;
     })
     // if (this.concedido!=true) {
     //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
     // }
+    this.guardia.conceder.next({acceso: this.acceso=false})
     this.comingSoonForm = this._formBuilder.group({
       documento: ['', [Validators.required]]
     });
@@ -56,24 +57,9 @@ export class GeneraOTPComponent implements OnInit {
     this.subscripcion.unsubscribe();
   }
 
-  concederAccesoReplay(){
+  conceder(){
     this.acceso = true;
-    this.guardia.concedeReplay.next({accesoReplay: this.acceso})
-  }
-
-  concederAccesoPregunta(){
-    this.acceso = true;
-    this.guardia.concedePregunta.next({accesoPregunta: this.acceso})
-  }
-
-  concederAccesoNoAprob(){
-    this.acceso = true;
-    this.guardia.concedeNoAprob.next({accesoNoAprob: this.acceso})
-  }
-
-  concederAccesoInterna(){
-    this.acceso = true;
-    this.guardia.concedeInterna.next({accesoInterna: this.acceso})
+    this.guardia.conceder.next({acceso: this.acceso})
   }
 
   validateOtp() {
@@ -94,7 +80,7 @@ export class GeneraOTPComponent implements OnInit {
           this.botonff = false;
           const error = JSON.stringify(resp.data.mensaje);
           localStorage.setItem('ERROR', error);
-          this.concederAccesoReplay();
+          this.conceder();
           this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
         } else {
           const aprob = JSON.stringify(resp.data);
@@ -102,23 +88,23 @@ export class GeneraOTPComponent implements OnInit {
             case 'PREGUNTAS':
               const question = JSON.stringify(resp.data.procesoPreguntas);
               localStorage.setItem('questions', question);
-              this.concederAccesoPregunta()
+              this.conceder()
               this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/pregunta']);
               break;
             case 'FIRMA THOMAS':
               localStorage.setItem('aprob', aprob);
-              this.concederAccesoInterna();
+              this.conceder();
               this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/interna']);
               break;
             case 'APROBADO':
               localStorage.setItem('aprob', aprob);
-              this.concederAccesoInterna();
+              this.conceder();
               this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/interna']);
               break;
             case 'NO APROBADO':
               const error = JSON.stringify(resp.data.mensaje);
               localStorage.setItem('error', error);
-              this.concederAccesoNoAprob();
+              this.conceder();
               this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/no-aprobado']);
               break;
             case 'reiniciar flujo':
