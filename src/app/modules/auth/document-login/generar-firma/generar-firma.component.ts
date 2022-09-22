@@ -36,9 +36,9 @@ export class GenerarFirmaComponent implements OnInit {
     this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
       this.concedido = acceso;
     })
-    if (this.concedido!=true) {
-      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    }
+    // if (this.concedido!=true) {
+    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    // }
     this.guardia.conceder.next({acceso: this.acceso=false})
     this.generarForm = this._formBuilder.group({
       condiciones: ['', Validators.requiredTrue],

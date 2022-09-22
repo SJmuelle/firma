@@ -40,13 +40,13 @@ export class ValidarOtpFirmaComponent implements OnInit {
     this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
       this.concedido = acceso;
     })
-    if (this.concedido!=true) {
-      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    }
+    // if (this.concedido!=true) {
+    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    // }
     this.guardia.conceder.next({acceso: this.acceso=false})
     this.telefono = JSON.parse(localStorage.getItem('telefono'))
-    // this.captura=JSON.parse(localStorage.getItem('correo'))
-    // this.correo = this.captura['value']
+    this.captura=JSON.parse(localStorage.getItem('correo'))
+    this.correo = this.captura['value']
     this.validarForm = this._formBuilder.group({
       codigo: ['', [Validators.required]]
     });
@@ -96,8 +96,8 @@ export class ValidarOtpFirmaComponent implements OnInit {
     this.btnreenvio = true;
 
     let data = {
-      "numeroSolicitud": this.soli,
-      "tipo":"S"
+      "numeroSolicitud": parseInt(this.soli),
+      "tipo":"T"
     }
 
     this.firmainterna.solicitarGenerar(data).subscribe(resp => {

@@ -13,6 +13,8 @@ export class DocumentosFirmarComponent implements OnInit {
 
   showAlert: boolean = false;
   listadoArchivos: any = [];
+  listadoFalso: any = [];
+  fileFalso: any = {};
   listaBreve: any = [1 , 2, 3]
   datoTel: any;
   Btndisabled: boolean;
@@ -31,12 +33,27 @@ export class DocumentosFirmarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // this.listadoFalso = [
+    //   this.fileFalso = {
+    //     "nombre":"hola"
+    //   },
+    //   {
+    //     "nombre":"como"
+    //   },
+    //   {
+    //     "nombre":"estas"
+    //   },
+    //   {
+    //     "nombre":"bien"
+    //   }
+    // ]
+    console.log(this.listadoFalso)
     this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
       this.concedido = acceso;
     })
-    if (this.concedido!=true) {
-      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    }
+    // if (this.concedido!=true) {
+    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    // }
     this.guardia.conceder.next({acceso: this.acceso=false})
     this.cargando = true;
     let data = {
