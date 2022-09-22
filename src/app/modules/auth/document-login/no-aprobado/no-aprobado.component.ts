@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GuardianService } from 'app/core/service/guardian.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-no-aprobado',
@@ -12,12 +14,25 @@ export class NoAprobadoComponent implements OnInit {
   captura: {}
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
+  concedido: any;
+  subscripcion: Subscription;
+  acceso: boolean;
 
-  constructor(private router: Router, private activeroute: ActivatedRoute) { }
+  constructor(private router: Router, private activeroute: ActivatedRoute, private guardia: GuardianService) { }
 
   ngOnInit() {
     this.captura=JSON.parse(localStorage.getItem('error'))
+    this.subscripcion = this.guardia.concedeNoAprob.subscribe(({ accesoNoAprob }) => {
+      this.concedido = accesoNoAprob;
+    })
+    // if (this.concedido!=true) {
+    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    // }
     this.mensaje = this.captura['mensaje']
+  }
+
+  ngOnDestroy() {
+    this.subscripcion.unsubscribe();
   }
 
   seguir() {

@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/service/auth.service';
 import { DocumentLoginService } from 'app/core/service/document-login.service';
+import { GuardianService } from 'app/core/service/guardian.service';
 import { environment } from 'environments/environment';
 import Swal from 'sweetalert2';
 
@@ -23,6 +24,8 @@ export class DocumentLoginComponent implements OnInit {
   showAlert: boolean = false;
   infoApp = environment;
 
+  acceso:boolean = true;
+
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
 
@@ -31,6 +34,7 @@ export class DocumentLoginComponent implements OnInit {
    */
   constructor(
     private _authService: AuthService,
+    private guardia: GuardianService,
     private _formBuilder: FormBuilder,
     private router: Router,
     private activeroute: ActivatedRoute,
@@ -67,7 +71,9 @@ export class DocumentLoginComponent implements OnInit {
   // -----------------------------------------------------------------------------------------------------
   // @ Public methods
   // -----------------------------------------------------------------------------------------------------
-
+  concederAcceso(){
+    this.guardia.conceder.next({acceso: this.acceso})
+  }
   /**
    * Sign in
    */
@@ -119,6 +125,7 @@ export class DocumentLoginComponent implements OnInit {
     this._documentLoginService.datosUsuario(this.comingSoonForm.value.documento,unidadNegocio).subscribe(resp => {
       if (resp.data!=null) {
         localStorage.setItem('datosUsuario', JSON.stringify(resp.data));
+        this.concederAcceso();
         this.router.navigate(['documentLogin'+ '/' + this.soli + '/' + this.uni + '/user/' + doc]);
       } else {
         Swal.fire(

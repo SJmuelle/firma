@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FirmaInternaService } from 'app/core/service/firma-interna.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CondicionesComponent } from './condiciones/condiciones.component';
+import { Subscription } from 'rxjs';
+import { GuardianService } from 'app/core/service/guardian.service';
 
 @Component({
   selector: 'app-generar-firma',
@@ -14,25 +16,43 @@ export class GenerarFirmaComponent implements OnInit {
   Btndisabled: boolean;
   generarForm: FormGroup;
   showAlert: boolean = false;
-
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
   listadoArchivos: any = [];
   base64: any = {};
+  concedido: any;
+  subscripcion: Subscription;
+  acceso: boolean;
 
   constructor(
     private _formBuilder: FormBuilder, 
     private router: Router,
     private activeroute: ActivatedRoute,
     private firmainterna: FirmaInternaService,
+    private guardia: GuardianService,
     private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.subscripcion = this.guardia.concedeGenFirma.subscribe(({ accesoGenFirma }) => {
+      this.concedido = accesoGenFirma;
+    })
+    // if (this.concedido!=true) {
+    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    // }
     this.generarForm = this._formBuilder.group({
       condiciones: ['', Validators.requiredTrue],
       pass: ['', [Validators.required, Validators.maxLength(15), Validators.minLength(8), this.numberValid, this.lowercaseUppercaseValid, this.repeatLetter]],
       confpass: ['', [Validators.required]]
     }, { validator: this.confirmPassword });
+  }
+
+  ngOnDestroy() {
+    this.subscripcion.unsubscribe();
+  }
+  
+  concederAccesoFinFirma(){
+    this.acceso = true;
+    this.guardia.concedeFinFirma.next({accesoFinFirma: this.acceso})
   }
 
   abrirCondiciones(){
@@ -81,6 +101,25 @@ export class GenerarFirmaComponent implements OnInit {
           this.Btndisabled = false;
         })
       }
+    })
+
+    let datos = {
+      "numeroSolicitud":parseInt(this.soli),
+      "unidadNegocio":parseInt(this.uni),
+      "tipoTercero":"T",
+      "firma":this.generarForm.value.pass
+    }
+    this.firmainterna.pagare(datos).subscribe(resp => {
+      if (resp.status == 200) {
+        const base64 = JSON.stringify(resp.data.base64);
+        console.log(base64)
+        localStorage.setItem('pagare', base64);
+        this.concederAccesoFinFirma();
+        this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizar-firma']);  
+        this.Btndisabled = false;
+      }
+    }, err=> {
+      this.Btndisabled = false;
     })
   }
 

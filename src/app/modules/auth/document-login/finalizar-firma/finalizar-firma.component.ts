@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FirmaInternaService } from 'app/core/service/firma-interna.service';
+import { GuardianService } from 'app/core/service/guardian.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-finalizar-firma',
@@ -21,13 +23,23 @@ export class FinalizarFirmaComponent implements OnInit {
   extension: string = 'pdf';
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
+  concedido: any;
+  subscripcion: Subscription;
+  acceso: boolean;
 
   constructor(
     private router: Router, 
     private activeroute: ActivatedRoute,
+    private guardia: GuardianService,
     private firmainterna: FirmaInternaService) { }
 
   ngOnInit() {
+    this.subscripcion = this.guardia.concedeFinFirma.subscribe(({ accesoFinFirma }) => {
+      this.concedido = accesoFinFirma;
+    })
+    // if (this.concedido!=true) {
+    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    // }
     this.captura=JSON.parse(localStorage.getItem('final'))
     this.pagare=JSON.parse(localStorage.getItem('pagare'))
     this.titulo = this.captura['title']
@@ -40,6 +52,10 @@ export class FinalizarFirmaComponent implements OnInit {
     }
     this.documentos.push(this.objPagare)
     console.log(this.documentos)
+  }
+
+  ngOnDestroy() {
+    this.subscripcion.unsubscribe();
   }
 
   descargar(nombre, base64) {
