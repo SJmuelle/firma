@@ -52,7 +52,7 @@ export class DocumentLoginComponent implements OnInit {
     localStorage.setItem('unidad', this.uni);
     // Create the form
     this.comingSoonForm = this._formBuilder.group({
-      documento: ['', [Validators.required, Validators.minLength(10), this.numberValid]]
+      documento: ['', [Validators.required, Validators.minLength(5), this.numberValid]]
     });
   }
 
