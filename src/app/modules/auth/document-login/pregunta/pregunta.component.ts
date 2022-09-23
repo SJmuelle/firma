@@ -169,7 +169,6 @@ export class PreguntaComponent implements OnInit {
             aplicaThomas: true,
             numeroSolicitud: parseInt(this.soli)
         }
-        console.log(data)
         
         this._documentLoginService.enviarPreguntas(data).subscribe(resp => {
             if (resp.data.status == 400) {

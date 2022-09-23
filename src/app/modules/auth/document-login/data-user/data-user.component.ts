@@ -57,7 +57,8 @@ export class DataUserComponent implements OnInit {
     if (evidente == 'Si') {
       let data = {
         "identificacion": this.datosUsuario.identificacion,
-        "unidadNegocio": parseInt(this.uni)
+        "unidadNegocio": parseInt(this.uni),
+        "numeroSolicitud": parseInt(this.soli)
       }
       this._documentLoginService.datosUsuarioEvidente(data).subscribe(resp => {
         if (resp.data == 400) {
@@ -122,6 +123,7 @@ export class DataUserComponent implements OnInit {
     const data: any = {
       "identificacion": this.datosUsuario.identificacion,
       "unidadNegocio": parseInt(this.uni),
+      "numeroSolicitud": parseInt(this.soli),
       "infoValidar": response.infoValidar,
       "infoIniOTP": response.infoIniOTP,
       "infoToken": response.infoToken
