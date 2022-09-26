@@ -31,7 +31,8 @@ export class AppSettingsService {
       solicitudValidar: EndPoints.urlBase('api-fintra/api/firma/solicitud-validar-otp'),
       solicitudFirmar: EndPoints.urlBase('api-fintra/api/firma/solicitud-generar-firma'),
       documentosFirmar: EndPoints.urlBase('api-fintra/api/firma/obtener_documentos_firma'),
-      mostrarPagare: EndPoints.urlBase('api-fintra/api/deceval/firmar-pagare-general')
+      mostrarPagare: EndPoints.urlBase('api-fintra/api/deceval/firmar-pagare-general'),
+      validarProceso: EndPoints.urlBase('api-fintra/api/generic/qry/flujo-firma/')
     }
   };
 }

@@ -24,6 +24,7 @@ export class DocumentosFirmarComponent implements OnInit {
   concedido: any;
   subscripcion: Subscription;
   acceso: boolean;
+  iden: any;
 
   constructor(
     private router: Router,
@@ -54,13 +55,16 @@ export class DocumentosFirmarComponent implements OnInit {
     // if (this.concedido!=true) {
     //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
     // }
+    this.iden = JSON.parse(localStorage.getItem('datosUsuario'));
+    console.log(this.iden.identificacion)
     this.guardia.conceder.next({acceso: this.acceso=false})
     this.cargando = true;
     let data = {
       "unidadNegocio": parseInt(this.uni),
       "tipoDoc":1,
       "numeroSolicitud":parseInt(this.soli),
-      "tipoTercero":"T"
+      "tipoTercero":"T",
+      "identificacion":parseInt(this.iden.identificacion)
     }
     this.firmainterna.documentosFirmar(data).subscribe(resp => {
       if (resp.status == 200) {
@@ -98,7 +102,8 @@ export class DocumentosFirmarComponent implements OnInit {
     this.Btndisabled = true;
     let data = {
       "numeroSolicitud": parseInt(this.soli),
-      "tipo":"T"
+      "tipo":"T",
+      "identificacion":parseInt(this.iden.identificacion)
     }
 
     this.firmainterna.solicitarGenerar(data).subscribe(resp => {

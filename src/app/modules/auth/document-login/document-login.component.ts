@@ -25,6 +25,7 @@ export class DocumentLoginComponent implements OnInit {
   infoApp = environment;
 
   acceso:boolean = true;
+  Btndisabled: boolean;
 
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
@@ -117,15 +118,40 @@ export class DocumentLoginComponent implements OnInit {
     this._authService.postSession(this.infoApp.userName, this.infoApp.password).subscribe();
   }
 
+  validarProceso(): void {
+    this.Btndisabled = true;
+    let doc = this.comingSoonForm.value.documento;
+    this._documentLoginService.validarProceso(doc, this.soli).subscribe(res=>{
+      if (res.data==null) {
+        this.register();
+      } else {
+        switch (res.data.proceso) {
+          case "FIRMA-INTERNA":
+            this.Btndisabled = false;
+            this.router.navigate(['documentLogin'+ '/' + this.soli + '/' + this.uni + '/aprobado']);
+            break;
+          case "EVIDENTE":
+            this.Btndisabled = false;
+            this.router.navigate(['documentLogin'+ '/' + this.soli + '/' + this.uni + '/interna']);
+            break;
+          default:
+            break;
+        }
+      }
+      
+    })
+  }
 
 
   public datosUsuario(): void {
+    this.Btndisabled = true;
     let doc = this.comingSoonForm.value.documento;
     let unidadNegocio = this.uni;
     this._documentLoginService.datosUsuario(this.comingSoonForm.value.documento,unidadNegocio).subscribe(resp => {
       if (resp.data!=null) {
         localStorage.setItem('datosUsuario', JSON.stringify(resp.data));
         this.conceder();
+        this.Btndisabled = false;
         this.router.navigate(['documentLogin'+ '/' + this.soli + '/' + this.uni + '/user/' + doc]);
       } else {
         Swal.fire(
@@ -134,6 +160,8 @@ export class DocumentLoginComponent implements OnInit {
           'info'
         )
       }
+    }, error => {
+      this.Btndisabled = false;
     })
   }
 }

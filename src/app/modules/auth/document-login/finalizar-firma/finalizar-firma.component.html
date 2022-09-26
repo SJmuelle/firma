@@ -15,7 +15,7 @@
         </p>
       </div>
       <div class="flex flex-col divide-y w-11/12 h-64 sm:h-40 md:h-72 lg:h-44 xl:h-72 lg:mb-5 lg:pr-4 xl:pr-4 overflow-y-auto overflow-x-hidden">
-        <div *ngFor="let item of listadoFalso; let i=index" class="mb-4 pt-3 pb-2 px-3 flex flex-row justify-between bg-gray-100">
+        <div *ngFor="let item of documentos; let i=index" class="mb-4 pt-3 pb-2 px-3 flex flex-row justify-between bg-gray-100">
           <div class="flex flex-row gap-2 sm:gap-2 md:gap-2 xl:gap-4 w-11/12 sm:w-11/12 lg:w-11/12 xl:w-11/12">
             <div>
               <img src="assets/icons/logo-pdf.png">
@@ -25,7 +25,7 @@
             </div>
           </div>
           <div>
-            <a class="cursor-pointer" (click)="descargar(item.informacion_archivo, item.base64)"><mat-icon svgIcon="heroicons_outline:download"></mat-icon></a>
+            <a class="cursor-pointer" (click)="descargar(item.nombre, item.base64)"><mat-icon svgIcon="heroicons_outline:download"></mat-icon></a>
           </div>
         </div>
       </div>

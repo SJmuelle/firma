@@ -46,13 +46,13 @@
                             class="fuse-mat-button-large w-30 mt-5 bg-azul-fintra text-white disabled:bg-gray-200"
                             mat-flat-button
                             type="button"
-                            [disabled]="comingSoonForm.invalid || comingSoonForm.disabled"
-                            (click)="register()">
-                            <span class="text-lg" *ngIf="!comingSoonForm.disabled">
+                            [disabled]="comingSoonForm.invalid || Btndisabled == true"
+                            (click)="validarProceso()">
+                            <span class="text-lg" *ngIf="Btndisabled!=true">
                                 Continuar
                             </span>
                             <mat-progress-spinner
-                                *ngIf="comingSoonForm.disabled"
+                                *ngIf="Btndisabled == true"
                                 [diameter]="24"
                                 [mode]="'indeterminate'"></mat-progress-spinner>
                         </button>

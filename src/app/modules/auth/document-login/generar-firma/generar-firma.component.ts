@@ -23,6 +23,7 @@ export class GenerarFirmaComponent implements OnInit {
   concedido: any;
   subscripcion: Subscription;
   acceso: boolean;
+  datosUsuario: any;
 
   constructor(
     private _formBuilder: FormBuilder, 
@@ -39,6 +40,7 @@ export class GenerarFirmaComponent implements OnInit {
     // if (this.concedido!=true) {
     //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
     // }
+    this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
     this.guardia.conceder.next({acceso: this.acceso=false})
     this.generarForm = this._formBuilder.group({
       condiciones: ['', Validators.requiredTrue],
@@ -77,7 +79,8 @@ export class GenerarFirmaComponent implements OnInit {
       "tipoTercero":"T",
       "unidadNegocio":parseInt(this.uni),
       "claveFirma":this.generarForm.value.pass,
-      "aplicaThomas": true
+      "aplicaThomas": true,
+      "identificacion":this.datosUsuario.identificacion
     }
 
     this.firmainterna.solicitarFirmar(data).subscribe(resp => {
@@ -90,32 +93,16 @@ export class GenerarFirmaComponent implements OnInit {
           "tipoTercero":"T",
           "firma":this.generarForm.value.pass
         }
-        this.firmainterna.pagare(datos).subscribe(resp => {
-          if (resp.status == 200) {
-            const base64 = JSON.stringify(resp.data.base64);
-            console.log(base64)
-            localStorage.setItem('pagare', base64);
-            this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizar-firma']);  
-            this.Btndisabled = false;
-          }
-        }, err=> {
-          this.Btndisabled = false;
-        })
+        this.pagare(datos)
       }
     })
+  }
 
-    let datos = {
-      "numeroSolicitud":parseInt(this.soli),
-      "unidadNegocio":parseInt(this.uni),
-      "tipoTercero":"T",
-      "firma":this.generarForm.value.pass
-    }
+  pagare(datos){
     this.firmainterna.pagare(datos).subscribe(resp => {
       if (resp.status == 200) {
         const base64 = JSON.stringify(resp.data.base64);
-        console.log(base64)
         localStorage.setItem('pagare', base64);
-        this.conceder();
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizar-firma']);  
         this.Btndisabled = false;
       }
