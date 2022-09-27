@@ -34,20 +34,20 @@ export class DocumentosFirmarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.listadoFalso = [
-    //   this.fileFalso = {
-    //     "nombre":"hola"
-    //   },
-    //   {
-    //     "nombre":"como"
-    //   },
-    //   {
-    //     "nombre":"estas"
-    //   },
-    //   {
-    //     "nombre":"bien"
-    //   }
-    // ]
+    this.listadoFalso = [
+      this.fileFalso = {
+        "nombre":"hola"
+      },
+      {
+        "nombre":"como"
+      },
+      {
+        "nombre":"estas"
+      },
+      {
+        "nombre":"bien"
+      }
+    ]
     console.log(this.listadoFalso)
     this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
       this.concedido = acceso;

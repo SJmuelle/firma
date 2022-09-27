@@ -13,8 +13,8 @@
 
           <div class="text-xl sm:text-3xl font-extrabold tracking-tight leading-tight">Validación de código OTP</div>
 
-          <div class="mt-4 justify-center">
-              <p class="lg:w-80 xl:w-100 lg:text-center xl:text-justify">
+          <div class="mt-4 flex flex-row w-full justify-center">
+              <p class="text-justify">
                 Por favor digite el código enviado al celular <strong>{{telefono}}</strong>.
               </p>    
           </div>
@@ -47,26 +47,23 @@
                     </mat-form-field>
                 </div>
                 
-                <div class="flex flex-row justify-center w-full">
-                    <div class="flex flex-col">
-                        <button class="fuse-mat-button-large w-40 mt-5 bg-azul-fintra text-white disabled:bg-gray-200" mat-flat-button 
+                <div class="ml-15 md:ml-0 flex flex-col md:flex-row w-full md:gap-4 mt-5">
+                    <button class="fuse-mat-button-large w-40 bg-azul-fintra text-white disabled:bg-gray-200" mat-flat-button 
                             type="button" [disabled]="botonff==true || validarForm.invalid || validarForm.disabled" (click)="seguir()">
                             <span class="text-lg" *ngIf="botonff!=true">
                                 Validar OTP
                             </span>
                             <mat-progress-spinner *ngIf="botonff==true" [diameter]="24" [mode]="'indeterminate'">
                             </mat-progress-spinner>
-                        </button>
-                        <button class="fuse-mat-button-large w-40 mt-5 bg-gray-400 text-white disabled:bg-gray-200" mat-flat-button 
-                            type="button" [disabled]="reenvio==false" (click)="reenviar()">
-                            <span class="text-lg" *ngIf="btnreenvio!=true">
-                                Reenviar OTP
-                            </span>
-                            <mat-progress-spinner *ngIf="btnreenvio==true" [diameter]="24" [mode]="'indeterminate'">
-                            </mat-progress-spinner>
-                        </button>
-                    </div>
-                    
+                    </button>
+                    <button class="mt-4 md:mt-0 fuse-mat-button-large w-40 bg-white shadow-md disabled:bg-gray-200 disabled:shadow-none disabled:text-white" mat-flat-button 
+                        type="button" [disabled]="reenvio==false" (click)="reenviar()">
+                        <span class="text-lg color-fintra" *ngIf="btnreenvio!=true">
+                            Reenviar OTP
+                        </span>
+                        <mat-progress-spinner *ngIf="btnreenvio==true" [diameter]="24" [mode]="'indeterminate'">
+                        </mat-progress-spinner>
+                    </button>
                 </div>
             </div>
             

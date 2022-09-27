@@ -95,6 +95,8 @@ export class GenerarFirmaComponent implements OnInit {
         }
         this.pagare(datos)
       }
+    }, err => {
+      this.Btndisabled = false;
     })
   }
 

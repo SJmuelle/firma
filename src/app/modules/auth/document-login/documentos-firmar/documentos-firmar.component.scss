@@ -32,7 +32,7 @@
         width: 90%;
     }
     @media (min-width:1280px) {
-        width: 70%;
+        width: 60%;
     }
     @media (min-width:1536px) {
         width: 50%;
@@ -48,7 +48,7 @@
         margin-left: 1%;
     }
     @media (min-width:1280px) {
-        margin-left: 12%;
+        margin-left: 18%;
     }
     @media (min-width:1440px) {
         margin-left: 18.5%;
@@ -60,28 +60,25 @@
 
 .altura-file {
     @media (min-width:360px) {
-        height: 20%;
+        height: 40%;
     }
     @media (min-width:768px) {
-        height: 20%;
+        height: 40%;
     }
     @media (min-width:1024px) {
         height: 40%;
     }
-    @media (min-width:1200px) {
-        height: 40%;
+    @media (min-width:1280px) {
+        height: 35%;
     }
     @media (min-width:1440px) {
-        height: 35%;
-    }
-    @media (min-width:1536px) {
-        height: 35%;
+        height: 42%;
     }
 }
 
 .altura-card {
     @media (min-width:360px) {
-        height: 70%;
+        height: 60%;
     }
     @media (min-width:768px) {
         height: 55%;
@@ -89,8 +86,8 @@
     @media (min-width:1024px) {
         height: 70%;
     }
-    @media (min-width:1200px) {
-        height: 75%;
+    @media (min-width:1280px) {
+        height: 78%;
     }
     @media (min-width:1440px) {
         height: 70%;
