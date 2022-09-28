@@ -22,14 +22,14 @@ export class FinalizadoComponent implements OnInit {
     this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
       this.concedido = acceso;
     })
-    // if (this.concedido!=true) {
-    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    // }
+    if (this.concedido!=true) {
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }
     this.guardia.conceder.next({acceso: this.acceso=false})
   }
 
   ngOnDestroy() {
     this.subscripcion.unsubscribe();
-}
+  }
 
 }

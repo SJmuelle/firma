@@ -37,9 +37,9 @@ export class GenerarFirmaComponent implements OnInit {
     this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
       this.concedido = acceso;
     })
-    // if (this.concedido!=true) {
-    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    // }
+    if (this.concedido!=true) {
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }
     this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
     this.guardia.conceder.next({acceso: this.acceso=false})
     this.generarForm = this._formBuilder.group({
@@ -105,6 +105,7 @@ export class GenerarFirmaComponent implements OnInit {
       if (resp.status == 200) {
         const base64 = JSON.stringify(resp.data.base64);
         localStorage.setItem('pagare', base64);
+        this.conceder();
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizar-firma']);  
         this.Btndisabled = false;
       }

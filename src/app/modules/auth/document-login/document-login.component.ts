@@ -127,10 +127,12 @@ export class DocumentLoginComponent implements OnInit {
       } else {
         switch (res.data.proceso) {
           case "FIRMA-INTERNA":
+            this.conceder();
             this.Btndisabled = false;
             this.router.navigate(['documentLogin'+ '/' + this.soli + '/' + this.uni + '/aprobado']);
             break;
           case "EVIDENTE":
+            this.conceder();
             this.Btndisabled = false;
             this.router.navigate(['documentLogin'+ '/' + this.soli + '/' + this.uni + '/interna']);
             break;
@@ -159,6 +161,7 @@ export class DocumentLoginComponent implements OnInit {
           'Este documento no existe',
           'info'
         )
+        this.Btndisabled = false;
       }
     }, error => {
       this.Btndisabled = false;

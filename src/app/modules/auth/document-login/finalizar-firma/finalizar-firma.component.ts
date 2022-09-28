@@ -27,9 +27,6 @@ export class FinalizarFirmaComponent implements OnInit {
   subscripcion: Subscription;
   acceso: boolean;
 
-  listadoFalso: any = [];
-  fileFalso: any = {};
-
   constructor(
     private router: Router, 
     private activeroute: ActivatedRoute,
@@ -37,29 +34,12 @@ export class FinalizarFirmaComponent implements OnInit {
     private firmainterna: FirmaInternaService) { }
 
   ngOnInit() {
-    this.listadoFalso = [
-      this.fileFalso = {
-        "nombre":"hola"
-      },
-      {
-        "nombre":"como"
-      },
-      {
-        "nombre":"estas"
-      },
-      {
-        "nombre":"bien"
-      },
-      {
-        "nombre":"y tu"
-      }
-    ]
     this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
       this.concedido = acceso;
     })
-    // if (this.concedido!=true) {
-    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    // }
+    if (this.concedido!=true) {
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }
     this.guardia.conceder.next({acceso: this.acceso=false})
     this.captura=JSON.parse(localStorage.getItem('final'))
     this.pagare=JSON.parse(localStorage.getItem('pagare'))
@@ -87,10 +67,6 @@ export class FinalizarFirmaComponent implements OnInit {
     link.target = '_self';
     link.download = nombre
     link.click();
-  }
-
-  finalizar() {
-    this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
   }
 
 }

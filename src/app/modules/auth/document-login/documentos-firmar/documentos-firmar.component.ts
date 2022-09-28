@@ -13,7 +13,6 @@ export class DocumentosFirmarComponent implements OnInit {
 
   showAlert: boolean = false;
   listadoArchivos: any = [];
-  listadoFalso: any = [];
   fileFalso: any = {};
   listaBreve: any = [1 , 2, 3]
   datoTel: any;
@@ -34,27 +33,12 @@ export class DocumentosFirmarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.listadoFalso = [
-      this.fileFalso = {
-        "nombre":"hola"
-      },
-      {
-        "nombre":"como"
-      },
-      {
-        "nombre":"estas"
-      },
-      {
-        "nombre":"bien"
-      }
-    ]
-    console.log(this.listadoFalso)
     this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
       this.concedido = acceso;
     })
-    // if (this.concedido!=true) {
-    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    // }
+    if (this.concedido!=true) {
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }
     this.iden = JSON.parse(localStorage.getItem('datosUsuario'));
     console.log(this.iden.identificacion)
     this.guardia.conceder.next({acceso: this.acceso=false})
@@ -69,8 +53,6 @@ export class DocumentosFirmarComponent implements OnInit {
     this.firmainterna.documentosFirmar(data).subscribe(resp => {
       if (resp.status == 200) {
         this.cargando = false;
-        console.log(resp.data)
-        console.log(resp.data[0].informacion_archivo.nombreArchivo)
         this.listadoArchivos = resp.data
       }else{
         this.listadoArchivos = [];
