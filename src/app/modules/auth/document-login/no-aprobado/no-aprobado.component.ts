@@ -27,9 +27,10 @@ export class NoAprobadoComponent implements OnInit {
     })
     if (this.concedido!=true) {
       this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }else{
+      this.guardia.conceder.next({acceso: this.acceso=false})
+      this.mensaje = this.captura['mensaje']
     }
-    this.guardia.conceder.next({acceso: this.acceso=false})
-    this.mensaje = this.captura['mensaje']
   }
 
   ngOnDestroy() {

@@ -37,8 +37,9 @@ export class FirmaInternaComponent implements OnInit {
     })
     if (this.concedido!=true) {
       this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }else{
+      this.guardia.conceder.next({acceso: this.acceso=false})
     }
-    this.guardia.conceder.next({acceso: this.acceso=false})
     this.checkForm = this._formBuilder.group({
       politica: ['', Validators.requiredTrue],
       clausula: ['', Validators.requiredTrue]

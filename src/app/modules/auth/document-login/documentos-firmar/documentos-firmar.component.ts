@@ -38,26 +38,26 @@ export class DocumentosFirmarComponent implements OnInit {
     })
     if (this.concedido!=true) {
       this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    }
-    this.iden = JSON.parse(localStorage.getItem('datosUsuario'));
-    console.log(this.iden.identificacion)
-    this.guardia.conceder.next({acceso: this.acceso=false})
-    this.cargando = true;
-    let data = {
-      "unidadNegocio": parseInt(this.uni),
-      "tipoDoc":1,
-      "numeroSolicitud":parseInt(this.soli),
-      "tipoTercero":"T",
-      "identificacion":parseInt(this.iden.identificacion)
-    }
-    this.firmainterna.documentosFirmar(data).subscribe(resp => {
-      if (resp.status == 200) {
-        this.cargando = false;
-        this.listadoArchivos = resp.data
-      }else{
-        this.listadoArchivos = [];
+    }else{
+      this.iden = JSON.parse(localStorage.getItem('datosUsuario'));
+      this.guardia.conceder.next({acceso: this.acceso=false})
+      this.cargando = true;
+      let data = {
+        "unidadNegocio": parseInt(this.uni),
+        "tipoDoc":1,
+        "numeroSolicitud":parseInt(this.soli),
+        "tipoTercero":"T",
+        "identificacion":parseInt(this.iden.identificacion)
       }
-    })
+      this.firmainterna.documentosFirmar(data).subscribe(resp => {
+        if (resp.status == 200) {
+          this.cargando = false;
+          this.listadoArchivos = resp.data
+        }else{
+          this.listadoArchivos = [];
+        }
+      })
+    }
   }
 
   ngOnDestroy() {

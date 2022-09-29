@@ -39,19 +39,20 @@ export class FinalizarFirmaComponent implements OnInit {
     })
     if (this.concedido!=true) {
       this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }else{
+      this.guardia.conceder.next({acceso: this.acceso=false})
+      this.captura=JSON.parse(localStorage.getItem('final'))
+      this.pagare=JSON.parse(localStorage.getItem('pagare'))
+      this.titulo = this.captura['title']
+      this.cuerpo = this.captura['body']
+      this.correo = this.captura['value']
+      this.documentos = this.captura['base64']
+      this.objPagare = {
+        "base64":this.pagare,
+        "nombre":"Pagare Deceval"
+      }
+      this.documentos.push(this.objPagare)
     }
-    this.guardia.conceder.next({acceso: this.acceso=false})
-    this.captura=JSON.parse(localStorage.getItem('final'))
-    this.pagare=JSON.parse(localStorage.getItem('pagare'))
-    this.titulo = this.captura['title']
-    this.cuerpo = this.captura['body']
-    this.correo = this.captura['value']
-    this.documentos = this.captura['base64']
-    this.objPagare = {
-      "base64":this.pagare,
-      "nombre":"Pagare Deceval"
-    }
-    this.documentos.push(this.objPagare)
   }
 
   ngOnDestroy() {

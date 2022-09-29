@@ -24,9 +24,10 @@ export class ReplayComponent implements OnInit {
     })
     if (this.concedido!=true) {
       this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }else{
+      this.mensaje=localStorage.getItem('ERROR')
+      this.guardia.conceder.next({acceso: this.acceso=false})
     }
-    this.mensaje=localStorage.getItem('ERROR')
-    this.guardia.conceder.next({acceso: this.acceso=false})
   }
 
   ngOnDestroy() {

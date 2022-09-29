@@ -46,8 +46,9 @@ export class GeneraOTPComponent implements OnInit {
     })
     if (this.concedido!=true) {
       this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }else{
+      this.guardia.conceder.next({acceso: this.acceso=false})
     }
-    this.guardia.conceder.next({acceso: this.acceso=false})
     this.comingSoonForm = this._formBuilder.group({
       documento: ['', [Validators.required]]
     });

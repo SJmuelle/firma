@@ -39,9 +39,10 @@ export class GenerarFirmaComponent implements OnInit {
     })
     if (this.concedido!=true) {
       this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }else{
+      this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
+      this.guardia.conceder.next({acceso: this.acceso=false})
     }
-    this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
-    this.guardia.conceder.next({acceso: this.acceso=false})
     this.generarForm = this._formBuilder.group({
       condiciones: ['', Validators.requiredTrue],
       pass: ['', [Validators.required, Validators.maxLength(15), Validators.minLength(8), this.numberValid, this.lowercaseUppercaseValid, this.repeatLetter]],

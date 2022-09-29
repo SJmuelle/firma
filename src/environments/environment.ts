@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    apiPath:"https://bc8f-181-57-229-82.ngrok.io/",
+    apiPath:"https://88dd-181-57-229-82.ngrok.io/",
     // apiPath: 'https://prometheus.fintra.co:8443/',
 
     userName: "APPWEB",
