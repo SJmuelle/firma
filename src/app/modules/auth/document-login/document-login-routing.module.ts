@@ -14,7 +14,6 @@ import { DocumentosFirmarComponent } from './documentos-firmar/documentos-firmar
 import { ValidarOtpFirmaComponent } from './validar-otp-firma/validar-otp-firma.component';
 import { GenerarFirmaComponent } from './generar-firma/generar-firma.component';
 import { FinalizarFirmaComponent } from './finalizar-firma/finalizar-firma.component';
-import { VigilanteGuard } from './vigilante.guard';
 
 const routes: Routes = [
   {
@@ -23,13 +22,11 @@ const routes: Routes = [
   },
   {
     path     : ':num/:uni/user/:doc',
-    component: DataUserComponent,
-    canActivate: [VigilanteGuard]
+    component: DataUserComponent
   },
   {
     path     : ':num/:uni/replay',
-    component: ReplayComponent,
-    canActivate: [VigilanteGuard]
+    component: ReplayComponent
   },
   {
     path     : 'page404',
@@ -37,53 +34,43 @@ const routes: Routes = [
   },
   {
     path     : ':num/:uni/pregunta',
-    component: PreguntaComponent,
-    canActivate: [VigilanteGuard]
+    component: PreguntaComponent
   },
   {
     path     : ':num/:uni/finalizado',
-    component: FinalizadoComponent,
-    canActivate: [VigilanteGuard]
+    component: FinalizadoComponent
   },
   {
     path     : ':num/:uni/generarOTP',
-    component: GeneraOTPComponent,
-    canActivate: [VigilanteGuard]
+    component: GeneraOTPComponent
   },
   {
     path     : ':num/:uni/aprobado',
-    component: AprobadoComponent,
-    canActivate: [VigilanteGuard]
+    component: AprobadoComponent
   },
   {
     path     : ':num/:uni/no-aprobado',
-    component: NoAprobadoComponent,
-    canActivate: [VigilanteGuard]
+    component: NoAprobadoComponent
   },
   {
     path     : ':num/:uni/interna',
-    component: FirmaInternaComponent,
-    canActivate: [VigilanteGuard]
+    component: FirmaInternaComponent
   },
   {
     path     : ':num/:uni/docu-firma',
-    component: DocumentosFirmarComponent,
-    canActivate: [VigilanteGuard]
+    component: DocumentosFirmarComponent
   },
   {
     path     : ':num/:uni/otp-firma',
-    component: ValidarOtpFirmaComponent,
-    canActivate: [VigilanteGuard]
+    component: ValidarOtpFirmaComponent
   },
   {
     path     : ':num/:uni/generar-firma',
-    component: GenerarFirmaComponent,
-    canActivate: [VigilanteGuard]
+    component: GenerarFirmaComponent
   },
   {
     path     : ':num/:uni/finalizar-firma',
-    component: FinalizarFirmaComponent,
-    canActivate: [VigilanteGuard]
+    component: FinalizarFirmaComponent
   }
 ];
 
