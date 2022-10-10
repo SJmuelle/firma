@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CondicionesComponent } from './condiciones/condiciones.component';
 import { Subscription } from 'rxjs';
 import { GuardianService } from 'app/core/service/guardian.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-generar-firma',
@@ -98,6 +99,11 @@ export class GenerarFirmaComponent implements OnInit {
       }
     }, err => {
       this.Btndisabled = false;
+      Swal.fire(
+        'Aviso',
+        'Hubo un error al momento de generar la firma, por favor intente mas tarde.',
+        'error'
+      )
     })
   }
 

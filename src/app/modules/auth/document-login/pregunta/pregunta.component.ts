@@ -184,7 +184,14 @@ export class PreguntaComponent implements OnInit {
                 this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/interna']);
             }
             this.cargando = false;
-        })
+        }, error => {
+            this.cargando = false;
+            Swal.fire(
+                'Aviso',
+                'Ha habido un error al procesar sus respuestas, porfavor intente mas tarde',
+                'error'
+              )
+          })
     }
 }
 

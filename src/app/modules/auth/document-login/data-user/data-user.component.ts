@@ -115,6 +115,8 @@ export class DataUserComponent implements OnInit {
           this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizado']);
         }
         this.Btndisabled = false;
+      }, error => {
+        this.Btndisabled = false;
       })
     }
   }
@@ -163,6 +165,8 @@ export class DataUserComponent implements OnInit {
             break;
         }
       }
+    }, error => {
+      this.Btndisabled = false;
     })
   }
 

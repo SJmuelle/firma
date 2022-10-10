@@ -87,6 +87,8 @@ export class ValidarOtpFirmaComponent implements OnInit {
       }else{
         this.botonff = true;
       }
+    }, error =>{
+      this.botonff = true;
     })
   }
 

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FirmaInternaService } from 'app/core/service/firma-interna.service';
 import { GuardianService } from 'app/core/service/guardian.service';
 import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-documentos-firmar',
@@ -56,6 +57,12 @@ export class DocumentosFirmarComponent implements OnInit {
         }else{
           this.listadoArchivos = [];
         }
+      }, error => {
+        Swal.fire(
+          'Aviso',
+          'Hubo un error al momento de generar los documentos, porfavor intente mas tarde.',
+          'error'
+        )
       })
     }
   }

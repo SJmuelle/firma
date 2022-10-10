@@ -120,6 +120,8 @@ export class GeneraOTPComponent implements OnInit {
         }
         this.botonff = false;
       }
+    }, error => { 
+      this.botonff = false
     });
   }
 
