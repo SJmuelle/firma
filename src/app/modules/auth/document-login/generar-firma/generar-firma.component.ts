@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CondicionesComponent } from './condiciones/condiciones.component';
 import { Subscription } from 'rxjs';
 import { GuardianService } from 'app/core/service/guardian.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-generar-firma',
@@ -23,6 +24,7 @@ export class GenerarFirmaComponent implements OnInit {
   concedido: any;
   subscripcion: Subscription;
   acceso: boolean;
+  datosUsuario: any;
 
   constructor(
     private _formBuilder: FormBuilder, 
@@ -33,12 +35,15 @@ export class GenerarFirmaComponent implements OnInit {
     private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.subscripcion = this.guardia.concedeGenFirma.subscribe(({ accesoGenFirma }) => {
-      this.concedido = accesoGenFirma;
+    this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+      this.concedido = acceso;
     })
-    // if (this.concedido!=true) {
-    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    // }
+    if (this.concedido!=true) {
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }else{
+      this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
+      this.guardia.conceder.next({acceso: this.acceso=false})
+    }
     this.generarForm = this._formBuilder.group({
       condiciones: ['', Validators.requiredTrue],
       pass: ['', [Validators.required, Validators.maxLength(15), Validators.minLength(8), this.numberValid, this.lowercaseUppercaseValid, this.repeatLetter]],
@@ -50,9 +55,9 @@ export class GenerarFirmaComponent implements OnInit {
     this.subscripcion.unsubscribe();
   }
   
-  concederAccesoFinFirma(){
+  conceder(){
     this.acceso = true;
-    this.guardia.concedeFinFirma.next({accesoFinFirma: this.acceso})
+    this.guardia.conceder.next({acceso: this.acceso})
   }
 
   abrirCondiciones(){
@@ -76,7 +81,8 @@ export class GenerarFirmaComponent implements OnInit {
       "tipoTercero":"T",
       "unidadNegocio":parseInt(this.uni),
       "claveFirma":this.generarForm.value.pass,
-      "aplicaThomas": true
+      "aplicaThomas": true,
+      "identificacion":this.datosUsuario.identificacion
     }
 
     this.firmainterna.solicitarFirmar(data).subscribe(resp => {
@@ -89,32 +95,24 @@ export class GenerarFirmaComponent implements OnInit {
           "tipoTercero":"T",
           "firma":this.generarForm.value.pass
         }
-        this.firmainterna.pagare(datos).subscribe(resp => {
-          if (resp.status == 200) {
-            const base64 = JSON.stringify(resp.data.base64);
-            console.log(base64)
-            localStorage.setItem('pagare', base64);
-            this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizar-firma']);  
-            this.Btndisabled = false;
-          }
-        }, err=> {
-          this.Btndisabled = false;
-        })
+        this.pagare(datos)
       }
+    }, err => {
+      this.Btndisabled = false;
+      Swal.fire(
+        'Aviso',
+        'Hubo un error al momento de generar la firma, por favor intente mas tarde.',
+        'error'
+      )
     })
+  }
 
-    let datos = {
-      "numeroSolicitud":parseInt(this.soli),
-      "unidadNegocio":parseInt(this.uni),
-      "tipoTercero":"T",
-      "firma":this.generarForm.value.pass
-    }
+  pagare(datos){
     this.firmainterna.pagare(datos).subscribe(resp => {
       if (resp.status == 200) {
         const base64 = JSON.stringify(resp.data.base64);
-        console.log(base64)
         localStorage.setItem('pagare', base64);
-        this.concederAccesoFinFirma();
+        this.conceder();
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizar-firma']);  
         this.Btndisabled = false;
       }

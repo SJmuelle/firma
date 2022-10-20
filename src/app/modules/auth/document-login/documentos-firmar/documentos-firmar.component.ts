@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FirmaInternaService } from 'app/core/service/firma-interna.service';
 import { GuardianService } from 'app/core/service/guardian.service';
 import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-documentos-firmar',
@@ -13,6 +14,7 @@ export class DocumentosFirmarComponent implements OnInit {
 
   showAlert: boolean = false;
   listadoArchivos: any = [];
+  fileFalso: any = {};
   listaBreve: any = [1 , 2, 3]
   datoTel: any;
   Btndisabled: boolean;
@@ -22,6 +24,7 @@ export class DocumentosFirmarComponent implements OnInit {
   concedido: any;
   subscripcion: Subscription;
   acceso: boolean;
+  iden: any;
 
   constructor(
     private router: Router,
@@ -31,38 +34,46 @@ export class DocumentosFirmarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.subscripcion = this.guardia.concedeDocu.subscribe(({ accesoDocu }) => {
-      this.concedido = accesoDocu;
+    this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+      this.concedido = acceso;
     })
-    // if (this.concedido!=true) {
-    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    // }
-    this.cargando = true;
-    let data = {
-      "unidadNegocio": parseInt(this.uni),
-      "tipoDoc":1,
-      "numeroSolicitud":parseInt(this.soli),
-      "tipoTercero":"T"
-    }
-    this.firmainterna.documentosFirmar(data).subscribe(resp => {
-      if (resp.status == 200) {
-        this.cargando = false;
-        console.log(resp.data)
-        console.log(resp.data[0].informacion_archivo.nombreArchivo)
-        this.listadoArchivos = resp.data
-      }else{
-        this.listadoArchivos = [];
+    if (this.concedido!=true) {
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }else{
+      this.iden = JSON.parse(localStorage.getItem('datosUsuario'));
+      this.guardia.conceder.next({acceso: this.acceso=false})
+      this.cargando = true;
+      let data = {
+        "unidadNegocio": parseInt(this.uni),
+        "tipoDoc":1,
+        "numeroSolicitud":parseInt(this.soli),
+        "tipoTercero":"T",
+        "identificacion":parseInt(this.iden.identificacion)
       }
-    })
+      this.firmainterna.documentosFirmar(data).subscribe(resp => {
+        if (resp.status == 200) {
+          this.cargando = false;
+          this.listadoArchivos = resp.data
+        }else{
+          this.listadoArchivos = [];
+        }
+      }, error => {
+        Swal.fire(
+          'Aviso',
+          'Hubo un error al momento de generar los documentos, porfavor intente mas tarde.',
+          'error'
+        )
+      })
+    }
   }
 
   ngOnDestroy() {
     this.subscripcion.unsubscribe();
-}
+  }
 
-  concederAccesoOtpFirma(){
+  conceder(){
     this.acceso = true;
-    this.guardia.concedeOtpFirma.next({accesoOtpFirma: this.acceso})
+    this.guardia.conceder.next({acceso: this.acceso})
   }
 
   descargar(item, base64) {
@@ -80,7 +91,8 @@ export class DocumentosFirmarComponent implements OnInit {
     this.Btndisabled = true;
     let data = {
       "numeroSolicitud": parseInt(this.soli),
-      "tipo":"T"
+      "tipo":"T",
+      "identificacion":parseInt(this.iden.identificacion)
     }
 
     this.firmainterna.solicitarGenerar(data).subscribe(resp => {
@@ -88,7 +100,7 @@ export class DocumentosFirmarComponent implements OnInit {
         this.Btndisabled = false;
         const telefono = JSON.stringify(resp.data.value);
         localStorage.setItem('telefono', telefono);
-        this.concederAccesoOtpFirma();
+        this.conceder();
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + 'otp-firma']);
       }
     }, err => {

@@ -26,9 +26,19 @@ export class DocumentLoginService {
    * @description: Get documentos requeridos
    */
   datosUsuario(documento: string,unidadNegocio:string) {
-
     // const { documento } = datos;
-    return this._utilityService.getQuery(this._appSettings.configuracionInicial.url.datosUsuario + documento+'/'+unidadNegocio)
+    return this._utilityService.getQuery(this._appSettings.configuracionInicial.url.datosUsuario + documento+'/'+ unidadNegocio)
+      .pipe(map((res: any) => {
+        return res;
+      }));
+  }
+
+  /**
+   * @description: Get validar proceso
+   */
+   validarProceso(identificacion:string, solicitud:string) {
+    // const { documento } = datos;
+    return this._utilityService.getQuery(this._appSettings.configuracionInicial.url.validarProceso + solicitud+'/'+identificacion)
       .pipe(map((res: any) => {
         return res;
       }));

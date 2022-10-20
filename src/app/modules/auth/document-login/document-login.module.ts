@@ -11,7 +11,6 @@ import { GeneraOTPComponent } from './genera-otp/genera-otp.component';
 import { PreguntaComponent } from './pregunta/pregunta.component';
 import { NoAprobadoComponent } from './no-aprobado/no-aprobado.component';
 import { AprobadoComponent } from './aprobado/aprobado.component';
-import { CantPreguntasComponent } from './cant-preguntas/cant-preguntas.component';
 import { FirmaInternaComponent } from './firma-interna/firma-interna.component';
 import { ClausulaComponent } from './firma-interna/clausula/clausula.component';
 import { DocumentosFirmarComponent } from './documentos-firmar/documentos-firmar.component';
@@ -32,7 +31,6 @@ import { FinalizarFirmaComponent } from './finalizar-firma/finalizar-firma.compo
     PreguntaComponent,
     NoAprobadoComponent,
     AprobadoComponent,
-    CantPreguntasComponent,
     FirmaInternaComponent,
     ClausulaComponent,
     DocumentosFirmarComponent,

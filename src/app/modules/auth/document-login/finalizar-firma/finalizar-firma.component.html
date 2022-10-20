@@ -1,68 +1,58 @@
 <div class="flex flex-col h-screen flex-auto items-center sm:justify-center min-w-0 fondo">
   <div class="w-full">
-    <div class="w-30 mt-30 sm:mt-0 mb-4 md:mb-8 acomodar">
+    <div class="w-30 mt-20 sm:mt-0 mb-4 md:mb-8 acomodar">
         <img src="assets/images/logo/logo-fintra-gris.png">
     </div>
   </div>
-  <div class="flex flex-row justify-center tamano lg:h-128 xl:h-160 rounded-2xl shadow bg-card">
+  <div class="flex flex-row justify-center tamano altura-card rounded-2xl shadow bg-card">
     <img class="imagen sm:rounded-l-2xl fondo-img" src="assets/images/pages/documentos_firmados.png">
 
-    <div class="mt-0 mb-0 sm:mt-2 sm:mb-2 flex flex-col sm:h-full justify-center items-center size-col sm:ml-0 sm:mr-5">
-      <div class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight leading-tight">{{titulo}}</div>
-      <div class="md:ml-2 xl:ml-3 mt-4 justify-center">
-        <p class="w-80 xl:w-100 text-center xl:text-justify">
+    <div class="mt-0 mb-0 sm:mb-2 flex flex-col sm:h-full justify-center items-center w-4/5 sm:w-1/2 md:w-3/5 mr-5 md:mr-5 lg:mr-15 xl:mr-22 ml-5 sm:ml-1 md:-ml-2 xl:ml-0">
+      <div class="text-xl md:text-3xl xl:text-3xl font-extrabold tracking-tight leading-tight">{{titulo}}</div>
+      <div class="mt-2 flex flex-row w-11/12 justify-center text-justify">
+        <p class="text-sm sm:text-md md:text-base xl:text-lg">
           Los siguientes documentos han sido firmados por usted durante el proceso:
         </p>
       </div>
-
-      <div class="md:ml-3 xl:ml-4 flex flex-col divide-y altura-file ancho-file">
-        <div *ngFor="let item of documentos; let i=index" class="py-3 flex flex-row justify-between gap-2 sm:gap-4 md:gap-9">
-          <div class="flex flex-row gap-4">
-            <div class="relative flex flex-row">
-              <mat-icon class="text-hint" [svgIcon]="'iconsmind:file'"></mat-icon>
-              <div class="pdf z-10 rounded font-semibold text-white bg-red-600">
-                PDF
-              </div>
-            </div>
+      <div class="mt-2 flex flex-col divide-y w-4/5 altura-file pr-4 sm:pr-4 lg:pr-4 xl:pr-4 overflow-y-auto overflow-x-hidden">
+        <div *ngFor="let item of documentos; let i=index" class="mb-4 pt-3 pb-2 px-3 flex flex-row justify-between bg-gray-100">
+          <div class="flex flex-row gap-2 sm:gap-2 md:gap-2 xl:gap-4 w-11/12 sm:w-11/12 lg:w-11/12 xl:w-11/12">
             <div>
-              <p>{{item.nombre}}</p>
+              <img src="assets/icons/logo-pdf.png">
+            </div>
+            <div class="mt-1 w-1/2 sm:w-4/5 lg:w-4/5 xl:w-3/5">
+              <p class="text-sm sm:text-md xl:text-base truncate">{{item.nombre}}</p>
             </div>
           </div>
           <div>
-            <a class="cursor-pointer" (click)="descargar(item.nombre, item.base64)"><mat-icon svgIcon="heroicons_outline:document-download"></mat-icon></a>
+            <a class="cursor-pointer" (click)="descargar(item.nombre, item.base64)"><mat-icon svgIcon="heroicons_outline:download"></mat-icon></a>
           </div>
         </div>
       </div>
-
-      <div class="md:ml-4 xl:ml-5 border-l-4 border-2 rounded-md verde-fintra mt-4 flex flex-col ancho-mensaje">
+      <div class="mt-1 md:mt-0 lg:mt-0 xl:mt-0 border-l-4 border-2 rounded-md verde-fintra flex flex-col w-11/12">
         <div class="mt-1 flex flex-row mb-2 gap-2 pr-2">
-          <div class="ml-2">
+          <div class="ml-2 mt-1">
             <mat-icon svgIcon="heroicons_outline:information-circle"></mat-icon>
           </div>
           <div class="text-justify">
-            <p>{{cuerpo}}</p>
+            <p class="text-sm sm:text-md md:text-base xl:text-lg">{{cuerpo}}</p>
           </div>
         </div>
         <div class="flex flex-row gap-2">
-          <div class="ml-2">
+          <div class="ml-2 mt-1">
             <mat-icon svgIcon="heroicons_outline:mail"></mat-icon>
           </div>
-          <div class="text-justify">
-            <p><strong>{{correo}}</strong></p>
+          <div class="mt-0.5 text-justify">
+            <p class="text-sm sm:text-md md:text-base xl:text-lg"><strong>{{correo}}</strong></p>
           </div>
         </div>
-        
       </div>
-      <!-- <fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false"
-                [type]="alert.type" [@shake]="alert.type === 'error'">
-                {{alert.message}}
-      </fuse-alert> -->
       <div class="flex flex-row justify-center w-full">
         <button
-            class="fuse-mat-button-large w-30 h-10 mt-5 bg-azul-fintra text-white border-radio"
+            class="fuse-mat-button-large w-28 lg:w-30 mt-4 md:mt-4 xl:mt-5 bg-azul-fintra text-white border-radio"
             mat-flat-button
             type="button" onclick="location.href='https://www.fintra.co/'">
-            <span class="text-lg">
+            <span class="text-md sm:text-lg">
                 Finalizar
             </span>
         </button>
