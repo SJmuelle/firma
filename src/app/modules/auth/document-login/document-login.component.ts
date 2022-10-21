@@ -132,15 +132,36 @@ export class DocumentLoginComponent implements OnInit {
             this.router.navigate(['documentLogin'+ '/' + this.soli + '/' + this.uni + '/aprobado']);
             break;
           case "EVIDENTE":
-            this.conceder();
-            this.Btndisabled = false;
-            this.router.navigate(['documentLogin'+ '/' + this.soli + '/' + this.uni + '/interna']);
+            this.datosUsuarioEvidente();
             break;
           default:
             break;
         }
       }
       
+    })
+  }
+
+  public datosUsuarioEvidente():void {
+    this.Btndisabled = true;
+    let doc = this.comingSoonForm.value.documento;
+    let unidadNegocio = this.uni;
+    this._documentLoginService.datosUsuario(this.comingSoonForm.value.documento,unidadNegocio).subscribe(resp => {
+      if (resp.data!=null) {
+        localStorage.setItem('datosUsuario', JSON.stringify(resp.data));
+        this.conceder();
+        this.Btndisabled = false;
+        this.router.navigate(['documentLogin'+ '/' + this.soli + '/' + this.uni + '/interna']);
+      } else {
+        Swal.fire(
+          'Aviso',
+          'Este documento no existe',
+          'info'
+        )
+        this.Btndisabled = false;
+      }
+    }, error => {
+      this.Btndisabled = false;
     })
   }
 
