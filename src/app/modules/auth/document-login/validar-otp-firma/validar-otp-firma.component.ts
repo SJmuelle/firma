@@ -85,10 +85,10 @@ export class ValidarOtpFirmaComponent implements OnInit {
         this.conceder();
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/generar-firma']);  
       }else{
-        this.botonff = true;
+        this.botonff = false;
       }
     }, error =>{
-      this.botonff = true;
+      this.botonff = false;
     })
   }
 

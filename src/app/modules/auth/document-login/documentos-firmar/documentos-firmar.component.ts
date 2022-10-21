@@ -102,6 +102,8 @@ export class DocumentosFirmarComponent implements OnInit {
         localStorage.setItem('telefono', telefono);
         this.conceder();
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + 'otp-firma']);
+      }else{
+        this.Btndisabled = false;
       }
     }, err => {
       this.Btndisabled = false;
