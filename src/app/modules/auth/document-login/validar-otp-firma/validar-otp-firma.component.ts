@@ -86,6 +86,8 @@ export class ValidarOtpFirmaComponent implements OnInit {
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/generar-firma']);  
       }else{
         this.botonff = false;
+        this.reenvio = true;
+        this.btnreenvio = false;
       }
     }, error =>{
       this.botonff = false;
@@ -105,6 +107,8 @@ export class ValidarOtpFirmaComponent implements OnInit {
 
     this.firmainterna.solicitarGenerar(data).subscribe(resp => {
       if (resp.status == 200) {
+        this.reenvio = false;
+        this.btnreenvio = true;
         this.intervalo = setInterval(() => {
           this.seconds = this.seconds - 1;
           if(this.seconds == 0){
@@ -114,9 +118,11 @@ export class ValidarOtpFirmaComponent implements OnInit {
             clearInterval(this.intervalo);
           }
         }, 1000);
+      }else{
+        this.reenvio = false;
+        this.btnreenvio = true;
       }
-      this.reenvio = false;
-      this.btnreenvio = true;
+      
     })
 
     
