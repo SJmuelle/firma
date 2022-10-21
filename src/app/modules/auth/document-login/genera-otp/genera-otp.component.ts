@@ -119,6 +119,8 @@ export class GeneraOTPComponent implements OnInit {
           }
         }
         this.botonff = false;
+      }else{
+        this.botonff = false;
       }
     }, error => { 
       this.botonff = false

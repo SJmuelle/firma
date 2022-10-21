@@ -173,17 +173,18 @@ export class PreguntaComponent implements OnInit {
         
         this._documentLoginService.enviarPreguntas(data).subscribe(resp => {
             if (resp.data.status == 400) {
+                this.cargando = false;
                 const error = JSON.stringify(resp.data);
                 localStorage.setItem('error', error);
                 this.conceder();
                 this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/no-aprobado']);
             } else {
+                this.cargando = false;
                 const aprob = JSON.stringify(resp.data);
                 localStorage.setItem('aprob', aprob);
                 this.conceder();
                 this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/interna']);
             }
-            this.cargando = false;
         }, error => {
             this.cargando = false;
             Swal.fire(

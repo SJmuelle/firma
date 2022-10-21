@@ -87,6 +87,7 @@ export class GenerarFirmaComponent implements OnInit {
 
     this.firmainterna.solicitarFirmar(data).subscribe(resp => {
       if (resp.status == 200) {
+        this.Btndisabled = false;
         const final = JSON.stringify(resp.data);
         localStorage.setItem('final', final);
         let datos = {
@@ -96,6 +97,8 @@ export class GenerarFirmaComponent implements OnInit {
           "firma":this.generarForm.value.pass
         }
         this.pagare(datos)
+      }else{
+        this.Btndisabled = false;
       }
     }, err => {
       this.Btndisabled = false;

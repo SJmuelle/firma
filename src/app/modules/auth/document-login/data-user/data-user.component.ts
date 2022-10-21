@@ -94,7 +94,7 @@ export class DataUserComponent implements OnInit {
                 break;
             }
           }
-
+          this.Btndisabled = false;
         }
       }, error => {
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
