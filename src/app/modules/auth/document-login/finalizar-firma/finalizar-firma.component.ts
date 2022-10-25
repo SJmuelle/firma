@@ -38,7 +38,7 @@ export class FinalizarFirmaComponent implements OnInit {
       this.concedido = acceso;
     })
     if (this.concedido!=true) {
-      // this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
     }else{
       this.guardia.conceder.next({acceso: this.acceso=false})
       this.captura=JSON.parse(localStorage.getItem('final'))
