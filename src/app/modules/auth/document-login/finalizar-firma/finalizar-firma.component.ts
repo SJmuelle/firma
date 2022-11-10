@@ -11,14 +11,13 @@ import { Subscription } from 'rxjs';
 })
 export class FinalizarFirmaComponent implements OnInit {
 
-  titulo: string;
-  cuerpo: string;
   correo: string;
   documentos: any = [];
   filePagare: any = [];
   objPagare: {}
   captura: {}
   pagare: {}
+  datosUsuario: any;
   listadoArchivos: any = [];
   extension: string = 'pdf';
   soli: string = this.activeroute.snapshot.paramMap.get('num')
@@ -37,20 +36,36 @@ export class FinalizarFirmaComponent implements OnInit {
     this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
       this.concedido = acceso;
     })
-    if (this.concedido!=true) {
-      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    }else{
-      this.guardia.conceder.next({acceso: this.acceso=false})
+    // if (this.concedido!=true) {
+    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    // }else{
+    //   this.guardia.conceder.next({acceso: this.acceso=false})
+    //   this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
+    //   this.captura=JSON.parse(localStorage.getItem('final'))
+    //   this.pagare=JSON.parse(localStorage.getItem('pagare'))
+    //   this.correo = this.captura['value']
+    //   this.documentos = this.captura['base64']
+    //   if (this.uni != '30') {
+    //     this.objPagare = {
+    //       "base64":this.pagare,
+    //       "nombre":"Pagare Deceval"
+    //     }
+    //     this.documentos.push(this.objPagare)
+    //   }
+    // }
+    this.guardia.conceder.next({acceso: this.acceso=false})
+      this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
       this.captura=JSON.parse(localStorage.getItem('final'))
       this.pagare=JSON.parse(localStorage.getItem('pagare'))
       this.correo = this.captura['value']
       this.documentos = this.captura['base64']
-      this.objPagare = {
-        "base64":this.pagare,
-        "nombre":"Pagare Deceval"
+      if (this.uni != '30') {
+        this.objPagare = {
+          "base64":this.pagare,
+          "nombre":"Pagare Deceval"
+        }
+        this.documentos.push(this.objPagare)
       }
-      this.documentos.push(this.objPagare)
-    }
   }
 
   ngOnDestroy() {

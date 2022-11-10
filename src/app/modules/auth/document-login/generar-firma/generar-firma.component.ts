@@ -25,6 +25,7 @@ export class GenerarFirmaComponent implements OnInit {
   subscripcion: Subscription;
   acceso: boolean;
   datosUsuario: any;
+  aplicaThomas: boolean;
 
   constructor(
     private _formBuilder: FormBuilder, 
@@ -38,12 +39,14 @@ export class GenerarFirmaComponent implements OnInit {
     this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
       this.concedido = acceso;
     })
-    if (this.concedido!=true) {
-      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    }else{
-      this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
-      this.guardia.conceder.next({acceso: this.acceso=false})
-    }
+    // if (this.concedido!=true) {
+    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    // }else{
+    //   this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
+    //   this.guardia.conceder.next({acceso: this.acceso=false})
+    // }
+    this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
+    this.guardia.conceder.next({acceso: this.acceso=false})
     this.generarForm = this._formBuilder.group({
       condiciones: ['', Validators.requiredTrue],
       pass: ['', [Validators.required, Validators.maxLength(15), Validators.minLength(8), this.numberValid, this.lowercaseUppercaseValid, this.repeatLetter]],
@@ -81,7 +84,7 @@ export class GenerarFirmaComponent implements OnInit {
       "tipoTercero":"T",
       "unidadNegocio":parseInt(this.uni),
       "claveFirma":this.generarForm.value.pass,
-      "aplicaThomas": true,
+      "aplicaThomas":this.datosUsuario.aplicaThomas == 'Si'? true : false,
       "identificacion":this.datosUsuario.identificacion
     }
 
@@ -96,7 +99,13 @@ export class GenerarFirmaComponent implements OnInit {
           "tipoTercero":"T",
           "firma":this.generarForm.value.pass
         }
-        this.pagare(datos)
+        if (this.uni=='30') {
+          this.conceder();
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizar-firma']);  
+          this.Btndisabled = false;
+        }else{
+          this.pagare(datos)
+        }
       }else{
         this.Btndisabled = false;
       }
