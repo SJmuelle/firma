@@ -5,7 +5,7 @@
 export const environment = {
     production: false,
     //apiPath:"https://88dd-181-57-229-82.ngrok.io/",
-    apiPath: 'https://418a-181-57-229-82.ngrok.io/',
+    apiPath: 'https://2c01-181-57-229-82.ngrok.io/',
 
     userName: "APPWEB",
     password: "123456",
