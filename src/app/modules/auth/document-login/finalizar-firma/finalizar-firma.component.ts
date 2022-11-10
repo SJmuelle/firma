@@ -13,6 +13,7 @@ export class FinalizarFirmaComponent implements OnInit {
 
   correo: string;
   documentos: any = [];
+  listadoFlasi: any = [];
   filePagare: any = [];
   objPagare: {}
   captura: {}
@@ -36,6 +37,20 @@ export class FinalizarFirmaComponent implements OnInit {
     this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
       this.concedido = acceso;
     })
+    this.listadoFlasi = [
+      {
+        "nombre":"Documento"
+      },
+      {
+        "nombre":"Documento"
+      },
+      {
+        "nombre":"Documento"
+      },
+      {
+        "nombre":"Documento"
+      }
+    ]
     // if (this.concedido!=true) {
     //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
     // }else{
