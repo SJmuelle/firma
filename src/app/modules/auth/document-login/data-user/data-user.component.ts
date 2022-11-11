@@ -40,7 +40,6 @@ export class DataUserComponent implements OnInit {
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
       }
     }
-    
   }
 
   ngOnDestroy() {
