@@ -13,7 +13,6 @@ export class FinalizarFirmaComponent implements OnInit {
 
   correo: string;
   documentos: any = [];
-  filePagare: any = [];
   objPagare: {}
   captura: {}
   pagare: {}

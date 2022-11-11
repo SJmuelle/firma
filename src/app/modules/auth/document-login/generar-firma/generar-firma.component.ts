@@ -16,16 +16,12 @@ import Swal from 'sweetalert2';
 export class GenerarFirmaComponent implements OnInit {
   Btndisabled: boolean;
   generarForm: FormGroup;
-  showAlert: boolean = false;
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
-  listadoArchivos: any = [];
-  base64: any = {};
   concedido: any;
   subscripcion: Subscription;
   acceso: boolean;
   datosUsuario: any;
-  aplicaThomas: boolean;
 
   constructor(
     private _formBuilder: FormBuilder, 

@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./replay.component.scss']
 })
 export class ReplayComponent implements OnInit {
-  mensaje: string;
+
   concedido:any;
   acceso: boolean;
   subscripcion: Subscription;
@@ -25,7 +25,6 @@ export class ReplayComponent implements OnInit {
     if (this.concedido!=true) {
       this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
     }else{
-      this.mensaje=localStorage.getItem('ERROR')
       this.guardia.conceder.next({acceso: this.acceso=false})
     }
   }

@@ -10,8 +10,6 @@ import { Subscription } from 'rxjs';
 })
 export class AprobadoComponent implements OnInit {
 
-  mensaje: string;
-  captura: {}
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
   concedido: any;
@@ -21,7 +19,6 @@ export class AprobadoComponent implements OnInit {
   constructor(private router: Router, private activeroute: ActivatedRoute, private guardia: GuardianService) { }
 
   ngOnInit() {
-    this.captura=JSON.parse(localStorage.getItem('aprob'))
     this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
       this.concedido = acceso;
     })
@@ -29,7 +26,6 @@ export class AprobadoComponent implements OnInit {
       this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
     }
     this.guardia.conceder.next({acceso: this.acceso=false})
-    this.mensaje = this.captura['mensaje']
   }
 
   ngOnDestroy() {

@@ -12,11 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class DocumentosFirmarComponent implements OnInit {
 
-  showAlert: boolean = false;
   listadoArchivos: any = [];
-  fileFalso: any = {};
-  listaBreve: any = [1 , 2, 3]
-  datoTel: any;
   Btndisabled: boolean;
   cargando: boolean;
   soli: string = this.activeroute.snapshot.paramMap.get('num')
