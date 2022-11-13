@@ -30,7 +30,7 @@
                             <mat-icon class="mr-2" [svgIcon]="'heroicons_outline:identification'"></mat-icon>
                             <input id="documento" matInput placeholder="Número de documento" autocomplete="off" [formControlName]="'documento'">
                             <mat-error *ngIf="comingSoonForm.get('documento').hasError('required')">
-                                Número de identificación es requerido
+                                Nmero de identificación es requerido
                             </mat-error>
                             <mat-error *ngIf="comingSoonForm.get('documento').hasError('minlength')">
                                 Documentos de identidad permiten minimo 5 caracteres numericos.
