@@ -19,9 +19,9 @@ export class ReplayComponent implements OnInit {
   constructor(private router: Router, private activeroute: ActivatedRoute, private guardia: GuardianService,) { }
 
   ngOnInit(): void {
-    this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
-      this.concedido = acceso;
-    })
+    // this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+    //   this.concedido = acceso;
+    // })
     // if (this.concedido!=true) {
     //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
     // }else{
@@ -29,9 +29,9 @@ export class ReplayComponent implements OnInit {
     // }
   }
 
-  ngOnDestroy() {
-    this.subscripcion.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.subscripcion.unsubscribe();
+  // }
 
   seguir() {
     this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);

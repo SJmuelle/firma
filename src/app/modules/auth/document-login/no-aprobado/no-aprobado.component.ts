@@ -29,9 +29,9 @@ export class NoAprobadoComponent implements OnInit {
     // }
   }
 
-  ngOnDestroy() {
-    this.subscripcion.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.subscripcion.unsubscribe();
+  // }
 
   seguir() {
     this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);

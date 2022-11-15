@@ -49,9 +49,9 @@ export class GenerarFirmaComponent implements OnInit {
     }, { validator: this.confirmPassword });
   }
 
-  ngOnDestroy() {
-    this.subscripcion.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.subscripcion.unsubscribe();
+  // }
   
   conceder(){
     this.acceso = true;

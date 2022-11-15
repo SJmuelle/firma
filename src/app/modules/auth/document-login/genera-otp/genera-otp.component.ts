@@ -38,9 +38,9 @@ export class GeneraOTPComponent implements OnInit {
 
   ngOnInit(): void {
     this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
-    this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
-      this.concedido = acceso;
-    })
+    // this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+    //   this.concedido = acceso;
+    // })
     // if (this.concedido!=true) {
     //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
     // }else{
@@ -51,9 +51,9 @@ export class GeneraOTPComponent implements OnInit {
     });
   }
 
-  ngOnDestroy() {
-    this.subscripcion.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.subscripcion.unsubscribe();
+  // }
 
   conceder(){
     this.acceso = true;

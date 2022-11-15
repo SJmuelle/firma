@@ -65,9 +65,9 @@ export class ValidarOtpFirmaComponent implements OnInit {
     }, 1000);
   }
 
-  ngOnDestroy() {
-    this.subscripcion.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.subscripcion.unsubscribe();
+  // }
 
   conceder(){
     this.acceso = true;
