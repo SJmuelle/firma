@@ -30,67 +30,42 @@ export class DocumentosFirmarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
-    //   this.concedido = acceso;
-    // })
-    // if (this.concedido!=true) {
-    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    // }else{
-    //   this.iden = JSON.parse(localStorage.getItem('datosUsuario'));
-    //   this.guardia.conceder.next({acceso: this.acceso=false})
-    //   this.cargando = true;
-    //   let data = {
-    //     "unidadNegocio": parseInt(this.uni),
-    //     "tipoDoc":1,
-    //     "numeroSolicitud":parseInt(this.soli),
-    //     "tipoTercero":"T",
-    //     "identificacion":parseInt(this.iden.identificacion)
-    //   }
-    //   this.firmainterna.documentosFirmar(data).subscribe(resp => {
-    //     if (resp.status == 200) {
-    //       this.cargando = false;
-    //       this.listadoArchivos = resp.data
-    //     }else{
-    //       this.listadoArchivos = [];
-    //     }
-    //   }, error => {
-    //     Swal.fire(
-    //       'Aviso',
-    //       'Hubo un error al momento de generar los documentos, porfavor intente mas tarde.',
-    //       'error'
-    //     )
-    //   })
-    // }
-
-    this.iden = JSON.parse(localStorage.getItem('datosUsuario'));
-    this.guardia.conceder.next({acceso: this.acceso=false})
-    this.cargando = true;
-    let data = {
-      "unidadNegocio": parseInt(this.uni),
-      "tipoDoc":1,
-      "numeroSolicitud":parseInt(this.soli),
-      "tipoTercero":"T",
-      "identificacion":parseInt(this.iden.identificacion)
-    }
-    this.firmainterna.documentosFirmar(data).subscribe(resp => {
-      if (resp.status == 200) {
-        this.cargando = false;
-        this.listadoArchivos = resp.data
-      }else{
-        this.listadoArchivos = [];
-      }
-    }, error => {
-      Swal.fire(
-        'Aviso',
-        'Hubo un error al momento de generar los documentos, porfavor intente mas tarde.',
-        'error'
-      )
+    this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+      this.concedido = acceso;
     })
+    if (this.concedido!=true) {
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }else{
+      this.iden = JSON.parse(localStorage.getItem('datosUsuario'));
+      this.guardia.conceder.next({acceso: this.acceso=false})
+      this.cargando = true;
+      let data = {
+        "unidadNegocio": parseInt(this.uni),
+        "tipoDoc":1,
+        "numeroSolicitud":parseInt(this.soli),
+        "tipoTercero":"T",
+        "identificacion":parseInt(this.iden.identificacion)
+      }
+      this.firmainterna.documentosFirmar(data).subscribe(resp => {
+        if (resp.status == 200) {
+          this.cargando = false;
+          this.listadoArchivos = resp.data
+        }else{
+          this.listadoArchivos = [];
+        }
+      }, error => {
+        Swal.fire(
+          'Aviso',
+          'Hubo un error al momento de generar los documentos, porfavor intente mas tarde.',
+          'error'
+        )
+      })
+    }
   }
 
-  // ngOnDestroy() {
-  //   this.subscripcion.unsubscribe();
-  // }
+  ngOnDestroy() {
+    this.subscripcion.unsubscribe();
+  }
 
   conceder(){
     this.acceso = true;

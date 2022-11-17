@@ -31,23 +31,23 @@ export class FirmaInternaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
-    //   this.concedido = acceso;
-    // })
-    // if (this.concedido!=true) {
-    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    // }else{
-    //   this.guardia.conceder.next({acceso: this.acceso=false})
-    // }
+    this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+      this.concedido = acceso;
+    })
+    if (this.concedido!=true) {
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }else{
+      this.guardia.conceder.next({acceso: this.acceso=false})
+    }
     this.checkForm = this._formBuilder.group({
       politica: ['', Validators.requiredTrue],
       clausula: ['', Validators.requiredTrue]
     });
   }
 
-  // ngOnDestroy() {
-  //   this.subscripcion.unsubscribe();
-  // }
+  ngOnDestroy() {
+    this.subscripcion.unsubscribe();
+  }
 
   conceder(){
     this.acceso = true;

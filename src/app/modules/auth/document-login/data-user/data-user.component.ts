@@ -28,28 +28,23 @@ export class DataUserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
-    //   this.concedido = acceso;
-    // })
-    // if (this.concedido!=true) {
-    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    // }else{
-    //   this.guardia.conceder.next({acceso: this.acceso=false})
-    //   this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
-    //   if (this.idRUL != this.datosUsuario.identificacion) {
-    //     this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    //   }
-    // }
-    this.guardia.conceder.next({acceso: this.acceso=false})
-    this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
-    if (this.idRUL != this.datosUsuario.identificacion) {
+    this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+      this.concedido = acceso;
+    })
+    if (this.concedido!=true) {
       this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }else{
+      this.guardia.conceder.next({acceso: this.acceso=false})
+      this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
+      if (this.idRUL != this.datosUsuario.identificacion) {
+        this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+      }
     }
   }
 
-  // ngOnDestroy() {
-  //   this.subscripcion.unsubscribe();
-  // }
+  ngOnDestroy() {
+    this.subscripcion.unsubscribe();
+  }
 
   conceder(){
     this.acceso = true;

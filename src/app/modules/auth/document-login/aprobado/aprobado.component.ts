@@ -19,18 +19,18 @@ export class AprobadoComponent implements OnInit {
   constructor(private router: Router, private activeroute: ActivatedRoute, private guardia: GuardianService) { }
 
   ngOnInit() {
-    // this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
-    //   this.concedido = acceso;
-    // })
-    // if (this.concedido!=true) {
-    //   this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-    // }
-    // this.guardia.conceder.next({acceso: this.acceso=false})
+    this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+      this.concedido = acceso;
+    })
+    if (this.concedido!=true) {
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    }
+    this.guardia.conceder.next({acceso: this.acceso=false})
   }
 
-  // ngOnDestroy() {
-  //   this.subscripcion.unsubscribe();
-  // }
+  ngOnDestroy() {
+    this.subscripcion.unsubscribe();
+  }
 
   conceder(){
     this.acceso = true;

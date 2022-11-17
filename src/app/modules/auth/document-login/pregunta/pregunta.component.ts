@@ -47,48 +47,33 @@ export class PreguntaComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        // this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
-        //     this.concedido = acceso;
-        // })
-        // if (this.concedido!=true) {
-        //     this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
-        // }else{
-        //     this.guardia.conceder.next({acceso: this.acceso=false})
-        //     let data = [];
-        //     data.push(JSON.parse(localStorage.getItem('questions')));
-        //     this.preguntas = data[0].Pregunta
-        //     this.cantPreguntas = this.preguntas.length
-        //     this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'))
-        //     this.questions = JSON.parse(localStorage.getItem('questions'))
-        //     this.infoToken = JSON.parse(localStorage.getItem('datosOtp'))
-        //     this.textCapi = this.preguntas[this.vistaPregunta].texto[0].toUpperCase() + this.preguntas[this.vistaPregunta].texto.slice(1).toLowerCase();
-        //     this.allNumQues = [
-        //         { order: 0 },
-        //         { order: 1 },
-        //         { order: 2 },
-        //         { order: 3 }
-        //     ]
-        // }
-        this.guardia.conceder.next({acceso: this.acceso=false})
-        let data = [];
-        data.push(JSON.parse(localStorage.getItem('questions')));
-        this.preguntas = data[0].Pregunta
-        this.cantPreguntas = this.preguntas.length
-        this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'))
-        this.questions = JSON.parse(localStorage.getItem('questions'))
-        this.infoToken = JSON.parse(localStorage.getItem('datosOtp'))
-        this.textCapi = this.preguntas[this.vistaPregunta].texto[0].toUpperCase() + this.preguntas[this.vistaPregunta].texto.slice(1).toLowerCase();
-        this.allNumQues = [
-            { order: 0 },
-            { order: 1 },
-            { order: 2 },
-            { order: 3 }
-        ]
+        this.subscripcion = this.guardia.conceder.subscribe(({ acceso }) => {
+            this.concedido = acceso;
+        })
+        if (this.concedido!=true) {
+            this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+        }else{
+            this.guardia.conceder.next({acceso: this.acceso=false})
+            let data = [];
+            data.push(JSON.parse(localStorage.getItem('questions')));
+            this.preguntas = data[0].Pregunta
+            this.cantPreguntas = this.preguntas.length
+            this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'))
+            this.questions = JSON.parse(localStorage.getItem('questions'))
+            this.infoToken = JSON.parse(localStorage.getItem('datosOtp'))
+            this.textCapi = this.preguntas[this.vistaPregunta].texto[0].toUpperCase() + this.preguntas[this.vistaPregunta].texto.slice(1).toLowerCase();
+            this.allNumQues = [
+                { order: 0 },
+                { order: 1 },
+                { order: 2 },
+                { order: 3 }
+            ]
+        }
     }
 
-    // ngOnDestroy() {
-    //     this.subscripcion.unsubscribe();
-    // }
+    ngOnDestroy() {
+        this.subscripcion.unsubscribe();
+    }
 
     conceder(){
         this.acceso = true;
