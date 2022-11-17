@@ -13,7 +13,6 @@ import { Subscription } from 'rxjs';
 export class ValidarOtpFirmaComponent implements OnInit {
 
   seconds: number = 150;
-  showAlert: boolean = false;
   intervalo: any;
   validarForm: FormGroup;
   botonff: boolean;

@@ -24,31 +24,16 @@ export class PreguntaComponent implements OnInit {
     cantPreguntas = 0;
     containRespuesta: number = 0;
     vistaPregunta = 0;
-    conteoup: number = 1;
-    totalpreguntas: number = 4;
     cargando: boolean;
     lastbutton: boolean = false;
-
     selected: number = 0;
-
-    selectUno:number = 0;
-    selectDos:number = 0;
-    selectTres:number = 0;
-    selectCuatro:number = 0;
-
     respondidas:any[] = [];
-
-    hidecharge: boolean;
-
     textCapi: string;
-
     datosUsuario = {};
     questions = {};
     infoToken = {};
-
     soli: string = this.activeroute.snapshot.paramMap.get('num')
     uni: string = this.activeroute.snapshot.paramMap.get('uni')
-
     concedido:any;
     subscripcion: Subscription;
     acceso: boolean;

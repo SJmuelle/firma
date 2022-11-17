@@ -40,7 +40,6 @@ export class DataUserComponent implements OnInit {
         this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
       }
     }
-    
   }
 
   ngOnDestroy() {
@@ -55,7 +54,6 @@ export class DataUserComponent implements OnInit {
   seguir() {
     this.Btndisabled = true;
     let evidente = this.datosUsuario.aplicaEvidente;
-
     if (evidente == 'Si') {
       let data = {
         "identificacion": this.datosUsuario.identificacion,
@@ -123,7 +121,6 @@ export class DataUserComponent implements OnInit {
 
   generarOTP(): void {
     const response = JSON.parse(localStorage.getItem('datosOtp'));
-
     const data: any = {
       "identificacion": this.datosUsuario.identificacion,
       "unidadNegocio": parseInt(this.uni),
@@ -134,7 +131,6 @@ export class DataUserComponent implements OnInit {
     };
 
     this._documentLoginService.generarOTP(data).subscribe(resp => {
-      console.log(resp)
       if (resp.data.status == 400) {
         if (resp.data.proceso == 'Lo sentimos no hay mas intentos disponibles.') {
           Swal.fire(

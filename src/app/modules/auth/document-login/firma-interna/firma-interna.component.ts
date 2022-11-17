@@ -16,7 +16,6 @@ import { GuardianService } from 'app/core/service/guardian.service';
 export class FirmaInternaComponent implements OnInit {
 
   checkForm: FormGroup;
-  showAlert: boolean = false;
   concedido: any;
   subscripcion: Subscription;
   acceso: boolean;

@@ -29,11 +29,6 @@
             </p>    
         </div>
 
-          <fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false"
-              [type]="alert.type" [@shake]="alert.type === 'error'">
-              {{alert.message}}
-          </fuse-alert>
-
           <form class="lg:mt-8 xl:mt-5" [formGroup]="validarForm">
 
             <div class="flex flex-col w-full">

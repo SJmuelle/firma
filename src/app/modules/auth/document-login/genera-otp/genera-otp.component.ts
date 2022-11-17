@@ -20,13 +20,10 @@ export class GeneraOTPComponent implements OnInit {
     message: ''
   };
   comingSoonForm: FormGroup;
-  showAlert: boolean = false;
-  infoApp = environment;
   datosUsuario: any;
   botonff: boolean;
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
-  datosOtp = {};
   concedido: any;
   subscripcion: Subscription;
   acceso: boolean;

@@ -16,11 +16,8 @@ import Swal from 'sweetalert2';
 export class GenerarFirmaComponent implements OnInit {
   Btndisabled: boolean;
   generarForm: FormGroup;
-  showAlert: boolean = false;
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
-  listadoArchivos: any = [];
-  base64: any = {};
   concedido: any;
   subscripcion: Subscription;
   acceso: boolean;
@@ -81,7 +78,7 @@ export class GenerarFirmaComponent implements OnInit {
       "tipoTercero":"T",
       "unidadNegocio":parseInt(this.uni),
       "claveFirma":this.generarForm.value.pass,
-      "aplicaThomas": true,
+      "aplicaThomas":this.datosUsuario.aplicaThomas == 'Si'? true : false,
       "identificacion":this.datosUsuario.identificacion
     }
 
@@ -96,7 +93,13 @@ export class GenerarFirmaComponent implements OnInit {
           "tipoTercero":"T",
           "firma":this.generarForm.value.pass
         }
-        this.pagare(datos)
+        if (this.uni=='30') {
+          this.conceder();
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizar-firma']);  
+          this.Btndisabled = false;
+        }else{
+          this.pagare(datos)
+        }
       }else{
         this.Btndisabled = false;
       }
