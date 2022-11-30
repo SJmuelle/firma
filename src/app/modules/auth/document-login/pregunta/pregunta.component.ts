@@ -29,9 +29,10 @@ export class PreguntaComponent implements OnInit {
     selected: number = 0;
     respondidas:any[] = [];
     textCapi: string;
-    datosUsuario = {};
-    questions = {};
-    infoToken = {};
+    datosUsuario:any;
+    questions:any;
+    infoToken:any;
+    aplicaThomas: any;
     soli: string = this.activeroute.snapshot.paramMap.get('num')
     uni: string = this.activeroute.snapshot.paramMap.get('uni')
     concedido:any;
@@ -145,14 +146,19 @@ export class PreguntaComponent implements OnInit {
 
     confirmar() {
         this.cargando = true;
+        if (this.datosUsuario.aplicaThomas=='Si') {
+            this.aplicaThomas = true
+        } else {
+            this.aplicaThomas = false
+        }
         let data = {
-            identificacion: this.datosUsuario['identificacion'],
+            identificacion: this.datosUsuario.identificacion,
             unidadNegocio: parseInt(this.uni),
-            id: this.questions['id'],
-            registro: this.questions['registro'],
+            id: this.questions.id,
+            registro: this.questions.registro,
             respuesta: this.respuestas,
-            infoToken: this.infoToken['infoToken'],
-            aplicaThomas: true,
+            infoToken: this.infoToken.infoToken,
+            aplicaThomas: this.aplicaThomas,
             numeroSolicitud: parseInt(this.soli)
         }
         
