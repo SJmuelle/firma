@@ -64,9 +64,7 @@ export class GenerarFirmaComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       this.generarForm.setValue({
-        condiciones: true,
-        pass: '',
-        confpass: ''
+        condiciones: true
       })
     })
   }
