@@ -35,6 +35,7 @@ export class PreguntaComponent implements OnInit {
     aplicaThomas: any;
     soli: string = this.activeroute.snapshot.paramMap.get('num')
     uni: string = this.activeroute.snapshot.paramMap.get('uni')
+    tipo: string = this.activeroute.snapshot.paramMap.get('tipo')
     concedido:any;
     subscripcion: Subscription;
     acceso: boolean;
@@ -52,7 +53,7 @@ export class PreguntaComponent implements OnInit {
             this.concedido = acceso;
         })
         if (this.concedido!=true) {
-            this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+            this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + this.tipo]);
         }else{
             this.guardia.conceder.next({acceso: this.acceso=false})
             let data = [];
@@ -146,7 +147,7 @@ export class PreguntaComponent implements OnInit {
 
     confirmar() {
         this.cargando = true;
-        if (this.datosUsuario.aplicaThomas=='Si') {
+        if (this.datosUsuario.aplicaThomas=='SI' && this.tipo=='T') {
             this.aplicaThomas = true
         } else {
             this.aplicaThomas = false
@@ -168,13 +169,13 @@ export class PreguntaComponent implements OnInit {
                 const error = JSON.stringify(resp.data);
                 localStorage.setItem('error', error);
                 this.conceder();
-                this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/no-aprobado']);
+                this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + this.tipo + '/no-aprobado']);
             } else {
                 this.cargando = false;
                 const aprob = JSON.stringify(resp.data);
                 localStorage.setItem('aprob', aprob);
                 this.conceder();
-                this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/interna']);
+                this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + this.tipo + '/interna']);
             }
         }, error => {
             this.cargando = false;

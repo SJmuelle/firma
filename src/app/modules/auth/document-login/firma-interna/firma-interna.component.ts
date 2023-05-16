@@ -21,6 +21,7 @@ export class FirmaInternaComponent implements OnInit {
   acceso: boolean;
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
+  tipo: string = this.activeroute.snapshot.paramMap.get('tipo')
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -35,7 +36,7 @@ export class FirmaInternaComponent implements OnInit {
       this.concedido = acceso;
     })
     if (this.concedido!=true) {
-      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni+ '/' + this.tipo]);
     }else{
       this.guardia.conceder.next({acceso: this.acceso=false})
     }
@@ -62,7 +63,7 @@ export class FirmaInternaComponent implements OnInit {
 
   seguir() {
     this.conceder()
-    this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + 'docu-firma']);
+    this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni+ '/' + this.tipo + '/' + 'docu-firma']);
   }
 
 }

@@ -15,6 +15,7 @@ export class ReplayComponent implements OnInit {
   subscripcion: Subscription;
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
+  tipo: string = this.activeroute.snapshot.paramMap.get('tipo')
 
   constructor(private router: Router, private activeroute: ActivatedRoute, private guardia: GuardianService,) { }
 
@@ -23,7 +24,7 @@ export class ReplayComponent implements OnInit {
       this.concedido = acceso;
     })
     if (this.concedido!=true) {
-      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni+ '/' + this.tipo]);
     }else{
       this.guardia.conceder.next({acceso: this.acceso=false})
     }
@@ -34,7 +35,7 @@ export class ReplayComponent implements OnInit {
   }
 
   seguir() {
-    this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+    this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni+ '/' + this.tipo]);
   }
 
 }

@@ -29,6 +29,7 @@ export class DocumentLoginComponent implements OnInit {
 
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
+  tipo: string = this.activeroute.snapshot.paramMap.get('tipo')
 
   /**
    * Constructor
@@ -129,7 +130,7 @@ export class DocumentLoginComponent implements OnInit {
           case "FIRMA-INTERNA":
             this.conceder();
             this.Btndisabled = false;
-            this.router.navigate(['documentLogin'+ '/' + this.soli + '/' + this.uni + '/aprobado']);
+            this.router.navigate(['documentLogin'+ '/' + this.soli + '/' + this.uni + '/' + this.tipo + '/aprobado']);
             break;
           case "EVIDENTE":
             this.datosUsuarioEvidente();
@@ -151,7 +152,7 @@ export class DocumentLoginComponent implements OnInit {
         localStorage.setItem('datosUsuario', JSON.stringify(resp.data));
         this.conceder();
         this.Btndisabled = false;
-        this.router.navigate(['documentLogin'+ '/' + this.soli + '/' + this.uni + '/interna']);
+        this.router.navigate(['documentLogin'+ '/' + this.soli + '/' + this.uni+ '/' + this.tipo + '/interna']);
       } else {
         Swal.fire(
           'Aviso',
@@ -175,7 +176,7 @@ export class DocumentLoginComponent implements OnInit {
         localStorage.setItem('datosUsuario', JSON.stringify(resp.data));
         this.conceder();
         this.Btndisabled = false;
-        this.router.navigate(['documentLogin'+ '/' + this.soli + '/' + this.uni + '/user/' + doc]);
+        this.router.navigate(['documentLogin'+ '/' + this.soli + '/' + this.uni + '/' + this.tipo+ '/user/' + doc]);
       } else {
         Swal.fire(
           'Aviso',

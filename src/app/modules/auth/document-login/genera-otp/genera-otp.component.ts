@@ -24,6 +24,7 @@ export class GeneraOTPComponent implements OnInit {
   botonff: boolean;
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
+  tipo: string = this.activeroute.snapshot.paramMap.get('tipo')
   concedido: any;
   subscripcion: Subscription;
   acceso: boolean;
@@ -42,7 +43,7 @@ export class GeneraOTPComponent implements OnInit {
       this.concedido = acceso;
     })
     if (this.concedido!=true) {
-      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni+ '/' + this.tipo]);
     }else{
       this.guardia.conceder.next({acceso: this.acceso=false})
     }
@@ -79,7 +80,7 @@ export class GeneraOTPComponent implements OnInit {
           const error = JSON.stringify(resp.data.mensaje);
           localStorage.setItem('ERROR', error);
           this.conceder();
-          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + this.tipo +'/replay']);
         } else {
           const aprob = JSON.stringify(resp.data);
           switch (resp.data.proceso) {
@@ -87,23 +88,23 @@ export class GeneraOTPComponent implements OnInit {
               const question = JSON.stringify(resp.data.procesoPreguntas);
               localStorage.setItem('questions', question);
               this.conceder()
-              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/pregunta']);
+              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + this.tipo+ '/pregunta']);
               break;
             case 'FIRMA THOMAS':
               localStorage.setItem('aprob', aprob);
               this.conceder();
-              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/interna']);
+              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + this.tipo+ '/interna']);
               break;
             case 'APROBADO':
               localStorage.setItem('aprob', aprob);
               this.conceder();
-              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/interna']);
+              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + this.tipo+ '/interna']);
               break;
             case 'NO APROBADO':
               const error = JSON.stringify(resp.data.mensaje);
               localStorage.setItem('error', error);
               this.conceder();
-              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/no-aprobado']);
+              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + this.tipo+ '/no-aprobado']);
               break;
             case 'reiniciar flujo':
               Swal.fire(
@@ -111,7 +112,7 @@ export class GeneraOTPComponent implements OnInit {
                 'Debe reiniciar el proceso nuevamente',
                 'info'
               )
-              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+              this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni+ '/' + this.tipo]);
               break;
           }
         }

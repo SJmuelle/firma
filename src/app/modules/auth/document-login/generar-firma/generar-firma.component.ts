@@ -18,6 +18,7 @@ export class GenerarFirmaComponent implements OnInit {
   generarForm: FormGroup;
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
+  tipo: string = this.activeroute.snapshot.paramMap.get('tipo')
   concedido: any;
   subscripcion: Subscription;
   acceso: boolean;
@@ -36,7 +37,7 @@ export class GenerarFirmaComponent implements OnInit {
       this.concedido = acceso;
     })
     if (this.concedido!=true) {
-      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni+ '/' + this.tipo]);
     }else{
       this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
       this.guardia.conceder.next({acceso: this.acceso=false})
@@ -73,10 +74,10 @@ export class GenerarFirmaComponent implements OnInit {
     this.Btndisabled = true;
     let data = {
       "numeroSolicitud": parseInt(this.soli),
-      "tipoTercero":"T",
+      "tipoTercero":this.tipo,
       "unidadNegocio":parseInt(this.uni),
       "claveFirma":this.generarForm.value.pass,
-      "aplicaThomas":this.datosUsuario.aplicaThomas == 'Si'? true : false,
+      "aplicaThomas":this.datosUsuario.aplicaThomas == 'SI' && this.tipo== 'T' ? true : false,
       "identificacion":this.datosUsuario.identificacion
     }
 
@@ -88,15 +89,16 @@ export class GenerarFirmaComponent implements OnInit {
         let datos = {
           "numeroSolicitud":parseInt(this.soli),
           "unidadNegocio":parseInt(this.uni),
-          "tipoTercero":"T",
+          "tipoTercero":this.tipo,
           "firma":this.generarForm.value.pass
         }
-        if (this.uni=='30') {
-          this.conceder();
-          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizar-firma']);  
-          this.Btndisabled = false;
-        }else{
+        if (this.uni=='22' ) {
           this.pagare(datos)
+        }else{
+          
+          this.conceder();
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni +'/'+ this.tipo + '/finalizar-firma']);  
+          this.Btndisabled = false;
         }
       }else{
         this.Btndisabled = false;
@@ -117,7 +119,7 @@ export class GenerarFirmaComponent implements OnInit {
         const base64 = JSON.stringify(resp.data.base64);
         localStorage.setItem('pagare', base64);
         this.conceder();
-        this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizar-firma']);  
+        this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni +'/'+ this.tipo +  '/finalizar-firma']);  
         this.Btndisabled = false;
       }
     }, err=> {

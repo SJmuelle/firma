@@ -42,7 +42,7 @@ export class FinalizarFirmaComponent implements OnInit {
       this.pagare=JSON.parse(localStorage.getItem('pagare'))
       this.correo = this.captura['value']
       this.documentos = this.captura['base64']
-      if (this.uni != '30') {
+      if (this.uni === '22') {
         this.objPagare = {
           "base64":this.pagare,
           "nombre":"Pagare Deceval"

@@ -34,12 +34,13 @@
           <div class="ml-2 mt-1">
             <mat-icon svgIcon="heroicons_outline:information-circle"></mat-icon>
           </div>
-          <div class="flex flex-col" *ngIf="datosUsuario.aplicaThomas=='No'">
+          <div class="flex flex-col" *ngIf="datosUsuario.aplicaThomas=='NO'">
             <p class="text-justify text-xs sm:text-sm md:text-md xl:text-lg">
               <strong>¡Haz firmado con éxito todos los documentos!</strong>
             </p>
           </div>
-          <div class="flex flex-col" *ngIf="datosUsuario.aplicaThomas=='Si'">
+          
+          <div class="flex flex-col" *ngIf="datosUsuario.aplicaThomas=='SI'">
             <p class="text-justify text-xs sm:text-sm md:text-md xl:text-base">
               <strong>¡Haz firmado con éxito los primeros documentos!</strong>
             </p>
@@ -48,6 +49,7 @@
               Ten en cuenta que el asunto de este correo es: <strong>“Uruk notification service”</strong>.
             </p>
           </div>
+          
         </div>
       </div>
       <div class="flex flex-row justify-center w-full">

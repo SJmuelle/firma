@@ -17,6 +17,7 @@ export class DocumentosFirmarComponent implements OnInit {
   cargando: boolean;
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
+  tipo: string = this.activeroute.snapshot.paramMap.get('tipo')
   concedido: any;
   subscripcion: Subscription;
   acceso: boolean;
@@ -34,7 +35,7 @@ export class DocumentosFirmarComponent implements OnInit {
       this.concedido = acceso;
     })
     if (this.concedido!=true) {
-      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni+ '/' + this.tipo]);
     }else{
       this.iden = JSON.parse(localStorage.getItem('datosUsuario'));
       this.guardia.conceder.next({acceso: this.acceso=false})
@@ -43,7 +44,7 @@ export class DocumentosFirmarComponent implements OnInit {
         "unidadNegocio": parseInt(this.uni),
         "tipoDoc":1,
         "numeroSolicitud":parseInt(this.soli),
-        "tipoTercero":"T",
+        "tipoTercero":this.tipo,
         "identificacion":parseInt(this.iden.identificacion)
       }
       this.firmainterna.documentosFirmar(data).subscribe(resp => {
@@ -87,7 +88,7 @@ export class DocumentosFirmarComponent implements OnInit {
     this.Btndisabled = true;
     let data = {
       "numeroSolicitud": parseInt(this.soli),
-      "tipo":"T",
+      "tipo":this.tipo,
       "identificacion":parseInt(this.iden.identificacion)
     }
 
@@ -97,7 +98,7 @@ export class DocumentosFirmarComponent implements OnInit {
         const telefono = JSON.stringify(resp.data.value);
         localStorage.setItem('telefono', telefono);
         this.conceder();
-        this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + 'otp-firma']);
+        this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni+ '/' + this.tipo + '/' + 'otp-firma']);
       }else{
         this.Btndisabled = false;
       }

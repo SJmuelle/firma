@@ -14,9 +14,9 @@ export const appRoutes: Route[] = [
     {path: 'documentLogin', pathMatch : 'full', redirectTo: 'documentLogin/page404'},
     {path: 'documentLogin/:uni', pathMatch : 'full', redirectTo: 'documentLogin/page404'},
     {path: 'documentLogin/:soli', pathMatch : 'full', redirectTo: 'documentLogin/page404'},
-    {path: 'documentLogin/:soli:uni', pathMatch : 'full', redirectTo: 'documentLogin/page404'},
-    {path: 'documentLogin:soli:uni', pathMatch : 'full', redirectTo: 'documentLogin/page404'},
-    {path: 'documentLogin:soli/:uni', pathMatch : 'full', redirectTo: 'documentLogin/page404'},
+    {path: 'documentLogin/:soli:uni:tipo', pathMatch : 'full', redirectTo: 'documentLogin/page404'},
+    {path: 'documentLogin:soli:uni:tipo', pathMatch : 'full', redirectTo: 'documentLogin/page404'},
+    {path: 'documentLogin:soli/:uni/:tipo', pathMatch : 'full', redirectTo: 'documentLogin/page404'},
     {path: 'documentLogin/', pathMatch : 'full', redirectTo: 'documentLogin/page404'},
 
     // Redirect signed in user to the '/example'

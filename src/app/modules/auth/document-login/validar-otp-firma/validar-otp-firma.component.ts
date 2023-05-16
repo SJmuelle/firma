@@ -23,6 +23,7 @@ export class ValidarOtpFirmaComponent implements OnInit {
   acceso: boolean;
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
+  tipo: string = this.activeroute.snapshot.paramMap.get('tipo')
   telefono: any;
   correo: any;
   captura: {}
@@ -40,7 +41,7 @@ export class ValidarOtpFirmaComponent implements OnInit {
       this.concedido = acceso;
     })
     if (this.concedido!=true) {
-      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni+ '/' + this.tipo]);
     }else{
       this.guardia.conceder.next({acceso: this.acceso=false})
       this.telefono = JSON.parse(localStorage.getItem('telefono'))
@@ -75,14 +76,14 @@ export class ValidarOtpFirmaComponent implements OnInit {
     clearInterval(this.intervalo);
     let data = {
       "numeroSolicitud": parseInt(this.soli),
-      "tipoTercero":"T",
+      "tipoTercero":this.tipo,
       "numeroOTP": this.validarForm.value.codigo
     }
     this.firmainterna.solicitarValidar(data).subscribe(resp => {
       if (resp.status == 200) {
         this.botonff = false;
         this.conceder();
-        this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/generar-firma']);  
+        this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + this.tipo+'/generar-firma']);  
       }else{
         this.botonff = false;
         this.reenvio = true;
@@ -101,7 +102,7 @@ export class ValidarOtpFirmaComponent implements OnInit {
 
     let data = {
       "numeroSolicitud": parseInt(this.soli),
-      "tipo":"T"
+      "tipo":this.tipo
     }
 
     this.firmainterna.solicitarGenerar(data).subscribe(resp => {

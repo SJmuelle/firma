@@ -20,6 +20,7 @@ export class DataUserComponent implements OnInit {
   idRUL: string = this.activeroute.snapshot.paramMap.get('doc');
   soli: string = this.activeroute.snapshot.paramMap.get('num')
   uni: string = this.activeroute.snapshot.paramMap.get('uni')
+  tipo: string = this.activeroute.snapshot.paramMap.get('tipo')
   constructor(
     private _documentLoginService: DocumentLoginService,
     private guardia: GuardianService,
@@ -32,12 +33,12 @@ export class DataUserComponent implements OnInit {
       this.concedido = acceso;
     })
     if (this.concedido!=true) {
-      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+      this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni+'/' + this.tipo]);
     }else{
       this.guardia.conceder.next({acceso: this.acceso=false})
       this.datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
       if (this.idRUL != this.datosUsuario.identificacion) {
-        this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+        this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni+'/' + this.tipo]);
       }
     }
   }
@@ -54,7 +55,7 @@ export class DataUserComponent implements OnInit {
   seguir() {
     this.Btndisabled = true;
     let evidente = this.datosUsuario.aplicaEvidente;
-    if (evidente == 'Si') {
+    if (evidente == 'SI') {
       let data = {
         "identificacion": this.datosUsuario.identificacion,
         "unidadNegocio": parseInt(this.uni),
@@ -68,7 +69,7 @@ export class DataUserComponent implements OnInit {
             localStorage.setItem('ERROR', resp.data.mensaje);
             this.Btndisabled = false;
             this.conceder();
-            this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
+            this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + this.tipo+'/replay']);
             return;
           } else {
             switch (resp.data.proceso) {
@@ -77,7 +78,7 @@ export class DataUserComponent implements OnInit {
                 localStorage.setItem('questions', question);
                 this.Btndisabled = false;
                 this.conceder();
-                this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/pregunta']);
+                this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/' + this.tipo +'/pregunta']);
                 break;
               case 'OTP':
                 const responseData: any = JSON.stringify({
@@ -95,7 +96,7 @@ export class DataUserComponent implements OnInit {
           this.Btndisabled = false;
         }
       }, error => {
-        this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+        this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni+'/' + this.tipo]);
       })
     } else {
       let data = {
@@ -106,11 +107,11 @@ export class DataUserComponent implements OnInit {
         if (resp.data.status == 400) {
           localStorage.setItem('ERROR', resp.data.mensaje);
           this.conceder();
-          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni +'/' + this.tipo+ '/replay']);
           return;
         } else {
           this.conceder();
-          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/finalizado']);
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni +'/' + this.tipo+ '/finalizado']);
         }
         this.Btndisabled = false;
       }, error => {
@@ -139,11 +140,11 @@ export class DataUserComponent implements OnInit {
             'error'
           )
           this.Btndisabled = false;
-          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni]);
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni+'/' + this.tipo]);
         } else {
           this.Btndisabled = false;
           this.conceder();
-          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/replay']);
+          this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni +'/' + this.tipo+ '/replay']);
         }
       } else {
         switch (resp.data.proceso) {
@@ -152,12 +153,12 @@ export class DataUserComponent implements OnInit {
             localStorage.setItem('questions', question);
             this.Btndisabled = false;
             this.conceder();
-            this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/pregunta']);
+            this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni +'/' + this.tipo+ '/pregunta']);
             break;
           case 'VALIDAR-OTP':
             this.Btndisabled = false;
             this.conceder();
-            this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni + '/generarOTP']);
+            this.router.navigate(['documentLogin' + '/' + this.soli + '/' + this.uni +'/' + this.tipo+ '/generarOTP']);
             break;
         }
       }
